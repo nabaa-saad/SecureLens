@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - URL Intelligence Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .glass-card {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-4px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(4px);
+        }
+      }
+      .animate-shake {
+        animation: shake 0.5s ease-in-out;
+      }
+      .btn-loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+      .btn-loading .btn-text {
+        display: none;
+      }
+      .btn-loading .btn-spinner {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-900 min-h-screen flex items-center justify-center p-4 relative overflow-y-auto"
+  >
+    <!-- Animated Top Accent Bar -->
+    <div
+      class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 z-50 shadow-lg shadow-blue-500/30"
+    >
+      <div
+        class="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"
+      ></div>
+    </div>
+
+    <!-- Background Elements -->
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900"
+    ></div>
+    <div
+      class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-[120px]"
+    ></div>
+    <div
+      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full opacity-10 blur-[120px]"
+    ></div>
+
+    <div class="relative z-10 w-full max-w-md animate-fade-in-up">
+      <!-- Logo & Header -->
+      <div class="text-center mb-8">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white mb-6 shadow-xl shadow-blue-500/30"
+        >
+          <i class="ph-fill ph-shield-check text-4xl"></i>
+        </div>
+        <h1 class="text-3xl font-black text-white tracking-tight mb-2">
+          URL
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"
+            >Intelligence</span
+          >
+        </h1>
+        <p class="text-slate-400 text-sm font-medium">Secure Access Portal</p>
+      </div>
+
+      <!-- Login Card -->
+      <div class="glass-card rounded-2xl shadow-2xl overflow-hidden">
+        <div class="p-8">
+          {% if error %}
+          <div
+            class="bg-red-500/10 text-red-400 p-4 rounded-xl text-sm mb-6 border border-red-500/20 flex items-center gap-3 animate-shake"
+          >
+            <i class="ph-fill ph-warning-circle text-xl flex-shrink-0"></i>
+            <span class="font-medium">{{ error }}</span>
+          </div>
+          {% endif %} {% if success %}
+          <div
+            class="bg-emerald-500/10 text-emerald-400 p-4 rounded-xl text-sm mb-6 border border-emerald-500/20 flex items-center gap-3"
+          >
+            <i class="ph-fill ph-check-circle text-xl flex-shrink-0"></i>
+            <span class="font-medium">{{ success }}</span>
+          </div>
+          {% endif %}
+
+          <form action="/login" method="post" class="space-y-5" id="loginForm">
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+            <input type="hidden" name="next" value="{{ next_url|default('', true) }}" />
+
+            <!-- Username Field -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-2"
+                >Username</label
+              >
+              <div class="relative group">
+                <i
+                  class="ph-fill ph-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-blue-400 transition-colors duration-300"
+                ></i>
+                <input
+                  type="text"
+                  name="username"
+                  required
+                  autocomplete="username"
+                  placeholder="Enter your username"
+                  class="w-full pl-12 pr-4 py-3.5 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 outline-none transition-all duration-300 text-white placeholder-slate-500"
+                />
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-2"
+                >Password</label
+              >
+              <div class="relative group">
+                <i
+                  class="ph-fill ph-lock-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-blue-400 transition-colors duration-300"
+                ></i>
+                <input
+                  type="password"
+                  name="password"
+                  id="loginPassword"
+                  required
+                  autocomplete="current-password"
+                  placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                  class="w-full pl-12 pr-12 py-3.5 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 outline-none transition-all duration-300 text-white placeholder-slate-500"
+                />
+                <button
+                  type="button"
+                  onclick="togglePasswordVisibility('loginPassword', this)"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-blue-400 transition-colors duration-300 focus:outline-none"
+                  tabindex="-1"
+                  aria-label="Toggle password visibility"
+                >
+                  <i class="ph ph-eye text-lg"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Role Toggle -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-3"
+                >Account Type</label
+              >
+              <div
+                class="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-xl p-1.5 gap-1"
+              >
+                <label
+                  id="roleUserLabel"
+                  class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                >
+                  <i class="ph-fill ph-user text-base"></i>
+                  <span>User</span>
+                  <input
+                    type="radio"
+                    name="role_toggle"
+                    value="user"
+                    checked
+                    class="hidden"
+                    onchange="updateRoleToggle()"
+                  />
+                </label>
+                <label
+                  id="roleAdminLabel"
+                  class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold text-slate-500 hover:text-slate-400"
+                >
+                  <i class="ph-fill ph-crown text-base"></i>
+                  <span>Administrator</span>
+                  <input
+                    type="radio"
+                    name="role_toggle"
+                    value="admin"
+                    class="hidden"
+                    onchange="updateRoleToggle()"
+                  />
+                </label>
+              </div>
+              <!-- Hidden field sent with form -->
+              <input type="hidden" name="is_admin" id="isAdminField" value="" />
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              id="loginBtn"
+              class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-4 rounded-xl font-bold text-base transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 flex items-center justify-center gap-2 group hover:scale-[1.02] active:scale-95"
+            >
+              <span class="btn-text flex items-center gap-2">
+                <span>Sign In</span>
+                <i
+                  class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform duration-300"
+                ></i>
+              </span>
+              <span class="btn-spinner hidden items-center gap-2">
+                <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    fill="none"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                <span>Signing in...</span>
+              </span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <div
+          class="bg-slate-800/30 backdrop-blur-sm p-4 border-t border-slate-700/30"
+        >
+          <div
+            class="flex items-center justify-center gap-2 text-sm text-slate-400"
+          >
+            <span>Don't have an account?</span>
+            <a
+              href="/register{% if next_url %}?next={{ next_url }}{% endif %}"
+              class="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors duration-200"
+              >Sign Up</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Indicator -->
+      <div class="text-center mt-6">
+        <div
+          class="flex items-center justify-center gap-2 text-slate-500 text-xs"
+        >
+          <i class="ph-fill ph-lock text-emerald-500 text-sm"></i>
+          <span>Secured with CSRF protection &amp; rate limiting</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Role toggle logic
+      function updateRoleToggle() {
+        const userLabel = document.getElementById("roleUserLabel");
+        const adminLabel = document.getElementById("roleAdminLabel");
+        const hiddenField = document.getElementById("isAdminField");
+        const userRadio = userLabel.querySelector('input[type="radio"]');
+        const adminRadio = adminLabel.querySelector('input[type="radio"]');
+
+        if (adminRadio.checked) {
+          adminLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+          userLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold text-slate-500 hover:text-slate-400";
+          hiddenField.value = "on";
+        } else {
+          userLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30";
+          adminLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold text-slate-500 hover:text-slate-400";
+          hiddenField.value = "";
+        }
+      }
+
+      // Toggle password visibility
+      function togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector("i");
+        if (input.type === "password") {
+          input.type = "text";
+          icon.className = "ph ph-eye-slash text-lg";
+        } else {
+          input.type = "password";
+          icon.className = "ph ph-eye text-lg";
+        }
+      }
+
+      // Submit button loading state
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function () {
+          const btn = document.getElementById("loginBtn");
+          btn.classList.add("btn-loading");
+        });
+    </script>
+  </body>
+</html>

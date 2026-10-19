@@ -1,0 +1,3311 @@
+[
+  {
+    "id": "SE-001",
+    "threat_name": "PHISHING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Phishing is a deceptive attack technique in which an adversary impersonates a trusted entity to trick victims into revealing sensitive information such as login credentials, financial data, or personal identification details.",
+    "attack_mechanism": "Attackers typically distribute fraudulent emails, messages, or websites that mimic legitimate organizations. Victims are persuaded to click malicious links, download attachments, or enter credentials into fake portals.",
+    "technical_indicators": [
+      "Suspicious sender domain variations",
+      "Mismatched URLs",
+      "Urgent or threatening language",
+      "Unexpected attachments",
+      "Spoofed branding elements"
+    ],
+    "common_payloads": [
+      "Credential harvesting pages",
+      "Malware download links",
+      "Malicious PDF/Office attachments",
+      "Fake login portals"
+    ],
+    "detection_methods": [
+      "Email header analysis",
+      "URL reputation analysis",
+      "Domain similarity detection",
+      "User behavior anomaly monitoring",
+      "Secure email gateways"
+    ],
+    "severity_factors": [
+      "Number of targeted users",
+      "Sensitivity of requested data",
+      "Organizational privilege level of victims",
+      "Presence of malware payload"
+    ],
+    "risk_level_logic": "Risk increases when phishing targets high-privilege accounts, financial systems, or critical infrastructure environments.",
+    "mitre_attack_mapping": [
+      "Initial Access (T1566)",
+      "Credential Access",
+      "Execution (if malware delivered)"
+    ],
+    "real_world_impact": "Phishing remains one of the most prevalent initial access vectors for ransomware, business email compromise (BEC), and data breaches worldwide.",
+    "keywords": [
+      "email spoofing",
+      "credential harvesting",
+      "fake login",
+      "social manipulation",
+      "deceptive communication",
+      "malicious link"
+    ]
+  },
+  {
+    "id": "SE-002",
+    "threat_name": "SPEAR PHISHING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Spear phishing is a targeted phishing attack directed at a specific individual, organization, or role, using personalized information to increase credibility.",
+    "attack_mechanism": "Attackers gather intelligence about the victim and craft customized messages that appear legitimate and relevant to increase success rate.",
+    "technical_indicators": [
+      "Highly personalized content",
+      "Spoofed internal email addresses",
+      "Impersonation of executives or partners",
+      "Context-aware messaging",
+      "Target-specific malicious attachments"
+    ],
+    "common_payloads": [
+      "Malware-laced documents",
+      "Credential harvesting portals",
+      "Business email compromise setups",
+      "Remote access trojans (RATs)"
+    ],
+    "detection_methods": [
+      "Behavioral anomaly detection",
+      "Email authentication validation (SPF, DKIM, DMARC)",
+      "Advanced threat intelligence correlation",
+      "Endpoint detection and response (EDR)"
+    ],
+    "severity_factors": [
+      "Executive-level targeting",
+      "Financial authorization access",
+      "Access to confidential databases",
+      "Lateral movement potential"
+    ],
+    "risk_level_logic": "Risk is significantly higher than generic phishing due to personalization, higher success rate, and targeted privilege exploitation.",
+    "mitre_attack_mapping": [
+      "Initial Access (T1566.002)",
+      "Credential Access",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Frequently used in corporate espionage, ransomware deployment, and large-scale financial fraud operations.",
+    "keywords": [
+      "targeted phishing",
+      "executive impersonation",
+      "business email compromise",
+      "personalized attack",
+      "credential theft"
+    ]
+  },
+  {
+    "id": "SE-003",
+    "threat_name": "WHALING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Whaling is a form of spear phishing specifically targeting high-profile individuals such as CEOs, CFOs, and senior executives.",
+    "attack_mechanism": "Attackers impersonate trusted authorities or board members to manipulate executives into authorizing fraudulent financial transfers or sharing sensitive data.",
+    "technical_indicators": [
+      "Financial urgency language",
+      "Fake legal notices",
+      "Executive impersonation domains",
+      "Payment redirection requests"
+    ],
+    "common_payloads": [
+      "Wire transfer instructions",
+      "Fake legal subpoenas",
+      "Confidential document requests",
+      "Executive credential harvesting"
+    ],
+    "detection_methods": [
+      "Multi-factor authentication enforcement",
+      "Transaction verification workflows",
+      "Executive communication verification protocols",
+      "Domain monitoring"
+    ],
+    "severity_factors": [
+      "Financial authority of victim",
+      "Access to strategic information",
+      "Time-sensitive manipulation tactics"
+    ],
+    "risk_level_logic": "Extremely high risk due to financial authority and potential direct monetary loss.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Impact (Financial Theft)"
+    ],
+    "real_world_impact": "Whaling attacks have resulted in multimillion-dollar losses and long-term reputational damage for organizations.",
+    "keywords": [
+      "CEO fraud",
+      "executive phishing",
+      "wire fraud",
+      "financial impersonation",
+      "high-value target"
+    ]
+  },
+  {
+    "id": "SE-004",
+    "threat_name": "SMISHING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Smishing is phishing conducted through SMS or mobile messaging platforms.",
+    "attack_mechanism": "Attackers send fraudulent text messages containing malicious links, fake delivery notifications, or urgent banking alerts.",
+    "technical_indicators": [
+      "Unknown sender numbers",
+      "Shortened URLs",
+      "Urgent call-to-action messages",
+      "Mobile-targeted credential portals"
+    ],
+    "common_payloads": [
+      "Mobile phishing sites",
+      "Malware APK downloads",
+      "Account verification scams"
+    ],
+    "detection_methods": [
+      "Mobile threat defense (MTD)",
+      "URL filtering",
+      "SMS filtering gateways",
+      "User awareness training"
+    ],
+    "severity_factors": [
+      "Mobile device usage in enterprise",
+      "BYOD policies",
+      "Mobile banking integration"
+    ],
+    "risk_level_logic": "Risk increases when mobile devices are integrated with enterprise authentication systems or corporate email accounts.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access"
+    ],
+    "real_world_impact": "Commonly used to bypass email security controls and target personal devices.",
+    "keywords": [
+      "SMS phishing",
+      "mobile scam",
+      "malicious text",
+      "fake delivery message"
+    ]
+  },
+  {
+    "id": "SE-005",
+    "threat_name": "VISHING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Vishing (Voice Phishing) is a social engineering attack conducted through phone calls or voice communication systems to extract confidential information.",
+    "attack_mechanism": "Attackers impersonate bank officials, IT support, or government representatives to convince victims to disclose passwords, OTP codes, or financial data.",
+    "technical_indicators": [
+      "Caller ID spoofing",
+      "Automated robocalls",
+      "Urgent financial verification requests",
+      "Pressure-based communication tactics"
+    ],
+    "common_payloads": [
+      "OTP harvesting",
+      "Remote desktop installation guidance",
+      "Bank credential extraction",
+      "Social security information theft"
+    ],
+    "detection_methods": [
+      "Call-back verification policies",
+      "Voice authentication systems",
+      "Employee awareness programs",
+      "Fraud detection monitoring"
+    ],
+    "severity_factors": [
+      "Real-time manipulation",
+      "Emotional pressure",
+      "Immediate financial transaction requests"
+    ],
+    "risk_level_logic": "High risk due to real-time persuasion and reduced opportunity for victims to verify authenticity.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Frequently used in banking fraud, identity theft, and multi-factor authentication bypass attempts.",
+    "keywords": [
+      "voice scam",
+      "caller spoofing",
+      "phone fraud",
+      "OTP theft",
+      "bank impersonation"
+    ]
+  },
+  {
+    "id": "SE-006",
+    "threat_name": "PRETEXTING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Pretexting is a social engineering technique in which an attacker fabricates a believable scenario to obtain sensitive information from a victim.",
+    "attack_mechanism": "The attacker builds trust by impersonating a legitimate role such as HR, IT support, bank representative, or government authority to extract confidential data.",
+    "technical_indicators": [
+      "Identity impersonation",
+      "Requests for verification data",
+      "Context-driven storytelling",
+      "Gradual trust building"
+    ],
+    "common_payloads": [
+      "Personal information harvesting",
+      "Credential disclosure",
+      "Security question extraction"
+    ],
+    "detection_methods": [
+      "Identity verification policies",
+      "Zero-trust information sharing",
+      "Security awareness training",
+      "Strict data access policies"
+    ],
+    "severity_factors": [
+      "Authority level impersonated",
+      "Sensitivity of requested information",
+      "Trust relationship exploitation"
+    ],
+    "risk_level_logic": "Risk increases when attackers successfully exploit authority bias and social trust to bypass technical controls.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Often used in identity theft, insider data theft, and targeted corporate intelligence gathering.",
+    "keywords": [
+      "impersonation",
+      "fabricated scenario",
+      "identity deception",
+      "information harvesting"
+    ]
+  },
+  {
+    "id": "SE-007",
+    "threat_name": "BAITING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Baiting is a social engineering attack that entices victims with a false promise or incentive to trigger malicious activity.",
+    "attack_mechanism": "Attackers offer something attractive such as free software, USB drives, or exclusive content to lure victims into executing malware.",
+    "technical_indicators": [
+      "Unknown removable media",
+      "Suspicious free downloads",
+      "Fake promotional offers",
+      "Unexpected file execution"
+    ],
+    "common_payloads": [
+      "Malware executables",
+      "Keyloggers",
+      "Remote access trojans",
+      "Data exfiltration tools"
+    ],
+    "detection_methods": [
+      "Endpoint protection systems",
+      "USB device control policies",
+      "Application whitelisting",
+      "User awareness programs"
+    ],
+    "severity_factors": [
+      "Physical access availability",
+      "User curiosity exploitation",
+      "Endpoint protection maturity"
+    ],
+    "risk_level_logic": "Risk is high in environments with weak device control or poor user security awareness.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Execution",
+      "Persistence"
+    ],
+    "real_world_impact": "Common vector for insider compromise and initial malware deployment inside secure environments.",
+    "keywords": [
+      "malicious USB",
+      "free software scam",
+      "curiosity exploit",
+      "removable media attack"
+    ]
+  },
+  {
+    "id": "SE-008",
+    "threat_name": "QUID PRO QUO",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Quid pro quo attacks involve offering a service or benefit in exchange for confidential information or system access.",
+    "attack_mechanism": "Attackers pose as IT staff offering technical support in return for login credentials or remote access permissions.",
+    "technical_indicators": [
+      "Unsolicited technical support calls",
+      "Remote access requests",
+      "Credential exchange promises",
+      "Service-for-information manipulation"
+    ],
+    "common_payloads": [
+      "Remote desktop installation",
+      "Credential harvesting",
+      "Privilege escalation"
+    ],
+    "detection_methods": [
+      "Verified IT support protocols",
+      "Restricted remote access tools",
+      "MFA enforcement",
+      "Internal communication validation"
+    ],
+    "severity_factors": [
+      "IT support impersonation success",
+      "Privileged user targeting",
+      "Remote session control granted"
+    ],
+    "risk_level_logic": "High risk when attackers gain legitimate remote access under false pretenses.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Often used to compromise enterprise systems through direct human manipulation.",
+    "keywords": [
+      "fake IT support",
+      "service exchange scam",
+      "credential-for-service attack"
+    ]
+  },
+  {
+    "id": "SE-009",
+    "threat_name": "TAILGATING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Tailgating is a physical social engineering attack where an unauthorized individual gains access to restricted areas by following authorized personnel.",
+    "attack_mechanism": "The attacker exploits courtesy or urgency to enter secure buildings without proper authentication.",
+    "technical_indicators": [
+      "Unbadged individuals in secure areas",
+      "Shared access doors",
+      "Lack of visitor logging",
+      "Physical security bypass"
+    ],
+    "common_payloads": [
+      "Physical device installation",
+      "Network tap insertion",
+      "Insider reconnaissance"
+    ],
+    "detection_methods": [
+      "Access control systems",
+      "Security guards",
+      "CCTV monitoring",
+      "Badge verification enforcement"
+    ],
+    "severity_factors": [
+      "Facility sensitivity level",
+      "Access to server rooms",
+      "Insider collaboration possibility"
+    ],
+    "risk_level_logic": "Extremely high risk in critical infrastructure or data center environments.",
+    "mitre_attack_mapping": [
+      "Initial Access (Physical)",
+      "Persistence",
+      "Collection"
+    ],
+    "real_world_impact": "Physical breaches often lead to network compromise, hardware tampering, and long-term espionage.",
+    "keywords": [
+      "physical breach",
+      "unauthorized entry",
+      "badge bypass",
+      "facility infiltration"
+    ]
+  },
+  {
+    "id": "SE-010",
+    "threat_name": "SCAREWARE",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Scareware is a deceptive attack that uses fear-based tactics to trick victims into installing malicious software or paying for fake security services.",
+    "attack_mechanism": "Attackers display alarming pop-ups or fake security warnings claiming that the victim’s system is infected, urging immediate action.",
+    "technical_indicators": [
+      "Fake antivirus alerts",
+      "Urgent security warnings",
+      "Unexpected system scan results",
+      "Redirects to fraudulent software downloads"
+    ],
+    "common_payloads": [
+      "Rogue security software",
+      "Malware installers",
+      "Spyware",
+      "Payment fraud portals"
+    ],
+    "detection_methods": [
+      "Endpoint protection solutions",
+      "Browser security filtering",
+      "User awareness training",
+      "Application reputation monitoring"
+    ],
+    "severity_factors": [
+      "User panic reaction",
+      "Payment submission",
+      "Malware installation success"
+    ],
+    "risk_level_logic": "Risk increases when users bypass security policies due to fear and install unauthorized applications.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Execution",
+      "Impact"
+    ],
+    "real_world_impact": "Scareware campaigns have generated large financial losses through fake software sales and malware infections.",
+    "keywords": [
+      "fake antivirus",
+      "security scare",
+      "rogue software",
+      "malicious popup",
+      "panic exploitation"
+    ]
+  },
+  {
+    "id": "SE-011",
+    "threat_name": "BUSINESS EMAIL COMPROMISE (BEC)",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Business Email Compromise (BEC) is a targeted fraud attack where attackers compromise or spoof legitimate business email accounts to manipulate financial transactions.",
+    "attack_mechanism": "Attackers impersonate executives, vendors, or partners to request wire transfers, invoice payments, or sensitive financial information.",
+    "technical_indicators": [
+      "Email domain spoofing",
+      "Sudden payment instruction changes",
+      "Financial urgency language",
+      "Subtle domain misspellings"
+    ],
+    "common_payloads": [
+      "Fraudulent invoice attachments",
+      "Wire transfer requests",
+      "Payment redirection instructions",
+      "Executive impersonation emails"
+    ],
+    "detection_methods": [
+      "Email authentication (SPF, DKIM, DMARC)",
+      "Financial approval workflows",
+      "Transaction verification procedures",
+      "Anomaly detection systems"
+    ],
+    "severity_factors": [
+      "Financial authority level",
+      "Vendor payment processes",
+      "Email account compromise depth"
+    ],
+    "risk_level_logic": "Extremely high risk due to direct financial theft without malware indicators.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Impact (Financial Theft)"
+    ],
+    "real_world_impact": "BEC attacks have resulted in billions of dollars in global losses and remain one of the most financially damaging cybercrime methods.",
+    "keywords": [
+      "invoice fraud",
+      "executive impersonation",
+      "wire transfer scam",
+      "financial manipulation"
+    ]
+  },
+  {
+    "id": "SE-012",
+    "threat_name": "DEEPFAKE SOCIAL ENGINEERING",
+    "category": "SOCIAL ENGINEERING ATTACKS",
+    "definition": "Deepfake social engineering uses AI-generated voice, video, or image manipulation to impersonate trusted individuals.",
+    "attack_mechanism": "Attackers create synthetic voice recordings or videos of executives or officials to authorize fraudulent actions or extract sensitive data.",
+    "technical_indicators": [
+      "AI-generated voice inconsistencies",
+      "Video manipulation artifacts",
+      "Urgent financial or confidential requests",
+      "Communication outside normal channels"
+    ],
+    "common_payloads": [
+      "Fraudulent payment approvals",
+      "Credential disclosure",
+      "Confidential data sharing",
+      "Reputation damage operations"
+    ],
+    "detection_methods": [
+      "Voice biometric verification",
+      "Multi-channel confirmation protocols",
+      "AI deepfake detection tools",
+      "Strict approval hierarchies"
+    ],
+    "severity_factors": [
+      "Real-time executive impersonation",
+      "Financial authority targeting",
+      "Lack of verification procedures"
+    ],
+    "risk_level_logic": "Very high risk due to realistic AI impersonation and difficulty in detection.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Impact"
+    ],
+    "real_world_impact": "Emerging threat in financial fraud, corporate espionage, and political manipulation.",
+    "keywords": [
+      "AI impersonation",
+      "synthetic voice",
+      "fake video",
+      "deepfake fraud",
+      "executive spoofing"
+    ]
+  },
+  {
+    "id": "MW-01",
+    "name": "VIRUS",
+    "definition": "A computer virus is malicious software that attaches to legitimate files or programs and spreads when the infected file is executed.",
+    "attack_mechanism": "Replicates by modifying host files and propagates through user interaction such as downloads, file sharing, or removable media.",
+    "technical_indicators": [
+      "Unauthorized file modification",
+      "Unexpected executable behavior",
+      "System instability",
+      "Unauthorized registry changes"
+    ],
+    "common_payloads": [
+      "File corruption",
+      "Data deletion",
+      "System slowdown",
+      "Boot sector modification"
+    ],
+    "detection_methods": [
+      "Signature-based antivirus scanning",
+      "Heuristic analysis",
+      "Behavioral monitoring",
+      "File integrity monitoring (FIM)"
+    ],
+    "severity_factors": [
+      "Propagation speed",
+      "Targeted file types",
+      "Execution privilege level",
+      "Payload destructiveness"
+    ],
+    "risk_logic": "Risk increases when critical system files are infected or when the virus spreads within enterprise networks.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Persistence",
+      "Defense Evasion",
+      "Impact"
+    ],
+    "real_world_impact": "Historically caused large-scale disruptions, data corruption, and financial losses.",
+    "keywords": [
+      "file infection",
+      "self-replication",
+      "executable malware",
+      "file corruption",
+      "host-based infection"
+    ]
+  },
+  {
+    "id": "MW-02",
+    "name": "WORM",
+    "definition": "A worm is a standalone self-replicating malware that spreads automatically across networks without requiring user interaction.",
+    "attack_mechanism": "Exploits network vulnerabilities to propagate between systems, often scanning for exposed services or unpatched software.",
+    "technical_indicators": [
+      "Unusual network traffic spikes",
+      "Rapid lateral movement",
+      "Exploitation of known vulnerabilities",
+      "System resource exhaustion"
+    ],
+    "common_payloads": [
+      "Network congestion",
+      "Data exfiltration modules",
+      "Ransomware deployment",
+      "Botnet installation"
+    ],
+    "detection_methods": [
+      "Network intrusion detection systems (NIDS)",
+      "Patch management",
+      "Traffic anomaly monitoring",
+      "Firewall restrictions"
+    ],
+    "severity_factors": [
+      "Propagation speed",
+      "Network segmentation presence",
+      "Vulnerability exposure level"
+    ],
+    "risk_logic": "High risk in flat networks with unpatched services.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Lateral Movement",
+      "Impact"
+    ],
+    "real_world_impact": "Caused massive global outages by rapidly spreading across enterprise and internet-scale networks.",
+    "keywords": [
+      "self-spreading malware",
+      "network propagation",
+      "autonomous infection",
+      "vulnerability exploitation"
+    ]
+  },
+  {
+    "id": "MW-03",
+    "name": "TROJAN",
+    "definition": "A Trojan is malicious software disguised as legitimate software to trick users into executing it.",
+    "attack_mechanism": "Users unknowingly install Trojans believing them to be legitimate programs, after which hidden malicious functions execute.",
+    "technical_indicators": [
+      "Suspicious outbound connections",
+      "Hidden background processes",
+      "Privilege escalation attempts",
+      "Unexpected software behavior"
+    ],
+    "common_payloads": [
+      "Remote access trojans (RAT)",
+      "Credential stealers",
+      "Backdoors",
+      "Data exfiltration tools"
+    ],
+    "detection_methods": [
+      "Behavioral endpoint monitoring",
+      "Application whitelisting",
+      "Sandboxing",
+      "Network traffic inspection"
+    ],
+    "severity_factors": [
+      "Privilege level gained",
+      "Persistence mechanisms",
+      "Command and control connectivity"
+    ],
+    "risk_logic": "High risk due to stealth capabilities and potential for long-term compromise.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Persistence",
+      "Command and Control"
+    ],
+    "real_world_impact": "Frequently used in targeted espionage and financial data theft operations.",
+    "keywords": [
+      "disguised malware",
+      "hidden payload",
+      "remote access",
+      "deceptive software"
+    ]
+  },
+  {
+    "id": "MW-04",
+    "name": "RANSOMWARE",
+    "definition": "Ransomware is malware that encrypts victim data and demands payment in exchange for decryption keys.",
+    "attack_mechanism": "Attackers deploy ransomware via phishing emails, exploit kits, or compromised credentials, then encrypt critical system and user files.",
+    "technical_indicators": [
+      "Mass file encryption",
+      "Presence of ransom notes",
+      "Disabled backups",
+      "Suspicious encryption processes"
+    ],
+    "common_payloads": [
+      "File encryption modules",
+      "Data exfiltration components",
+      "System lock screens"
+    ],
+    "detection_methods": [
+      "Endpoint Detection and Response (EDR)",
+      "Backup monitoring",
+      "Behavioral anomaly detection",
+      "Network isolation procedures"
+    ],
+    "severity_factors": [
+      "Backup availability",
+      "Data sensitivity",
+      "Encryption scope",
+      "Use of double extortion tactics"
+    ],
+    "risk_logic": "Extremely high risk due to operational shutdown, financial damage, and potential data leakage.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Execution",
+      "Impact"
+    ],
+    "real_world_impact": "Ransomware attacks have disrupted hospitals, governments, and multinational corporations worldwide.",
+    "keywords": [
+      "file encryption",
+      "ransom demand",
+      "data extortion",
+      "operational disruption"
+    ]
+  },
+  {
+    "id": "MW-05",
+    "name": "SPYWARE",
+    "definition": "Spyware is malicious software that secretly monitors user activity and collects sensitive information without user consent.",
+    "attack_mechanism": "Installed via malicious downloads or bundled applications, spyware records keystrokes, browsing activity, and credentials, then transmits data to attackers.",
+    "technical_indicators": [
+      "Hidden data transmissions",
+      "Keylogging activity",
+      "Browser hijacking",
+      "Slow system performance"
+    ],
+    "common_payloads": [
+      "Credential harvesting",
+      "Surveillance modules",
+      "Tracking cookies"
+    ],
+    "detection_methods": [
+      "Anti-spyware tools",
+      "Network monitoring",
+      "Application permission review"
+    ],
+    "severity_factors": [
+      "Data sensitivity",
+      "Monitoring duration",
+      "Stealth capability"
+    ],
+    "risk_logic": "High risk due to privacy violations, credential theft, and long-term unauthorized monitoring.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Credential Access",
+      "Exfiltration"
+    ],
+    "real_world_impact": "Commonly used in identity theft, surveillance operations, and corporate espionage.",
+    "keywords": [
+      "surveillance malware",
+      "data tracking",
+      "keystroke logging",
+      "hidden monitoring"
+    ]
+  },
+  {
+    "id": "MW-06",
+    "name": "ROOTKIT",
+    "definition": "A rootkit is malware designed to hide its presence and maintain privileged access within a compromised system.",
+    "attack_mechanism": "Rootkits modify system components such as the kernel or system libraries to evade detection and ensure persistence.",
+    "technical_indicators": [
+      "Hidden processes",
+      "Altered system calls",
+      "Disabled security tools",
+      "Kernel-level modifications"
+    ],
+    "common_payloads": [
+      "Persistent backdoors",
+      "Privilege escalation modules",
+      "Defense evasion tools"
+    ],
+    "detection_methods": [
+      "Kernel integrity monitoring",
+      "Secure boot verification",
+      "Rootkit scanners",
+      "Memory forensics"
+    ],
+    "severity_factors": [
+      "Privilege level obtained",
+      "Persistence depth",
+      "Detection difficulty"
+    ],
+    "risk_logic": "Very high risk due to stealth capability and deep system-level control.",
+    "mitre_attack_mapping": [
+      "Persistence",
+      "Privilege Escalation",
+      "Defense Evasion"
+    ],
+    "real_world_impact": "Rootkits enable long-term stealth espionage and deep compromise within enterprise environments.",
+    "keywords": [
+      "kernel manipulation",
+      "stealth malware",
+      "hidden access",
+      "persistent control"
+    ]
+  },
+  {
+    "id": "MW-07",
+    "name": "KEYLOGGER",
+    "definition": "A keylogger is malware designed to record keystrokes in order to capture sensitive information such as passwords and financial data.",
+    "attack_mechanism": "Keyloggers run silently in the background, intercept keyboard input using system hooks or process injection techniques, and transmit collected data to attackers.",
+    "technical_indicators": [
+      "Hidden background services",
+      "Suspicious outbound connections",
+      "Unusual keyboard hook activity",
+      "Unauthorized process injection"
+    ],
+    "common_payloads": [
+      "Credential harvesting",
+      "Banking information theft",
+      "Account takeover facilitation"
+    ],
+    "detection_methods": [
+      "Behavioral endpoint monitoring",
+      "Anti-malware scanning",
+      "Process integrity checks",
+      "Network traffic analysis"
+    ],
+    "severity_factors": [
+      "Privilege level of installation",
+      "Duration of undetected operation",
+      "Sensitivity of captured data"
+    ],
+    "risk_logic": "High risk due to direct credential compromise without causing noticeable system disruption.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Credential Access",
+      "Exfiltration"
+    ],
+    "real_world_impact": "Widely used in financial fraud, corporate espionage, and identity theft operations.",
+    "keywords": [
+      "keystroke logging",
+      "credential theft",
+      "input monitoring",
+      "password capture"
+    ]
+  },
+  {
+    "id": "MW-08",
+    "name": "BACKDOOR",
+    "definition": "A backdoor is a hidden access mechanism that bypasses normal authentication to provide unauthorized remote access to a system.",
+    "attack_mechanism": "Backdoors are typically installed after an initial compromise to maintain persistent control and allow remote command execution without detection.",
+    "technical_indicators": [
+      "Unauthorized listening ports",
+      "Suspicious remote connections",
+      "Disabled authentication controls",
+      "Hidden administrative accounts"
+    ],
+    "common_payloads": [
+      "Remote command execution",
+      "Data exfiltration",
+      "Additional malware deployment"
+    ],
+    "detection_methods": [
+      "Network traffic inspection",
+      "Port scanning",
+      "Endpoint monitoring",
+      "Authentication log review"
+    ],
+    "severity_factors": [
+      "Level of access granted",
+      "Persistence mechanisms",
+      "Lateral movement capability"
+    ],
+    "risk_logic": "Very high risk due to long-term unauthorized control and potential for lateral movement.",
+    "mitre_attack_mapping": [
+      "Persistence",
+      "Command and Control",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Backdoors enable covert long-term access for espionage, sabotage, or further attack staging.",
+    "keywords": [
+      "unauthorized access",
+      "remote control",
+      "persistent access",
+      "authentication bypass"
+    ]
+  },
+  {
+    "id": "MW-09",
+    "name": "BOTNET",
+    "definition": "A botnet is a network of infected devices, known as bots, that are remotely controlled by attackers through command and control infrastructure.",
+    "attack_mechanism": "Malware infects devices and connects them to centralized or decentralized command and control servers, allowing coordinated malicious activity.",
+    "technical_indicators": [
+      "Repeated communication with suspicious domains",
+      "High outbound traffic patterns",
+      "Participation in coordinated network activity",
+      "DNS anomalies"
+    ],
+    "common_payloads": [
+      "Distributed Denial of Service (DDoS) attacks",
+      "Spam distribution campaigns",
+      "Cryptocurrency mining",
+      "Credential stuffing attacks"
+    ],
+    "detection_methods": [
+      "Network anomaly detection",
+      "DNS monitoring",
+      "Traffic pattern analysis",
+      "Threat intelligence integration"
+    ],
+    "severity_factors": [
+      "Botnet size",
+      "Control infrastructure resilience",
+      "Target scope"
+    ],
+    "risk_logic": "High to critical risk depending on scale, coordination level, and attack objectives.",
+    "mitre_attack_mapping": [
+      "Command and Control",
+      "Impact",
+      "Resource Hijacking"
+    ],
+    "real_world_impact": "Botnets have disrupted major online services and enabled large-scale cybercrime operations.",
+    "keywords": [
+      "zombie network",
+      "command and control",
+      "distributed attack",
+      "infected devices"
+    ]
+  },
+  {
+    "id": "MW-10",
+    "name": "ADWARE",
+    "definition": "Adware is software that automatically displays or downloads advertisements, often without clear user consent.",
+    "attack_mechanism": "Commonly bundled with free software, adware injects advertisements into browsers or applications and may modify browser settings.",
+    "technical_indicators": [
+      "Browser redirections",
+      "Pop-up advertisements",
+      "Modified homepage settings",
+      "Unwanted browser extensions"
+    ],
+    "common_payloads": [
+      "Advertising injection modules",
+      "Tracking scripts",
+      "Browser hijackers"
+    ],
+    "detection_methods": [
+      "Browser extension audits",
+      "Anti-adware scanning",
+      "Application permission review",
+      "System cleanup utilities"
+    ],
+    "severity_factors": [
+      "Extent of data tracking",
+      "Browser manipulation depth",
+      "System performance degradation"
+    ],
+    "risk_logic": "Moderate risk but can escalate if bundled with spyware or additional malicious components.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Impact"
+    ],
+    "real_world_impact": "Adware degrades user experience and may serve as an entry point for more serious infections.",
+    "keywords": [
+      "advertising malware",
+      "browser hijack",
+      "popup injection",
+      "unwanted ads"
+    ]
+  },
+  {
+    "id": "WA-01",
+    "name": "SQL INJECTION",
+    "definition": "SQL Injection is a web attack that injects malicious SQL queries into input fields to manipulate backend databases.",
+    "attack_mechanism": "Attackers insert crafted SQL statements into URL parameters, forms, or cookies. If input is not properly sanitized, the database executes the malicious query.",
+    "technical_indicators": [
+      "Suspicious URL parameters containing SQL syntax",
+      "Database error messages in HTTP responses",
+      "Unusual query behavior",
+      "Authentication bypass patterns"
+    ],
+    "common_payloads": [
+      "' OR 1=1 --",
+      "UNION SELECT statements",
+      "Database enumeration queries",
+      "Data extraction commands"
+    ],
+    "detection_methods": [
+      "Input validation",
+      "Prepared statements",
+      "Web Application Firewall (WAF)",
+      "Log analysis"
+    ],
+    "severity_factors": [
+      "Database privilege level",
+      "Data sensitivity",
+      "Ability to modify or delete records"
+    ],
+    "risk_logic": "Critical risk if attackers gain backend database access.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Collection",
+      "Impact"
+    ],
+    "real_world_impact": "Has caused major data breaches exposing millions of user records globally.",
+    "keywords": [
+      "database injection",
+      "SQL payload",
+      "authentication bypass",
+      "query manipulation"
+    ]
+  },
+  {
+    "id": "WA-02",
+    "name": "CROSS-SITE SCRIPTING (XSS)",
+    "definition": "Cross-Site Scripting (XSS) allows attackers to inject malicious scripts into web pages viewed by other users.",
+    "attack_mechanism": "Malicious JavaScript is injected via URL parameters, form inputs, or stored fields and executed in the victim’s browser.",
+    "technical_indicators": [
+      "Script tags in URL parameters",
+      "Encoded JavaScript payloads",
+      "Suspicious DOM manipulation",
+      "Session hijacking behavior"
+    ],
+    "common_payloads": [
+      "<script>alert(1)</script>",
+      "Cookie stealing scripts",
+      "Redirect scripts",
+      "Keylogging JavaScript"
+    ],
+    "detection_methods": [
+      "Output encoding",
+      "Content Security Policy (CSP)",
+      "Input sanitization",
+      "Web vulnerability scanning"
+    ],
+    "severity_factors": [
+      "Stored versus reflected XSS",
+      "Session hijacking capability",
+      "Access to privileged users"
+    ],
+    "risk_logic": "High risk if authentication tokens or session cookies are exposed.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Collection",
+      "Credential Access"
+    ],
+    "real_world_impact": "Commonly used to hijack sessions, deface websites, and steal credentials.",
+    "keywords": [
+      "script injection",
+      "browser exploitation",
+      "session hijacking",
+      "malicious JavaScript"
+    ]
+  },
+  {
+    "id": "WA-03",
+    "name": "CROSS-SITE REQUEST FORGERY (CSRF)",
+    "definition": "CSRF tricks authenticated users into performing unintended actions on a web application.",
+    "attack_mechanism": "Attackers craft malicious requests that are automatically sent by the victim’s browser while authenticated.",
+    "technical_indicators": [
+      "Unauthorized state-changing requests",
+      "Missing CSRF tokens",
+      "Suspicious form submissions",
+      "Requests triggered without user interaction"
+    ],
+    "common_payloads": [
+      "Hidden form submissions",
+      "Forged POST requests",
+      "Automatic image-based GET requests"
+    ],
+    "detection_methods": [
+      "CSRF tokens",
+      "SameSite cookie attributes",
+      "Referer validation",
+      "Multi-factor authentication"
+    ],
+    "severity_factors": [
+      "Victim privilege level",
+      "Ability to modify sensitive data",
+      "Lack of token validation"
+    ],
+    "risk_logic": "High risk if attackers can alter accounts or financial information.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Impact"
+    ],
+    "real_world_impact": "Has been used to change passwords, transfer funds, and modify account settings.",
+    "keywords": [
+      "forged request",
+      "session abuse",
+      "unauthorized action",
+      "token validation bypass"
+    ]
+  },
+  {
+    "id": "WA-04",
+    "name": "COMMAND INJECTION",
+    "definition": "Command Injection allows attackers to execute system-level commands through vulnerable web application inputs.",
+    "attack_mechanism": "Unsanitized user input is passed to system shell commands, allowing attackers to append or execute arbitrary operating system instructions.",
+    "technical_indicators": [
+      "Presence of shell operators such as &&, |, ;",
+      "Unexpected system command output in HTTP responses",
+      "Server process anomalies",
+      "File system manipulation logs"
+    ],
+    "common_payloads": [
+      "; ls",
+      "&& cat /etc/passwd",
+      "| whoami"
+    ],
+    "detection_methods": [
+      "Strict input validation",
+      "Use of secure APIs instead of system shells",
+      "Web Application Firewall (WAF) filtering",
+      "Server-side logging and monitoring"
+    ],
+    "severity_factors": [
+      "System privilege level",
+      "Ability to execute arbitrary commands",
+      "Server network exposure"
+    ],
+    "risk_logic": "Critical risk due to potential full server compromise.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Privilege Escalation",
+      "Impact"
+    ],
+    "real_world_impact": "Can result in complete server takeover and infrastructure compromise.",
+    "keywords": [
+      "shell injection",
+      "system command execution",
+      "OS compromise",
+      "input validation failure"
+    ]
+  },
+  {
+    "id": "WA-05",
+    "name": "DIRECTORY TRAVERSAL",
+    "definition": "Directory Traversal allows attackers to access restricted files by manipulating file path inputs.",
+    "attack_mechanism": "Attackers use ../ sequences or similar patterns to navigate outside the intended directory structure and access sensitive files.",
+    "technical_indicators": [
+      "../ patterns in URLs",
+      "Access to sensitive files",
+      "Unexpected file disclosure",
+      "File path manipulation attempts"
+    ],
+    "common_payloads": [
+      "../../etc/passwd",
+      "..\\..\\windows\\system32"
+    ],
+    "detection_methods": [
+      "Input path normalization",
+      "Strict file access controls",
+      "Web server hardening"
+    ],
+    "severity_factors": [
+      "File system exposure",
+      "Sensitive data accessibility",
+      "Application privilege level"
+    ],
+    "risk_logic": "High risk if attackers can access configuration files or credential data.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Credential Access"
+    ],
+    "real_world_impact": "Has exposed confidential system configuration and credential files.",
+    "keywords": [
+      "path traversal",
+      "file disclosure",
+      "unauthorized file access",
+      "directory manipulation"
+    ]
+  },
+  {
+    "id": "WA-06",
+    "name": "LOCAL FILE INCLUSION (LFI)",
+    "definition": "Local File Inclusion (LFI) allows attackers to include and potentially execute local server files through vulnerable parameters.",
+    "attack_mechanism": "Attackers manipulate file include functions to load unintended local files, which may expose sensitive data or enable code execution.",
+    "technical_indicators": [
+      "Suspicious include parameters",
+      "Unexpected file content output",
+      "PHP wrapper abuse",
+      "Local file disclosure patterns"
+    ],
+    "common_payloads": [
+      "../../etc/passwd",
+      "php://filter"
+    ],
+    "detection_methods": [
+      "Strict input validation",
+      "Disable dynamic file inclusion where possible",
+      "Server configuration hardening"
+    ],
+    "severity_factors": [
+      "Execution capability",
+      "Sensitive file exposure",
+      "Application privilege level"
+    ],
+    "risk_logic": "High risk and may escalate to remote code execution under certain conditions.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Collection"
+    ],
+    "real_world_impact": "Can escalate into full server compromise if exploited successfully.",
+    "keywords": [
+      "file inclusion",
+      "local file abuse",
+      "code execution",
+      "path manipulation"
+    ]
+  },
+  {
+    "id": "WA-07",
+    "name": "REMOTE FILE INCLUSION (RFI)",
+    "definition": "Remote File Inclusion (RFI) allows attackers to include malicious files hosted on external servers.",
+    "attack_mechanism": "Vulnerable applications load attacker-controlled remote files which execute malicious code on the server.",
+    "technical_indicators": [
+      "External URL references in parameters",
+      "Unexpected remote script execution",
+      "Suspicious outbound HTTP requests"
+    ],
+    "common_payloads": [
+      "http://malicious-site/shell.txt",
+      "Remote web shell links"
+    ],
+    "detection_methods": [
+      "Disable remote file inclusion",
+      "Input filtering",
+      "Web server configuration restrictions"
+    ],
+    "severity_factors": [
+      "Remote code execution capability",
+      "Server privilege level"
+    ],
+    "risk_logic": "Critical risk due to remote code execution potential.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Initial Access"
+    ],
+    "real_world_impact": "Has enabled attackers to fully control vulnerable web servers.",
+    "keywords": [
+      "remote inclusion",
+      "external script injection",
+      "web shell deployment",
+      "remote code execution"
+    ]
+  },
+  {
+    "id": "WA-08",
+    "name": "SERVER-SIDE REQUEST FORGERY (SSRF)",
+    "definition": "Server-Side Request Forgery (SSRF) allows attackers to force a server to make unauthorized internal or external requests.",
+    "attack_mechanism": "Attackers manipulate URL-based inputs to access internal services, cloud metadata endpoints, or restricted network resources.",
+    "technical_indicators": [
+      "Access attempts to internal IP ranges",
+      "Unexpected outbound requests",
+      "Cloud metadata exposure attempts"
+    ],
+    "common_payloads": [
+      "http://127.0.0.1",
+      "http://169.254.169.254"
+    ],
+    "detection_methods": [
+      "Strict URL validation",
+      "Network segmentation",
+      "Block internal IP address access",
+      "Cloud metadata service protection"
+    ],
+    "severity_factors": [
+      "Internal network exposure",
+      "Cloud environment presence",
+      "Privilege escalation potential"
+    ],
+    "risk_logic": "Critical risk especially in cloud-hosted environments.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Discovery",
+      "Credential Access"
+    ],
+    "real_world_impact": "Used to extract cloud credentials and compromise internal infrastructure.",
+    "keywords": [
+      "server-side request abuse",
+      "internal network access",
+      "cloud metadata exploitation"
+    ]
+  },
+  {
+    "id": "WA-09",
+    "name": "CLICKJACKING",
+    "definition": "Clickjacking tricks users into clicking hidden or disguised elements within a web page.",
+    "attack_mechanism": "Attackers embed legitimate websites inside invisible iframes and overlay deceptive elements to hijack user interactions.",
+    "technical_indicators": [
+      "Suspicious iframe usage",
+      "Absence of X-Frame-Options header",
+      "Unexpected UI redressing behavior",
+      "Hidden overlay elements"
+    ],
+    "common_payloads": [
+      "Invisible buttons",
+      "Hidden authentication prompts",
+      "Deceptive UI layers"
+    ],
+    "detection_methods": [
+      "X-Frame-Options header",
+      "Content Security Policy (CSP) frame restrictions",
+      "Frame busting scripts"
+    ],
+    "severity_factors": [
+      "Victim privilege level",
+      "Ability to trigger financial or account actions",
+      "Lack of frame protection"
+    ],
+    "risk_logic": "Moderate to high risk depending on the sensitivity of triggered actions.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Impact"
+    ],
+    "real_world_impact": "Has tricked users into enabling webcams or modifying sensitive account settings.",
+    "keywords": [
+      "UI redressing",
+      "iframe abuse",
+      "hidden click manipulation",
+      "visual deception attack"
+    ]
+  },
+  {
+    "id": "WA-10",
+    "name": "OPEN REDIRECT",
+    "definition": "Open Redirect allows attackers to redirect users to malicious external websites through vulnerable redirection parameters.",
+    "attack_mechanism": "Attackers manipulate redirect parameters in URLs to send victims to phishing or malware-hosting domains.",
+    "technical_indicators": [
+      "Redirect parameters containing external URLs",
+      "Unvalidated redirect inputs",
+      "Suspicious outbound navigation"
+    ],
+    "common_payloads": [
+      "?redirect=http://malicious-site",
+      "URL parameter manipulation"
+    ],
+    "detection_methods": [
+      "Strict redirect validation",
+      "Allowlist enforcement",
+      "URL sanitization"
+    ],
+    "severity_factors": [
+      "Trust level of vulnerable domain",
+      "Phishing integration capability",
+      "User awareness level"
+    ],
+    "risk_logic": "High risk when leveraged in phishing campaigns using trusted domains.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access"
+    ],
+    "real_world_impact": "Frequently abused to bypass trust controls and redirect users to malicious sites.",
+    "keywords": [
+      "URL redirection abuse",
+      "phishing relay",
+      "trusted domain exploitation"
+    ]
+  },
+  {
+    "id": "WA-11",
+    "name": "INSECURE DESERIALIZATION",
+    "definition": "Insecure Deserialization occurs when applications deserialize untrusted data without proper validation, leading to code execution or logic manipulation.",
+    "attack_mechanism": "Attackers modify serialized objects to inject malicious instructions that execute during the deserialization process.",
+    "technical_indicators": [
+      "Serialized object patterns in requests",
+      "Unexpected object behavior",
+      "Application crashes during deserialization",
+      "Suspicious encoded payloads"
+    ],
+    "common_payloads": [
+      "Modified session objects",
+      "Malicious serialized Java or PHP objects",
+      "Encoded binary manipulation"
+    ],
+    "detection_methods": [
+      "Avoid deserializing untrusted input",
+      "Integrity verification",
+      "Use secure serialization libraries",
+      "Runtime monitoring"
+    ],
+    "severity_factors": [
+      "Code execution capability",
+      "Application privilege level",
+      "Object control scope"
+    ],
+    "risk_logic": "Critical risk when remote code execution is achievable.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Privilege Escalation",
+      "Impact"
+    ],
+    "real_world_impact": "Has resulted in remote server compromise in enterprise applications.",
+    "keywords": [
+      "object injection",
+      "serialization abuse",
+      "remote code execution",
+      "logic manipulation"
+    ]
+  },
+  {
+    "id": "NA-01",
+    "name": "DENIAL OF SERVICE (DoS)",
+    "definition": "Denial of Service (DoS) is an attack that overwhelms a system, server, or network with excessive traffic, making it unavailable to legitimate users.",
+    "attack_mechanism": "Attackers flood the target with excessive requests, consuming bandwidth, CPU, or memory resources until normal services become inaccessible.",
+    "technical_indicators": [
+      "Sudden traffic spikes",
+      "High CPU or memory usage",
+      "Service timeouts",
+      "Connection saturation"
+    ],
+    "common_payloads": [
+      "SYN Flood",
+      "HTTP Flood",
+      "UDP Flood",
+      "ICMP Flood"
+    ],
+    "detection_methods": [
+      "Traffic rate limiting",
+      "Intrusion Detection Systems (IDS)",
+      "Traffic anomaly monitoring",
+      "Firewall filtering rules"
+    ],
+    "severity_factors": [
+      "Target infrastructure capacity",
+      "Attack duration",
+      "Traffic amplification techniques"
+    ],
+    "risk_logic": "High risk when business-critical services become unavailable.",
+    "mitre_attack_mapping": [
+      "Impact",
+      "Resource Hijacking"
+    ],
+    "real_world_impact": "Disrupts online services, causing financial losses and reputational damage.",
+    "keywords": [
+      "service disruption",
+      "traffic flooding",
+      "resource exhaustion",
+      "availability attack"
+    ]
+  },
+  {
+    "id": "NA-02",
+    "name": "DISTRIBUTED DENIAL OF SERVICE (DDoS)",
+    "definition": "Distributed Denial of Service (DDoS) is a large-scale DoS attack where multiple compromised systems simultaneously flood a target.",
+    "attack_mechanism": "Attackers leverage botnets of infected devices to generate massive coordinated traffic against a victim system.",
+    "technical_indicators": [
+      "Traffic from multiple global IP addresses",
+      "Large-scale bandwidth consumption",
+      "Amplified DNS or NTP responses",
+      "Abnormal traffic distribution patterns"
+    ],
+    "common_payloads": [
+      "DNS Amplification",
+      "NTP Amplification",
+      "Large-scale SYN Flood",
+      "Application-layer floods"
+    ],
+    "detection_methods": [
+      "DDoS protection services",
+      "Traffic scrubbing centers",
+      "Rate limiting",
+      "Load balancing"
+    ],
+    "severity_factors": [
+      "Botnet size",
+      "Amplification factor",
+      "Target redundancy"
+    ],
+    "risk_logic": "Critical risk due to potential large-scale service outages.",
+    "mitre_attack_mapping": [
+      "Impact",
+      "Command and Control"
+    ],
+    "real_world_impact": "Has disrupted major global platforms and infrastructure providers.",
+    "keywords": [
+      "distributed flooding",
+      "amplification attack",
+      "botnet traffic",
+      "large-scale disruption"
+    ]
+  },
+  {
+    "id": "NA-03",
+    "name": "MAN-IN-THE-MIDDLE (MITM)",
+    "definition": "Man-in-the-Middle (MITM) is an attack where an attacker secretly intercepts and potentially alters communication between two parties.",
+    "attack_mechanism": "The attacker positions themselves between victim and server, capturing or modifying transmitted data without detection.",
+    "technical_indicators": [
+      "Certificate mismatches",
+      "Unexpected SSL warnings",
+      "Duplicate ARP responses",
+      "Suspicious gateway behavior"
+    ],
+    "common_payloads": [
+      "Traffic interception",
+      "Credential harvesting",
+      "Session token capture",
+      "Data modification"
+    ],
+    "detection_methods": [
+      "HTTPS with certificate validation",
+      "VPN usage",
+      "Network monitoring",
+      "ARP inspection"
+    ],
+    "severity_factors": [
+      "Encryption strength",
+      "Credential exposure",
+      "Ability to alter transactions"
+    ],
+    "risk_logic": "High risk if credentials or financial data are intercepted.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Credential Access",
+      "Adversary-in-the-Middle"
+    ],
+    "real_world_impact": "Used to steal login credentials and manipulate financial transactions.",
+    "keywords": [
+      "traffic interception",
+      "communication hijacking",
+      "data manipulation",
+      "credential capture"
+    ]
+  },
+  {
+    "id": "NA-04",
+    "name": "ARP SPOOFING",
+    "definition": "ARP Spoofing is a network attack that associates the attacker’s MAC address with the IP address of another host.",
+    "attack_mechanism": "The attacker sends forged ARP replies to redirect network traffic through their device, enabling interception or modification of data.",
+    "technical_indicators": [
+      "Duplicate IP to MAC mappings",
+      "ARP table inconsistencies",
+      "Unexpected gateway MAC address changes"
+    ],
+    "common_payloads": [
+      "Forged ARP responses",
+      "Network traffic redirection"
+    ],
+    "detection_methods": [
+      "Static ARP entries",
+      "ARP monitoring tools",
+      "Switch security configurations"
+    ],
+    "severity_factors": [
+      "Network segmentation level",
+      "Internal access exposure",
+      "Presence of encryption"
+    ],
+    "risk_logic": "High risk in unsecured internal networks where traffic can be intercepted.",
+    "mitre_attack_mapping": [
+      "Adversary-in-the-Middle",
+      "Collection"
+    ],
+    "real_world_impact": "Enables credential interception and traffic sniffing within local networks.",
+    "keywords": [
+      "ARP poisoning",
+      "MAC spoofing",
+      "local network hijack",
+      "gateway impersonation"
+    ]
+  },
+  {
+    "id": "NA-05",
+    "name": "DNS SPOOFING",
+    "definition": "DNS Spoofing manipulates DNS responses to redirect users to malicious websites.",
+    "attack_mechanism": "Attackers alter DNS records or inject forged responses, causing victims to resolve legitimate domains to attacker-controlled IP addresses.",
+    "technical_indicators": [
+      "Mismatched DNS records",
+      "Unexpected IP resolution",
+      "Suspicious DNS cache entries"
+    ],
+    "common_payloads": [
+      "Fake DNS responses",
+      "DNS cache poisoning",
+      "Malicious domain redirection"
+    ],
+    "detection_methods": [
+      "DNSSEC implementation",
+      "DNS monitoring",
+      "Secure resolver configuration"
+    ],
+    "severity_factors": [
+      "Domain trust level",
+      "Phishing integration capability",
+      "Credential theft potential"
+    ],
+    "risk_logic": "Critical risk when trusted domains are redirected to malicious infrastructure.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Collection"
+    ],
+    "real_world_impact": "Has enabled large-scale phishing and malware distribution campaigns.",
+    "keywords": [
+      "DNS poisoning",
+      "malicious redirection",
+      "domain hijack",
+      "resolver manipulation"
+    ]
+  },
+  {
+    "id": "NA-06",
+    "name": "PACKET SNIFFING",
+    "definition": "Packet Sniffing is the interception and analysis of network traffic to capture sensitive information.",
+    "attack_mechanism": "Attackers use packet capture tools to monitor and analyze unencrypted network communication.",
+    "technical_indicators": [
+      "Network interface operating in promiscuous mode",
+      "Presence of traffic monitoring tools",
+      "Suspicious data exfiltration patterns"
+    ],
+    "common_payloads": [
+      "Credential capture",
+      "Session data collection",
+      "Plaintext information extraction"
+    ],
+    "detection_methods": [
+      "Encryption enforcement (HTTPS, TLS)",
+      "Network segmentation",
+      "Intrusion Detection Systems (IDS)"
+    ],
+    "severity_factors": [
+      "Presence of unencrypted traffic",
+      "Network exposure level",
+      "Monitoring detection capability"
+    ],
+    "risk_logic": "High risk in networks lacking proper encryption mechanisms.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Credential Access"
+    ],
+    "real_world_impact": "Has exposed passwords and confidential communications.",
+    "keywords": [
+      "traffic monitoring",
+      "network eavesdropping",
+      "plaintext capture",
+      "data interception"
+    ]
+  },
+  {
+    "id": "NA-07",
+    "name": "SESSION HIJACKING",
+    "definition": "Session Hijacking occurs when attackers take over an active user session to gain unauthorized access.",
+    "attack_mechanism": "Attackers capture session tokens through sniffing or web vulnerabilities and reuse them to impersonate the victim.",
+    "technical_indicators": [
+      "Duplicate session identifiers",
+      "Suspicious login activity",
+      "Session token reuse from different IP addresses"
+    ],
+    "common_payloads": [
+      "Stolen session cookies",
+      "Token replay attacks"
+    ],
+    "detection_methods": [
+      "HTTPS enforcement",
+      "Secure cookie flags",
+      "Session expiration policies"
+    ],
+    "severity_factors": [
+      "Session privilege level",
+      "Authentication strength",
+      "Token protection mechanisms"
+    ],
+    "risk_logic": "High risk when privileged sessions are compromised.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Allows attackers to bypass authentication and impersonate legitimate users.",
+    "keywords": [
+      "session token theft",
+      "authentication bypass",
+      "cookie reuse",
+      "account takeover"
+    ]
+  },
+  {
+    "id": "NA-08",
+    "name": "ROGUE ACCESS POINT",
+    "definition": "A Rogue Access Point is an unauthorized wireless access device that mimics or connects to legitimate networks.",
+    "attack_mechanism": "Attackers deploy fake wireless networks to lure users into connecting and intercept their traffic.",
+    "technical_indicators": [
+      "Duplicate SSID names",
+      "Weak or unusual encryption settings",
+      "Unknown access point MAC address"
+    ],
+    "common_payloads": [
+      "Credential harvesting portals",
+      "Traffic interception",
+      "Malware delivery"
+    ],
+    "detection_methods": [
+      "Wireless monitoring tools",
+      "Network authentication enforcement",
+      "WPA3 encryption"
+    ],
+    "severity_factors": [
+      "User awareness level",
+      "Network monitoring presence",
+      "Encryption strength"
+    ],
+    "risk_logic": "High risk in public and corporate wireless environments.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Adversary-in-the-Middle"
+    ],
+    "real_world_impact": "Has been used to steal corporate credentials and intercept sensitive browsing data.",
+    "keywords": [
+      "fake Wi-Fi",
+      "wireless impersonation",
+      "network lure",
+      "credential harvesting"
+    ]
+  },
+  {
+    "id": "NA-09",
+    "name": "EVIL TWIN ATTACK",
+    "definition": "Evil Twin is a wireless attack where a malicious access point replicates a legitimate Wi-Fi network.",
+    "attack_mechanism": "Victims connect to the fake access point, allowing attackers to intercept or manipulate network traffic.",
+    "technical_indicators": [
+      "Identical SSID with stronger signal strength",
+      "Unexpected SSL certificate warnings",
+      "Suspicious captive portals"
+    ],
+    "common_payloads": [
+      "Login credential capture",
+      "Phishing pages",
+      "Traffic modification"
+    ],
+    "detection_methods": [
+      "Network certificate validation",
+      "Avoidance of untrusted public Wi-Fi",
+      "Wireless intrusion detection systems"
+    ],
+    "severity_factors": [
+      "Encryption configuration",
+      "User authentication methods",
+      "Network monitoring level"
+    ],
+    "risk_logic": "High risk when sensitive accounts are accessed over compromised wireless networks.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access"
+    ],
+    "real_world_impact": "Commonly used in public spaces to steal credentials and intercept communications.",
+    "keywords": [
+      "Wi-Fi impersonation",
+      "wireless MITM",
+      "fake hotspot",
+      "traffic interception"
+    ]
+  },
+  {
+    "id": "NA-10",
+    "name": "IP SPOOFING",
+    "definition": "IP Spoofing is the forging of source IP addresses to hide attacker identity or bypass network filters.",
+    "attack_mechanism": "Attackers manipulate packet headers to impersonate trusted systems or obscure their true origin.",
+    "technical_indicators": [
+      "Mismatched routing paths",
+      "Inconsistent TTL values",
+      "Abnormal source IP address behavior"
+    ],
+    "common_payloads": [
+      "Forged TCP packets",
+      "Reflection attack traffic",
+      "Trust exploitation attempts"
+    ],
+    "detection_methods": [
+      "Ingress and egress filtering",
+      "Packet validation mechanisms",
+      "Continuous network monitoring"
+    ],
+    "severity_factors": [
+      "Reliance on trust-based systems",
+      "Weak filtering controls",
+      "Integration with amplification attacks"
+    ],
+    "risk_logic": "Medium to high risk depending on trust exploitation and attack amplification.",
+    "mitre_attack_mapping": [
+      "Defense Evasion",
+      "Impact"
+    ],
+    "real_world_impact": "Commonly used in DDoS campaigns and trust exploitation attacks.",
+    "keywords": [
+      "address forgery",
+      "packet manipulation",
+      "identity masking",
+      "traffic deception"
+    ]
+  },
+  {
+    "id": "AA-01",
+    "name": "BRUTE FORCE ATTACK",
+    "definition": "A brute force attack systematically attempts multiple password combinations until the correct one is found.",
+    "attack_mechanism": "Attackers use automated tools to try large numbers of username-password combinations.",
+    "technical_indicators": [
+      "Multiple failed login attempts",
+      "Rapid authentication requests",
+      "Login attempts from a single IP"
+    ],
+    "common_payloads": [
+      "Password dictionaries",
+      "Automated login scripts",
+      "Credential testing tools"
+    ],
+    "detection_methods": [
+      "Account lockout policies",
+      "Rate limiting",
+      "CAPTCHA enforcement",
+      "Multi-factor authentication"
+    ],
+    "severity_factors": [
+      "Password complexity",
+      "Rate limiting presence",
+      "Account privilege level"
+    ],
+    "risk_logic": "High risk if weak passwords are used.",
+    "mitre_attack_mapping": [
+      "Credential Access"
+    ],
+    "real_world_impact": "Brute force attacks compromise weak accounts and administrative panels.",
+    "keywords": [
+      "password guessing",
+      "credential cracking",
+      "login flooding",
+      "authentication abuse"
+    ]
+  },
+  {
+    "id": "AA-02",
+    "name": "CREDENTIAL STUFFING",
+    "definition": "Credential stuffing uses previously leaked username-password pairs to access accounts.",
+    "attack_mechanism": "Attackers automate login attempts using credentials obtained from data breaches.",
+    "technical_indicators": [
+      "Login attempts using known leaked credentials",
+      "Multiple account access attempts",
+      "High success rate with reused passwords"
+    ],
+    "common_payloads": [
+      "Breach databases",
+      "Automated credential testing scripts"
+    ],
+    "detection_methods": [
+      "MFA enforcement",
+      "Password uniqueness checks",
+      "Login anomaly detection"
+    ],
+    "severity_factors": [
+      "Password reuse rate",
+      "MFA absence",
+      "Account privilege"
+    ],
+    "risk_logic": "High risk when users reuse passwords.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Initial Access"
+    ],
+    "real_world_impact": "Credential stuffing has led to mass account takeovers on social and financial platforms.",
+    "keywords": [
+      "password reuse",
+      "breach exploitation",
+      "automated login abuse",
+      "account takeover"
+    ]
+  },
+  {
+    "id": "AA-03",
+    "name": "PASSWORD SPRAYING",
+    "definition": "Password spraying attempts a single common password across many accounts to avoid lockout detection.",
+    "attack_mechanism": "Attackers try weak common passwords on multiple usernames over time.",
+    "technical_indicators": [
+      "Same password attempt across many accounts",
+      "Low frequency login attempts",
+      "Distributed authentication patterns"
+    ],
+    "common_payloads": [
+      "Password123",
+      "Welcome2024",
+      "Common seasonal passwords"
+    ],
+    "detection_methods": [
+      "Strong password policies",
+      "Login anomaly monitoring",
+      "MFA enforcement"
+    ],
+    "severity_factors": [
+      "Password policy strength",
+      "Account lockout configuration",
+      "Privileged account targeting"
+    ],
+    "risk_logic": "High risk in enterprise environments with weak password policies.",
+    "mitre_attack_mapping": [
+      "Credential Access"
+    ],
+    "real_world_impact": "Password spraying is common in corporate Active Directory attacks.",
+    "keywords": [
+      "low-rate guessing",
+      "enterprise credential attack",
+      "common password abuse"
+    ]
+  },
+  {
+    "id": "AA-04",
+    "name": "KEYLOGGING",
+    "definition": "Keylogging captures keystrokes to steal login credentials.",
+    "attack_mechanism": "Attackers deploy malware that records keyboard input and transmits it to attackers.",
+    "technical_indicators": [
+      "Suspicious background processes",
+      "Outbound traffic to unknown servers",
+      "Credential compromise patterns"
+    ],
+    "common_payloads": [
+      "Software keyloggers",
+      "Hardware keylogging devices"
+    ],
+    "detection_methods": [
+      "Anti-malware tools",
+      "Behavioral monitoring",
+      "Endpoint security solutions"
+    ],
+    "severity_factors": [
+      "User privilege level",
+      "System access scope",
+      "Detection speed"
+    ],
+    "risk_logic": "High risk due to stealth credential theft.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Keyloggers have been used to steal banking and corporate credentials.",
+    "keywords": [
+      "keystroke capture",
+      "credential theft",
+      "spyware",
+      "input monitoring"
+    ]
+  },
+  {
+    "id": "AA-05",
+    "name": "MFA FATIGUE ATTACK",
+    "definition": "MFA fatigue exploits push-based multi-factor authentication systems by overwhelming users with repeated approval requests.",
+    "attack_mechanism": "Attackers trigger continuous MFA prompts until the victim accidentally approves one.",
+    "technical_indicators": [
+      "Repeated MFA push requests",
+      "User complaints about spam authentication",
+      "Successful login after multiple denials"
+    ],
+    "common_payloads": [
+      "Push notification flooding",
+      "Social engineering combined with MFA spam"
+    ],
+    "detection_methods": [
+      "Number matching MFA",
+      "Login origin validation",
+      "User awareness training"
+    ],
+    "severity_factors": [
+      "MFA implementation type",
+      "User awareness level",
+      "Monitoring presence"
+    ],
+    "risk_logic": "Critical risk when MFA approval is blindly accepted.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access"
+    ],
+    "real_world_impact": "MFA fatigue attacks have bypassed modern authentication protections.",
+    "keywords": [
+      "push bombing",
+      "MFA spam",
+      "authentication fatigue",
+      "approval abuse"
+    ]
+  },
+  {
+    "id": "AA-06",
+    "name": "SESSION FIXATION",
+    "definition": "Session Fixation occurs when an attacker forces a victim to use a known session ID, allowing the attacker to hijack the session after authentication.",
+    "attack_mechanism": "The attacker sets or predicts a session identifier before the victim logs in, then reuses it after successful authentication.",
+    "technical_indicators": [
+      "Same session ID before and after login",
+      "Suspicious session reuse",
+      "Lack of session regeneration"
+    ],
+    "common_payloads": [
+      "Fixed session cookies",
+      "URL session parameters"
+    ],
+    "detection_methods": [
+      "Regenerate session ID after login",
+      "Secure cookie flags",
+      "Session expiration controls"
+    ],
+    "severity_factors": [
+      "Privilege level of account",
+      "Session security configuration",
+      "HTTPS enforcement"
+    ],
+    "risk_logic": "High risk if session tokens are not refreshed after authentication.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Session fixation enables attackers to bypass login protections.",
+    "keywords": [
+      "session reuse",
+      "token prediction",
+      "authentication bypass",
+      "cookie manipulation"
+    ]
+  },
+  {
+    "id": "AA-07",
+    "name": "OAUTH TOKEN THEFT",
+    "definition": "OAuth Token Theft involves stealing access tokens used in OAuth-based authentication systems.",
+    "attack_mechanism": "Attackers intercept or extract OAuth access tokens through phishing, XSS, or insecure storage.",
+    "technical_indicators": [
+      "Token reuse from different IP addresses",
+      "Unusual API activity",
+      "Suspicious third-party application behavior"
+    ],
+    "common_payloads": [
+      "Stolen bearer tokens",
+      "Malicious OAuth redirects",
+      "API token replay"
+    ],
+    "detection_methods": [
+      "Short token expiration",
+      "Token binding",
+      "Secure storage mechanisms",
+      "Activity monitoring"
+    ],
+    "severity_factors": [
+      "Token privilege scope",
+      "Token expiration time",
+      "API access permissions"
+    ],
+    "risk_logic": "Critical risk if tokens grant broad API access.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Collection",
+      "Initial Access"
+    ],
+    "real_world_impact": "OAuth token theft has enabled unauthorized API access and account compromise.",
+    "keywords": [
+      "access token theft",
+      "API abuse",
+      "bearer token replay",
+      "OAuth exploitation"
+    ]
+  },
+  {
+    "id": "AA-08",
+    "name": "PASS-THE-HASH",
+    "definition": "Pass-the-Hash allows attackers to authenticate using stolen password hashes without knowing the plaintext password.",
+    "attack_mechanism": "Attackers extract hashed credentials from memory or systems and reuse them to authenticate across network services.",
+    "technical_indicators": [
+      "Authentication without password entry",
+      "Suspicious lateral movement",
+      "Repeated NTLM authentication attempts"
+    ],
+    "common_payloads": [
+      "NTLM hash reuse",
+      "Credential dumping tools"
+    ],
+    "detection_methods": [
+      "Credential Guard",
+      "Disable NTLM where possible",
+      "Network monitoring",
+      "Least privilege enforcement"
+    ],
+    "severity_factors": [
+      "Domain admin privileges",
+      "Internal network segmentation",
+      "Credential protection level"
+    ],
+    "risk_logic": "Critical risk in enterprise environments.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Pass-the-Hash attacks are common in Active Directory compromises.",
+    "keywords": [
+      "hash reuse",
+      "NTLM exploitation",
+      "credential dumping",
+      "lateral authentication abuse"
+    ]
+  },
+  {
+    "id": "AA-09",
+    "name": "GOLDEN TICKET ATTACK",
+    "definition": "Golden Ticket Attack forges Kerberos tickets to gain persistent domain-level access.",
+    "attack_mechanism": "Attackers compromise the KRBTGT account hash and generate forged Kerberos Ticket Granting Tickets (TGTs).",
+    "technical_indicators": [
+      "Unusual Kerberos ticket lifetimes",
+      "Suspicious domain admin activity",
+      "Anomalous authentication logs"
+    ],
+    "common_payloads": [
+      "Forged TGTs",
+      "Kerberos ticket manipulation"
+    ],
+    "detection_methods": [
+      "Monitor KRBTGT account changes",
+      "Kerberos log auditing",
+      "Domain controller monitoring"
+    ],
+    "severity_factors": [
+      "Domain admin access",
+      "KRBTGT compromise",
+      "Detection delay"
+    ],
+    "risk_logic": "Critical risk due to full domain control potential.",
+    "mitre_attack_mapping": [
+      "Privilege Escalation",
+      "Persistence",
+      "Credential Access"
+    ],
+    "real_world_impact": "Golden Ticket attacks grant attackers long-term control over enterprise domains.",
+    "keywords": [
+      "Kerberos forgery",
+      "domain persistence",
+      "ticket manipulation",
+      "enterprise compromise"
+    ]
+  },
+  {
+    "id": "AA-10",
+    "name": "ACCOUNT ENUMERATION",
+    "definition": "Account Enumeration identifies valid usernames through login response differences.",
+    "attack_mechanism": "Attackers analyze authentication responses to determine whether usernames exist.",
+    "technical_indicators": [
+      "Different error messages for invalid user vs password",
+      "Timing differences in login responses",
+      "Repeated username testing"
+    ],
+    "common_payloads": [
+      "Automated username probing",
+      "API login response analysis"
+    ],
+    "detection_methods": [
+      "Generic login error messages",
+      "Response time normalization",
+      "Rate limiting"
+    ],
+    "severity_factors": [
+      "Exposure of valid accounts",
+      "Integration with brute force attacks",
+      "Lack of monitoring"
+    ],
+    "risk_logic": "Medium risk alone, high risk when combined with password attacks.",
+    "mitre_attack_mapping": [
+      "Discovery",
+      "Credential Access"
+    ],
+    "real_world_impact": "Account enumeration enables targeted password attacks and phishing.",
+    "keywords": [
+      "username discovery",
+      "login probing",
+      "identity validation abuse",
+      "authentication reconnaissance"
+    ]
+  },
+  {
+    "id": "CS-01",
+    "name": "MISCONFIGURED CLOUD STORAGE",
+    "definition": "Misconfigured cloud storage occurs when cloud buckets or storage services are publicly accessible without proper access restrictions.",
+    "attack_mechanism": "Attackers scan for exposed storage buckets and access sensitive files directly via URL.",
+    "technical_indicators": [
+      "Publicly accessible cloud storage URLs",
+      "Missing access control policies",
+      "Unrestricted read/write permissions"
+    ],
+    "common_payloads": [
+      "Direct object download",
+      "File enumeration scripts",
+      "Data exfiltration automation"
+    ],
+    "detection_methods": [
+      "Access control audits",
+      "Cloud security posture management (CSPM)",
+      "Logging and monitoring"
+    ],
+    "severity_factors": [
+      "Data sensitivity",
+      "Write permissions availability",
+      "Exposure duration"
+    ],
+    "risk_logic": "Critical risk when sensitive data is publicly exposed.",
+    "mitre_attack_mapping": [
+      "Collection",
+      "Exfiltration"
+    ],
+    "real_world_impact": "Misconfigured storage has exposed millions of records including personal and corporate data.",
+    "keywords": [
+      "public bucket",
+      "cloud exposure",
+      "data leak",
+      "storage misconfiguration"
+    ]
+  },
+  {
+    "id": "CS-02",
+    "name": "CLOUD PRIVILEGE ESCALATION",
+    "definition": "Cloud privilege escalation occurs when attackers gain higher permissions within a cloud environment.",
+    "attack_mechanism": "Attackers exploit IAM misconfigurations or overly permissive roles to elevate privileges.",
+    "technical_indicators": [
+      "Unusual IAM role changes",
+      "Suspicious policy modifications",
+      "Privilege boundary violations"
+    ],
+    "common_payloads": [
+      "Role assumption abuse",
+      "Policy attachment exploitation",
+      "Token misuse"
+    ],
+    "detection_methods": [
+      "Least privilege enforcement",
+      "IAM auditing",
+      "Cloud activity logging"
+    ],
+    "severity_factors": [
+      "Role scope",
+      "Administrative access gained",
+      "Monitoring effectiveness"
+    ],
+    "risk_logic": "Critical risk if administrative cloud control is obtained.",
+    "mitre_attack_mapping": [
+      "Privilege Escalation",
+      "Persistence"
+    ],
+    "real_world_impact": "Privilege escalation enables attackers to control entire cloud environments.",
+    "keywords": [
+      "IAM abuse",
+      "role escalation",
+      "cloud admin takeover",
+      "policy exploitation"
+    ]
+  },
+  {
+    "id": "CS-03",
+    "name": "INSECURE CLOUD API",
+    "definition": "Insecure Cloud APIs expose cloud services to unauthorized access or manipulation.",
+    "attack_mechanism": "Attackers exploit weak authentication, missing validation, or exposed API endpoints.",
+    "technical_indicators": [
+      "Public API endpoints without authentication",
+      "Excessive API error responses",
+      "Unusual API request volume"
+    ],
+    "common_payloads": [
+      "API parameter manipulation",
+      "Token abuse",
+      "Unauthorized data queries"
+    ],
+    "detection_methods": [
+      "API authentication enforcement",
+      "Rate limiting",
+      "API gateway security"
+    ],
+    "severity_factors": [
+      "API privilege scope",
+      "Data sensitivity",
+      "Rate limiting presence"
+    ],
+    "risk_logic": "High to critical risk depending on API exposure.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Insecure APIs have enabled large-scale cloud data breaches.",
+    "keywords": [
+      "API exposure",
+      "cloud endpoint abuse",
+      "unauthorized API access",
+      "service manipulation"
+    ]
+  },
+  {
+    "id": "CS-04",
+    "name": "CLOUD ACCOUNT HIJACKING",
+    "definition": "Cloud account hijacking occurs when attackers gain control of cloud accounts through stolen credentials.",
+    "attack_mechanism": "Attackers use phishing, credential stuffing, or token theft to access cloud consoles.",
+    "technical_indicators": [
+      "Login from unusual geolocations",
+      "Privilege escalation after login",
+      "Suspicious resource creation"
+    ],
+    "common_payloads": [
+      "Stolen API keys",
+      "Compromised console credentials",
+      "Token replay"
+    ],
+    "detection_methods": [
+      "MFA enforcement",
+      "Cloud login monitoring",
+      "Conditional access policies"
+    ],
+    "severity_factors": [
+      "Account privilege level",
+      "Monitoring presence",
+      "Credential protection"
+    ],
+    "risk_logic": "Critical risk if root or admin account is compromised.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Persistence",
+      "Privilege Escalation"
+    ],
+    "real_world_impact": "Cloud hijacking has resulted in cryptomining abuse and data theft.",
+    "keywords": [
+      "cloud credential theft",
+      "console compromise",
+      "API key abuse",
+      "account takeover"
+    ]
+  },
+  {
+    "id": "CS-05",
+    "name": "CONTAINER ESCAPE",
+    "definition": "Container escape occurs when attackers break out of a containerized environment to access the host system.",
+    "attack_mechanism": "Attackers exploit container runtime vulnerabilities or misconfigurations to gain host-level access.",
+    "technical_indicators": [
+      "Suspicious container privilege flags",
+      "Unexpected host process access",
+      "Container runtime anomalies"
+    ],
+    "common_payloads": [
+      "Privileged container abuse",
+      "Host file system access",
+      "Kernel exploit usage"
+    ],
+    "detection_methods": [
+      "Least privilege container configuration",
+      "Runtime monitoring",
+      "Kernel patching"
+    ],
+    "severity_factors": [
+      "Host exposure level",
+      "Container privilege settings",
+      "Monitoring effectiveness"
+    ],
+    "risk_logic": "Critical risk when host control is achieved.",
+    "mitre_attack_mapping": [
+      "Privilege Escalation",
+      "Lateral Movement"
+    ],
+    "real_world_impact": "Container escapes enable attackers to compromise cloud infrastructure nodes.",
+    "keywords": [
+      "container breakout",
+      "runtime exploit",
+      "host compromise",
+      "cloud workload attack"
+    ]
+  },
+  {
+    "id": "CS-06",
+    "name": "SERVERLESS EXPLOITATION",
+    "definition": "Serverless exploitation targets vulnerabilities in cloud-based function services (FaaS).",
+    "attack_mechanism": "Attackers abuse insecure function triggers, environment variables, or excessive permissions to execute malicious logic.",
+    "technical_indicators": [
+      "Unusual function invocation spikes",
+      "Suspicious environment variable access",
+      "Unauthorized outbound connections"
+    ],
+    "common_payloads": [
+      "Malicious function code injection",
+      "Trigger manipulation",
+      "API abuse through serverless endpoints"
+    ],
+    "detection_methods": [
+      "Least privilege IAM roles",
+      "Function logging and monitoring",
+      "Input validation"
+    ],
+    "severity_factors": [
+      "Function privilege scope",
+      "External connectivity permissions",
+      "Monitoring coverage"
+    ],
+    "risk_logic": "High to critical risk depending on function privileges.",
+    "mitre_attack_mapping": [
+      "Execution",
+      "Persistence",
+      "Privilege Escalation"
+    ],
+    "real_world_impact": "Serverless abuse can enable data theft and backdoor persistence in cloud applications.",
+    "keywords": [
+      "FaaS exploitation",
+      "cloud function abuse",
+      "event trigger manipulation",
+      "serverless privilege abuse"
+    ]
+  },
+  {
+    "id": "CS-07",
+    "name": "CLOUD METADATA SERVICE ABUSE",
+    "definition": "Cloud metadata service abuse occurs when attackers access instance metadata endpoints to steal temporary credentials.",
+    "attack_mechanism": "Attackers exploit SSRF or local access to retrieve sensitive metadata, including access tokens and IAM credentials.",
+    "technical_indicators": [
+      "Requests to metadata IP addresses",
+      "Unusual internal HTTP requests",
+      "Credential exposure patterns"
+    ],
+    "common_payloads": [
+      "Metadata endpoint queries",
+      "Token extraction scripts",
+      "Credential replay"
+    ],
+    "detection_methods": [
+      "Disable metadata where unnecessary",
+      "Require IMDSv2",
+      "Network filtering"
+    ],
+    "severity_factors": [
+      "IAM role permissions",
+      "Metadata protection configuration",
+      "Internal segmentation"
+    ],
+    "risk_logic": "Critical risk when privileged tokens are exposed.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Privilege Escalation"
+    ],
+    "real_world_impact": "Metadata abuse has enabled full cloud takeover after SSRF exploitation.",
+    "keywords": [
+      "instance metadata theft",
+      "temporary credential abuse",
+      "cloud token extraction",
+      "internal endpoint exploitation"
+    ]
+  },
+  {
+    "id": "CS-08",
+    "name": "SHADOW IT EXPOSURE",
+    "definition": "Shadow IT exposure occurs when unauthorized cloud services are used without security oversight.",
+    "attack_mechanism": "Employees deploy or use cloud applications outside approved security controls.",
+    "technical_indicators": [
+      "Unknown SaaS usage",
+      "Unmonitored cloud accounts",
+      "Unsanctioned API integrations"
+    ],
+    "common_payloads": [
+      "Third-party SaaS accounts",
+      "External data storage applications",
+      "Unapproved collaboration tools"
+    ],
+    "detection_methods": [
+      "Cloud access security broker (CASB)",
+      "Network traffic monitoring",
+      "SaaS discovery tools"
+    ],
+    "severity_factors": [
+      "Data sensitivity",
+      "Access control absence",
+      "Monitoring gaps"
+    ],
+    "risk_logic": "Medium to high risk depending on data exposure.",
+    "mitre_attack_mapping": [
+      "Discovery",
+      "Exfiltration"
+    ],
+    "real_world_impact": "Shadow IT increases attack surface and bypasses centralized security policies.",
+    "keywords": [
+      "unauthorized SaaS",
+      "unmonitored cloud usage",
+      "IT bypass",
+      "data exposure risk"
+    ]
+  },
+  {
+    "id": "CS-09",
+    "name": "DATA RESIDENCY VIOLATIONS",
+    "definition": "Data residency violations occur when sensitive data is stored or processed in unauthorized geographic regions.",
+    "attack_mechanism": "Improper cloud configuration causes data to be replicated or stored outside regulatory boundaries.",
+    "technical_indicators": [
+      "Cross-region replication logs",
+      "Unexpected storage region settings",
+      "Compliance audit failures"
+    ],
+    "common_payloads": [
+      "Cross-region data transfers",
+      "Misconfigured storage policies"
+    ],
+    "detection_methods": [
+      "Region restrictions",
+      "Compliance auditing tools",
+      "Cloud governance enforcement"
+    ],
+    "severity_factors": [
+      "Regulatory impact",
+      "Data sensitivity level",
+      "Detection delay"
+    ],
+    "risk_logic": "High risk due to legal and compliance penalties.",
+    "mitre_attack_mapping": [
+      "Exfiltration",
+      "Impact"
+    ],
+    "real_world_impact": "Data residency violations can lead to heavy fines and regulatory action.",
+    "keywords": [
+      "compliance breach",
+      "cross-border data storage",
+      "cloud governance failure",
+      "regulatory violation"
+    ]
+  },
+  {
+    "id": "CS-10",
+    "name": "CLOUD CRYPTOMINING ABUSE",
+    "definition": "Cloud cryptomining abuse occurs when attackers compromise cloud accounts to run cryptocurrency mining workloads.",
+    "attack_mechanism": "Attackers hijack cloud resources and deploy mining software, consuming compute power and increasing costs.",
+    "technical_indicators": [
+      "Unexpected high CPU usage",
+      "Creation of large compute instances",
+      "Outbound connections to mining pools"
+    ],
+    "common_payloads": [
+      "Mining scripts",
+      "Compromised cloud instances",
+      "Automated resource scaling abuse"
+    ],
+    "detection_methods": [
+      "Cloud cost monitoring",
+      "Resource usage alerts",
+      "Anomaly detection"
+    ],
+    "severity_factors": [
+      "Compute resource limits",
+      "Billing alert configuration",
+      "Account privilege level"
+    ],
+    "risk_logic": "High financial and operational risk.",
+    "mitre_attack_mapping": [
+      "Resource Hijacking",
+      "Persistence"
+    ],
+    "real_world_impact": "Cloud cryptomining attacks cause massive unexpected cloud bills and service disruption.",
+    "keywords": [
+      "cloud mining",
+      "resource hijacking",
+      "unauthorized compute usage",
+      "financial exploitation"
+    ]
+  },
+  {
+    "id": "CA-01",
+    "name": "MAN-IN-THE-MIDDLE TLS DOWNGRADE",
+    "definition": "TLS downgrade attacks force a connection to use weaker encryption protocols.",
+    "attack_mechanism": "Attackers intercept communication and manipulate handshake negotiation to downgrade encryption standards.",
+    "technical_indicators": [
+      "Unexpected TLS version downgrade",
+      "Weak cipher suite usage",
+      "SSL warnings"
+    ],
+    "common_payloads": [
+      "Protocol downgrade manipulation",
+      "Weak cipher enforcement"
+    ],
+    "detection_methods": [
+      "Enforce minimum TLS version",
+      "Disable legacy protocols",
+      "Certificate pinning"
+    ],
+    "severity_factors": [
+      "Protocol version enforced",
+      "Cipher strength",
+      "User awareness"
+    ],
+    "risk_logic": "High risk when weak encryption is forced.",
+    "mitre_attack_mapping": [
+      "Adversary-in-the-Middle",
+      "Defense Evasion"
+    ],
+    "real_world_impact": "TLS downgrade enables traffic decryption and credential theft.",
+    "keywords": [
+      "protocol downgrade",
+      "weak cipher exploitation",
+      "TLS manipulation",
+      "encryption weakening"
+    ]
+  },
+  {
+    "id": "CA-02",
+    "name": "HASH COLLISION ATTACK",
+    "definition": "A hash collision attack generates two inputs that produce the same hash value.",
+    "attack_mechanism": "Attackers exploit weak hash algorithms to forge digital signatures or integrity checks.",
+    "technical_indicators": [
+      "Use of deprecated hash algorithms (e.g., MD5, SHA1)",
+      "Signature verification anomalies"
+    ],
+    "common_payloads": [
+      "Forged certificates",
+      "Malicious file replacement"
+    ],
+    "detection_methods": [
+      "Use SHA-256 or stronger",
+      "Deprecate legacy hash functions",
+      "Certificate monitoring"
+    ],
+    "severity_factors": [
+      "Hash algorithm strength",
+      "Digital signature dependency",
+      "System trust model"
+    ],
+    "risk_logic": "Critical risk in certificate-based systems.",
+    "mitre_attack_mapping": [
+      "Defense Evasion",
+      "Credential Access"
+    ],
+    "real_world_impact": "Hash collision attacks have compromised digital certificate trust.",
+    "keywords": [
+      "hash forgery",
+      "collision exploit",
+      "digital signature bypass",
+      "integrity compromise"
+    ]
+  },
+  {
+    "id": "CA-03",
+    "name": "BRUTE FORCE CRYPTOGRAPHIC KEY ATTACK",
+    "definition": "A brute force key attack attempts all possible key combinations to decrypt protected data.",
+    "attack_mechanism": "Attackers use computational power to systematically guess encryption keys.",
+    "technical_indicators": [
+      "Repeated decryption attempts",
+      "Suspicious computational workload",
+      "Weak key length usage"
+    ],
+    "common_payloads": [
+      "Key guessing scripts",
+      "GPU-based cracking tools"
+    ],
+    "detection_methods": [
+      "Strong key lengths (256-bit+)",
+      "Rate limiting attempts",
+      "Key rotation"
+    ],
+    "severity_factors": [
+      "Key length",
+      "Algorithm strength",
+      "Computational resources"
+    ],
+    "risk_logic": "High risk with weak encryption keys.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Weak encryption keys have led to data decryption by attackers.",
+    "keywords": [
+      "key cracking",
+      "cryptographic brute force",
+      "weak key exploitation",
+      "decryption attack"
+    ]
+  },
+  {
+    "id": "CA-04",
+    "name": "SIDE-CHANNEL ATTACK",
+    "definition": "Side-channel attacks extract cryptographic secrets by analyzing physical implementation leaks such as timing or power consumption.",
+    "attack_mechanism": "Attackers observe timing differences, power usage, or electromagnetic signals to infer secret keys.",
+    "technical_indicators": [
+      "Timing response inconsistencies",
+      "Hardware anomaly patterns"
+    ],
+    "common_payloads": [
+      "Timing attack scripts",
+      "Cache-based extraction methods"
+    ],
+    "detection_methods": [
+      "Constant-time implementations",
+      "Hardware isolation",
+      "Secure enclave usage"
+    ],
+    "severity_factors": [
+      "Physical or local access",
+      "Implementation design",
+      "Monitoring controls"
+    ],
+    "risk_logic": "Medium to critical depending on access level.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Side-channel attacks have extracted private cryptographic keys from hardware.",
+    "keywords": [
+      "timing attack",
+      "power analysis",
+      "hardware leakage",
+      "crypto key extraction"
+    ]
+  },
+  {
+    "id": "CA-05",
+    "name": "REPLAY ATTACK",
+    "definition": "A replay attack reuses captured encrypted data to repeat a valid transaction or authentication.",
+    "attack_mechanism": "Attackers capture legitimate encrypted messages and resend them to gain unauthorized access.",
+    "technical_indicators": [
+      "Duplicate authentication requests",
+      "Repeated transaction identifiers",
+      "Nonce reuse detection"
+    ],
+    "common_payloads": [
+      "Token replay",
+      "Authentication packet reuse"
+    ],
+    "detection_methods": [
+      "Nonce implementation",
+      "Timestamp validation",
+      "Token expiration"
+    ],
+    "severity_factors": [
+      "Session management design",
+      "Token uniqueness",
+      "Expiration enforcement"
+    ],
+    "risk_logic": "High risk if nonces or timestamps are absent.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Initial Access"
+    ],
+    "real_world_impact": "Replay attacks have bypassed authentication systems.",
+    "keywords": [
+      "packet replay",
+      "token reuse",
+      "authentication duplication",
+      "nonce bypass"
+    ]
+  },
+  {
+    "id": "CA-06",
+    "name": "PADDING ORACLE ATTACK",
+    "definition": "Padding Oracle Attack exploits padding validation weaknesses in block cipher encryption modes such as CBC.",
+    "attack_mechanism": "Attackers manipulate encrypted ciphertext blocks and observe server responses to gradually decrypt protected data.",
+    "technical_indicators": [
+      "Distinct padding error responses",
+      "Repeated modified ciphertext submissions",
+      "Abnormal decryption failure patterns"
+    ],
+    "common_payloads": [
+      "Modified ciphertext blocks",
+      "Adaptive decryption scripts"
+    ],
+    "detection_methods": [
+      "Uniform error responses",
+      "Use authenticated encryption (e.g., AES-GCM)",
+      "Disable vulnerable cipher modes"
+    ],
+    "severity_factors": [
+      "Encryption mode used",
+      "Error message exposure",
+      "Rate limiting presence"
+    ],
+    "risk_logic": "High risk in legacy encryption systems.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Collection"
+    ],
+    "real_world_impact": "Padding oracle vulnerabilities have enabled decryption of secure session data.",
+    "keywords": [
+      "CBC exploit",
+      "ciphertext manipulation",
+      "adaptive decryption",
+      "padding validation flaw"
+    ]
+  },
+  {
+    "id": "CA-07",
+    "name": "GENERAL PROTOCOL DOWNGRADE ATTACK",
+    "definition": "Protocol downgrade attacks force systems to use weaker security protocols.",
+    "attack_mechanism": "Attackers interfere during negotiation to downgrade encryption or authentication protocols.",
+    "technical_indicators": [
+      "Unexpected fallback to legacy protocols",
+      "Weak cipher negotiation logs",
+      "Repeated handshake anomalies"
+    ],
+    "common_payloads": [
+      "Forced SSL fallback",
+      "Legacy authentication enforcement"
+    ],
+    "detection_methods": [
+      "Disable deprecated protocols",
+      "Enforce strict negotiation policies",
+      "Certificate validation enforcement"
+    ],
+    "severity_factors": [
+      "Legacy protocol support",
+      "Strict transport security configuration",
+      "Client compatibility settings"
+    ],
+    "risk_logic": "High risk if weak protocols remain enabled.",
+    "mitre_attack_mapping": [
+      "Defense Evasion",
+      "Adversary-in-the-Middle"
+    ],
+    "real_world_impact": "Protocol downgrade attacks weaken encrypted channels and expose data to interception.",
+    "keywords": [
+      "protocol fallback",
+      "legacy encryption abuse",
+      "handshake manipulation",
+      "security downgrade"
+    ]
+  },
+  {
+    "id": "CA-08",
+    "name": "WEAK RANDOM NUMBER GENERATION",
+    "definition": "Weak random number generation compromises the unpredictability of cryptographic keys or tokens.",
+    "attack_mechanism": "Attackers exploit predictable random values to guess session IDs, keys, or tokens.",
+    "technical_indicators": [
+      "Repeated or predictable tokens",
+      "Low entropy detection",
+      "Similar session identifiers"
+    ],
+    "common_payloads": [
+      "Predictable session ID sequences",
+      "Key generation flaws"
+    ],
+    "detection_methods": [
+      "Use cryptographically secure RNG",
+      "Entropy monitoring",
+      "Regular security testing"
+    ],
+    "severity_factors": [
+      "Key generation method",
+      "Entropy source quality",
+      "Token lifetime"
+    ],
+    "risk_logic": "Critical risk when cryptographic keys are predictable.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Persistence"
+    ],
+    "real_world_impact": "Weak randomness has enabled session hijacking and key prediction attacks.",
+    "keywords": [
+      "low entropy",
+      "predictable token",
+      "insecure RNG",
+      "key generation flaw"
+    ]
+  },
+  {
+    "id": "CA-09",
+    "name": "CERTIFICATE FORGERY",
+    "definition": "Certificate forgery involves creating fraudulent digital certificates to impersonate trusted entities.",
+    "attack_mechanism": "Attackers exploit weak validation, compromised certificate authorities, or hash collisions to generate fake certificates.",
+    "technical_indicators": [
+      "Untrusted certificate chains",
+      "Unexpected issuer details",
+      "Certificate signature anomalies"
+    ],
+    "common_payloads": [
+      "Fake SSL certificates",
+      "Forged signing certificates"
+    ],
+    "detection_methods": [
+      "Certificate transparency monitoring",
+      "Strong certificate validation",
+      "Revocation checking (OCSP/CRL)"
+    ],
+    "severity_factors": [
+      "Trust chain impact",
+      "CA compromise level",
+      "Detection speed"
+    ],
+    "risk_logic": "Critical risk in PKI-dependent environments.",
+    "mitre_attack_mapping": [
+      "Defense Evasion",
+      "Credential Access"
+    ],
+    "real_world_impact": "Certificate forgery can enable large-scale phishing and traffic interception.",
+    "keywords": [
+      "fake certificate",
+      "PKI abuse",
+      "certificate spoofing",
+      "trust chain compromise"
+    ]
+  },
+  {
+    "id": "CA-10",
+    "name": "KEY MANAGEMENT FAILURE",
+    "definition": "Key management failure occurs when cryptographic keys are improperly stored, rotated, or protected.",
+    "attack_mechanism": "Attackers access exposed keys through misconfiguration, hardcoded secrets, or insecure storage.",
+    "technical_indicators": [
+      "Hardcoded keys in source code",
+      "Public repository secret exposure",
+      "Missing key rotation logs"
+    ],
+    "common_payloads": [
+      "Exposed API keys",
+      "Hardcoded encryption secrets",
+      "Secret repository scraping"
+    ],
+    "detection_methods": [
+      "Secure key vault usage",
+      "Automated secret scanning",
+      "Key rotation policies"
+    ],
+    "severity_factors": [
+      "Key exposure scope",
+      "Privilege level tied to key",
+      "Detection delay"
+    ],
+    "risk_logic": "Critical risk when master keys are exposed.",
+    "mitre_attack_mapping": [
+      "Credential Access",
+      "Collection",
+      "Persistence"
+    ],
+    "real_world_impact": "Poor key management has led to large-scale cloud and API breaches.",
+    "keywords": [
+      "secret exposure",
+      "hardcoded key",
+      "cryptographic mismanagement",
+      "API key leak"
+    ]
+  },
+  {
+    "id": "SC-01",
+    "name": "SOFTWARE SUPPLY CHAIN COMPROMISE",
+    "definition": "Software supply chain compromise occurs when attackers inject malicious code into legitimate software updates or build processes.",
+    "attack_mechanism": "Attackers infiltrate vendor development or build environments and distribute backdoored software updates to downstream customers through trusted channels.",
+    "technical_indicators": [
+      "Unexpected behavior after legitimate updates",
+      "Suspicious outbound network connections",
+      "Software integrity verification mismatches",
+      "Unusual code signing anomalies"
+    ],
+    "common_payloads": [
+      "Backdoored software updates",
+      "Trojanized installers",
+      "Malicious software packages",
+      "Embedded remote access backdoors"
+    ],
+    "detection_methods": [
+      "Code signing validation",
+      "Software integrity monitoring",
+      "Secure build pipeline auditing",
+      "Vendor security assessments"
+    ],
+    "severity_factors": [
+      "Distribution scale of compromised software",
+      "Privilege level of affected applications",
+      "Detection delay",
+      "Trust level of update channel"
+    ],
+    "risk_logic": "Critical risk due to abuse of trusted update mechanisms and large-scale distribution impact.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Persistence",
+      "Supply Chain Compromise"
+    ],
+    "real_world_impact": "Has led to widespread compromise of organizations through trusted vendor software updates.",
+    "keywords": [
+      "trojanized update",
+      "vendor build compromise",
+      "malicious code injection",
+      "trusted software abuse"
+    ]
+  },
+  {
+    "id": "SC-02",
+    "name": "DEPENDENCY CONFUSION",
+    "definition": "Dependency confusion is a supply chain attack technique where attackers upload malicious packages with the same name as internal or private libraries to public repositories.",
+    "attack_mechanism": "Attackers publish higher-version malicious packages to public package repositories, causing automated build systems to download and execute them instead of intended internal dependencies.",
+    "technical_indicators": [
+      "Unexpected external package downloads during build",
+      "Version mismatch warnings",
+      "Unknown package source references",
+      "Unrecognized dependency resolution behavior"
+    ],
+    "common_payloads": [
+      "Malicious npm packages",
+      "Trojanized Python modules",
+      "Backdoored dependency libraries",
+      "Embedded remote execution scripts"
+    ],
+    "detection_methods": [
+      "Private repository enforcement",
+      "Dependency version pinning",
+      "Integrity hash verification",
+      "Continuous CI/CD monitoring"
+    ],
+    "severity_factors": [
+      "Automated build pipeline configuration",
+      "Repository priority misconfiguration",
+      "Lack of dependency validation",
+      "Insufficient code review processes"
+    ],
+    "risk_logic": "High risk in automated CI/CD environments where external repositories are prioritized over private packages.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Persistence"
+    ],
+    "real_world_impact": "Has resulted in remote code execution and data exfiltration within enterprise development environments.",
+    "keywords": [
+      "package poisoning",
+      "repository hijacking",
+      "malicious dependency",
+      "build pipeline attack"
+    ]
+  },
+  {
+    "id": "SC-03",
+    "name": "MALICIOUS OPEN-SOURCE CONTRIBUTION",
+    "definition": "Malicious open-source contribution occurs when attackers intentionally introduce harmful code into publicly available projects to compromise downstream users.",
+    "attack_mechanism": "Attackers submit pull requests containing hidden backdoors or subtle malicious logic that gets merged into widely used open-source repositories.",
+    "technical_indicators": [
+      "Suspicious commit history from new contributors",
+      "Obfuscated or unnecessary complex logic in updates",
+      "Unexpected network communication after software updates",
+      "Unexplained permission changes in codebase"
+    ],
+    "common_payloads": [
+      "Hidden backdoor functions",
+      "Credential exfiltration routines",
+      "Remote command execution logic",
+      "Stealth data collection modules"
+    ],
+    "detection_methods": [
+      "Strict code review processes",
+      "Contributor identity verification",
+      "Static and dynamic code analysis",
+      "Automated security scanning tools"
+    ],
+    "severity_factors": [
+      "Popularity and adoption level of the project",
+      "Depth of code review practices",
+      "Speed of update distribution",
+      "Trust level within developer community"
+    ],
+    "risk_logic": "High to critical risk depending on the reach and dependency level of the compromised project.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Persistence"
+    ],
+    "real_world_impact": "Can impact thousands of dependent applications across enterprise and consumer ecosystems.",
+    "keywords": [
+      "malicious commit",
+      "open-source poisoning",
+      "backdoor contribution",
+      "library compromise"
+    ]
+  },
+  {
+    "id": "SC-04",
+    "name": "THIRD-PARTY SERVICE PROVIDER BREACH",
+    "definition": "Third-party service provider breach occurs when attackers compromise external vendors to gain indirect access to client organizations.",
+    "attack_mechanism": "Attackers infiltrate managed service providers or SaaS platforms and leverage trusted access relationships to pivot into customer environments.",
+    "technical_indicators": [
+      "Simultaneous security incidents across multiple clients",
+      "Suspicious access via vendor-managed accounts",
+      "Abnormal API activity linked to third-party services",
+      "Unexpected administrative actions from external sources"
+    ],
+    "common_payloads": [
+      "Compromised vendor credentials",
+      "Abuse of remote management tools",
+      "Shared infrastructure exploitation",
+      "Privileged account misuse"
+    ],
+    "detection_methods": [
+      "Vendor access activity monitoring",
+      "Zero trust architecture implementation",
+      "Third-party risk assessments",
+      "Multi-factor authentication enforcement"
+    ],
+    "severity_factors": [
+      "Vendor privilege level within client networks",
+      "Depth of system integration",
+      "Monitoring and logging effectiveness",
+      "Number of downstream customers affected"
+    ],
+    "risk_logic": "Critical risk due to trusted external access and potential multi-organization compromise.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Lateral Movement",
+      "Persistence"
+    ],
+    "real_world_impact": "Has led to widespread multi-organization breaches through compromised trusted vendors.",
+    "keywords": [
+      "MSP compromise",
+      "SaaS breach",
+      "vendor pivot attack",
+      "trusted partner exploitation"
+    ]
+  },
+  {
+    "id": "SC-05",
+    "name": "HARDWARE SUPPLY CHAIN TAMPERING",
+    "definition": "Hardware supply chain tampering involves the insertion or modification of physical components before delivery to target organizations.",
+    "attack_mechanism": "Attackers implant malicious firmware or hardware modifications during manufacturing, distribution, or shipping phases.",
+    "technical_indicators": [
+      "Firmware integrity verification failures",
+      "Unexpected hardware-level behavior",
+      "BIOS or bootloader anomalies",
+      "Unauthorized firmware configuration changes"
+    ],
+    "common_payloads": [
+      "Malicious firmware implants",
+      "Hardware-level backdoors",
+      "Embedded surveillance components",
+      "Compromised boot mechanisms"
+    ],
+    "detection_methods": [
+      "Hardware integrity validation",
+      "Secure boot enforcement",
+      "Firmware signature verification",
+      "Vendor supply chain auditing"
+    ],
+    "severity_factors": [
+      "Physical security controls",
+      "Deployment scale of affected hardware",
+      "Detection capability maturity",
+      "Criticality of compromised systems"
+    ],
+    "risk_logic": "Critical risk due to deep system-level persistence and difficulty of detection.",
+    "mitre_attack_mapping": [
+      "Persistence",
+      "Privilege Escalation",
+      "Supply Chain Compromise"
+    ],
+    "real_world_impact": "Enables long-term stealth espionage and low-level system compromise across targeted organizations.",
+    "keywords": [
+      "firmware implant",
+      "hardware backdoor",
+      "pre-deployment compromise",
+      "supply chain hardware attack"
+    ]
+  },
+  {
+    "id": "IT-01",
+    "name": "MALICIOUS INSIDER",
+    "definition": "A malicious insider intentionally abuses authorized access to steal data, sabotage systems, or disrupt organizational operations.",
+    "attack_mechanism": "The insider leverages legitimate credentials to exfiltrate data, delete assets, introduce backdoors, or manipulate internal systems for personal or external gain.",
+    "technical_indicators": [
+      "Large data downloads before resignation",
+      "Privileged access outside working hours",
+      "Access to unrelated systems",
+      "Unusual database queries by authorized users"
+    ],
+    "common_payloads": [
+      "Data exfiltration scripts",
+      "Unauthorized database exports",
+      "Backdoor installation tools",
+      "System manipulation commands"
+    ],
+    "detection_methods": [
+      "User Behavior Analytics (UBA)",
+      "Privileged access monitoring",
+      "Data Loss Prevention (DLP)",
+      "Comprehensive activity logging"
+    ],
+    "severity_factors": [
+      "Access privilege level",
+      "Data sensitivity",
+      "Monitoring maturity",
+      "Separation of duties enforcement"
+    ],
+    "risk_logic": "Critical risk when highly privileged insiders intentionally abuse legitimate access.",
+    "mitre_attack_mapping": [
+      "Exfiltration",
+      "Impact",
+      "Credential Access"
+    ],
+    "real_world_impact": "Malicious insiders have caused significant intellectual property theft, operational sabotage, and financial damage.",
+    "keywords": [
+      "internal sabotage",
+      "authorized abuse",
+      "data theft",
+      "privilege misuse"
+    ]
+  },
+  {
+    "id": "IT-02",
+    "name": "NEGLIGENT INSIDER",
+    "definition": "A negligent insider unintentionally exposes sensitive information through careless or unintentional actions.",
+    "attack_mechanism": "Employees mishandle confidential data, fall victim to phishing attacks, reuse weak passwords, or misconfigure systems without malicious intent.",
+    "technical_indicators": [
+      "Upload of sensitive files to public platforms",
+      "Credential sharing between employees",
+      "Phishing-based account compromise",
+      "Misconfigured cloud storage exposure"
+    ],
+    "common_payloads": [
+      "Publicly shared confidential documents",
+      "Weak or reused passwords",
+      "Unsecured cloud storage buckets",
+      "Accidental email forwarding of sensitive data"
+    ],
+    "detection_methods": [
+      "Security awareness training programs",
+      "Access restriction and least privilege policies",
+      "Monitoring file-sharing activity",
+      "Email and cloud configuration auditing"
+    ],
+    "severity_factors": [
+      "Data classification level",
+      "Employee awareness maturity",
+      "Monitoring coverage",
+      "Incident response readiness"
+    ],
+    "risk_logic": "Medium to high risk depending on the level of exposure and data sensitivity.",
+    "mitre_attack_mapping": [
+      "Initial Access",
+      "Exfiltration"
+    ],
+    "real_world_impact": "Negligent insiders are a leading cause of accidental data breaches and regulatory violations.",
+    "keywords": [
+      "human error",
+      "misconfiguration",
+      "accidental exposure",
+      "careless credential handling"
+    ]
+  },
+  {
+    "id": "IT-03",
+    "name": "PRIVILEGE MISUSE",
+    "definition": "Privilege misuse occurs when an employee uses elevated permissions beyond their authorized job responsibilities.",
+    "attack_mechanism": "An insider accesses confidential systems or modifies sensitive data outside assigned duties, intentionally or opportunistically.",
+    "technical_indicators": [
+      "Access to unauthorized systems",
+      "Role boundary violations",
+      "Unauthorized sensitive data queries",
+      "Modification of audit logs"
+    ],
+    "common_payloads": [
+      "Database manipulation commands",
+      "Unauthorized record alteration",
+      "Audit trail tampering",
+      "Configuration changes without approval"
+    ],
+    "detection_methods": [
+      "Least privilege enforcement",
+      "Role-Based Access Control (RBAC)",
+      "Continuous activity auditing",
+      "Privileged session monitoring"
+    ],
+    "severity_factors": [
+      "Level of granted privilege",
+      "Data sensitivity involved",
+      "Strength of logging mechanisms",
+      "Separation of duties enforcement"
+    ],
+    "risk_logic": "High risk in environments lacking strict access governance and monitoring.",
+    "mitre_attack_mapping": [
+      "Privilege Escalation",
+      "Impact"
+    ],
+    "real_world_impact": "Privilege misuse undermines internal trust, compliance requirements, and organizational security posture.",
+    "keywords": [
+      "access abuse",
+      "role violation",
+      "internal overreach",
+      "authorization bypass"
+    ]
+  },
+  {
+    "id": "IT-04",
+    "name": "DATA EXFILTRATION BY INSIDER",
+    "definition": "Insider data exfiltration involves the unauthorized transfer of sensitive organizational data to external locations.",
+    "attack_mechanism": "Insiders copy files to external drives, personal cloud storage, email accounts, or remote servers for unauthorized purposes.",
+    "technical_indicators": [
+      "Large file transfers to external destinations",
+      "USB device activity spikes",
+      "Suspicious outbound cloud uploads",
+      "Creation of unusual email forwarding rules"
+    ],
+    "common_payloads": [
+      "Bulk database exports",
+      "Intellectual property archives",
+      "Encrypted data bundles",
+      "Mass file compression activities"
+    ],
+    "detection_methods": [
+      "Data Loss Prevention (DLP) solutions",
+      "Endpoint monitoring tools",
+      "Network traffic analysis",
+      "USB device control policies"
+    ],
+    "severity_factors": [
+      "Data classification level",
+      "Monitoring coverage",
+      "Exit controls for employees",
+      "Encryption and logging practices"
+    ],
+    "risk_logic": "Critical risk when trade secrets, customer data, or regulated information are transferred externally.",
+    "mitre_attack_mapping": [
+      "Exfiltration",
+      "Collection"
+    ],
+    "real_world_impact": "Insider exfiltration has resulted in corporate espionage, competitive disadvantage, and regulatory penalties.",
+    "keywords": [
+      "internal data leak",
+      "USB copying",
+      "email forwarding abuse",
+      "intellectual property theft"
+    ]
+  },
+  {
+    "id": "IT-05",
+    "name": "SABOTAGE BY INSIDER",
+    "definition": "Sabotage by insider occurs when an authorized individual intentionally damages systems, deletes data, or disrupts business operations.",
+    "attack_mechanism": "The insider deletes backups, alters system configurations, disables security controls, or intentionally disrupts services.",
+    "technical_indicators": [
+      "Sudden deletion of critical files",
+      "Disabled logging mechanisms",
+      "Service disruption linked to internal accounts",
+      "Unauthorized configuration changes"
+    ],
+    "common_payloads": [
+      "Data wiping scripts",
+      "Backup deletion commands",
+      "Security control disablement tools",
+      "System configuration manipulation"
+    ],
+    "detection_methods": [
+      "Separation of duties enforcement",
+      "Backup integrity monitoring",
+      "Comprehensive activity logging",
+      "Real-time alerting for critical actions"
+    ],
+    "severity_factors": [
+      "Administrative privilege level",
+      "Backup resilience and redundancy",
+      "Incident response speed",
+      "Monitoring effectiveness"
+    ],
+    "risk_logic": "Critical risk due to potential operational disruption and financial damage.",
+    "mitre_attack_mapping": [
+      "Impact",
+      "Defense Evasion"
+    ],
+    "real_world_impact": "Insider sabotage can halt business operations and cause long-term reputational and financial harm.",
+    "keywords": [
+      "internal destruction",
+      "backup deletion",
+      "operational sabotage",
+      "system disruption"
+    ]
+  }
+]

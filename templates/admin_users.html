@@ -1,0 +1,319 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="space-y-8">
+  <!-- Enhanced Page Header -->
+  <div class="mb-10">
+    <div class="flex items-center gap-4 mb-3">
+      <div
+        class="p-3 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-2xl border border-amber-500/30"
+      >
+        <i class="ph-fill ph-users-three text-amber-400 text-3xl"></i>
+      </div>
+      <div>
+        <h1 class="text-4xl font-black text-white tracking-tight">
+          User Management
+        </h1>
+        <p class="text-slate-400 mt-1">
+          Manage registered users and their permissions
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Total Users -->
+    <div
+      class="glass-panel p-6 rounded-2xl border-t-4 border-t-blue-500 hover:scale-105 transition-all duration-500 group cursor-default"
+    >
+      <div class="flex items-center justify-between mb-6">
+        <div class="relative">
+          <div
+            class="absolute inset-0 bg-blue-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"
+          ></div>
+          <div
+            class="relative p-4 bg-blue-500/10 rounded-xl group-hover:bg-blue-500/20 transition-colors"
+          >
+            <i class="ph-fill ph-users text-blue-400 text-3xl"></i>
+          </div>
+        </div>
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 py-1 bg-slate-800/50 rounded-full"
+          >Total</span
+        >
+      </div>
+      <div class="space-y-2">
+        <div
+          class="text-5xl font-black text-white group-hover:text-blue-400 transition-colors"
+        >
+          {{ users|length }}
+        </div>
+        <div
+          class="text-xs font-semibold text-slate-400 uppercase tracking-wider"
+        >
+          Total Users
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Users -->
+    <div
+      class="glass-panel p-6 rounded-2xl border-t-4 border-t-amber-500 hover:scale-105 transition-all duration-500 group cursor-default"
+    >
+      <div class="flex items-center justify-between mb-6">
+        <div class="relative">
+          <div
+            class="absolute inset-0 bg-amber-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"
+          ></div>
+          <div
+            class="relative p-4 bg-amber-500/10 rounded-xl group-hover:bg-amber-500/20 transition-colors"
+          >
+            <i class="ph-fill ph-crown text-amber-400 text-3xl"></i>
+          </div>
+        </div>
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 py-1 bg-slate-800/50 rounded-full"
+          >Admins</span
+        >
+      </div>
+      <div class="space-y-2">
+        <div
+          class="text-5xl font-black text-amber-400 group-hover:scale-110 transition-transform"
+        >
+          {{ admin_count }}
+        </div>
+        <div
+          class="text-xs font-semibold text-slate-400 uppercase tracking-wider"
+        >
+          Administrators
+        </div>
+      </div>
+    </div>
+
+    <!-- Regular Users -->
+    <div
+      class="glass-panel p-6 rounded-2xl border-t-4 border-t-emerald-500 hover:scale-105 transition-all duration-500 group cursor-default"
+    >
+      <div class="flex items-center justify-between mb-6">
+        <div class="relative">
+          <div
+            class="absolute inset-0 bg-emerald-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"
+          ></div>
+          <div
+            class="relative p-4 bg-emerald-500/10 rounded-xl group-hover:bg-emerald-500/20 transition-colors"
+          >
+            <i class="ph-fill ph-user text-emerald-400 text-3xl"></i>
+          </div>
+        </div>
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 py-1 bg-slate-800/50 rounded-full"
+          >Regular</span
+        >
+      </div>
+      <div class="space-y-2">
+        <div
+          class="text-5xl font-black text-emerald-400 group-hover:scale-110 transition-transform"
+        >
+          {{ users|length - admin_count }}
+        </div>
+        <div
+          class="text-xs font-semibold text-slate-400 uppercase tracking-wider"
+        >
+          Regular Users
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div
+    class="glass-panel rounded-2xl overflow-hidden hover:scale-[1.01] transition-all duration-500"
+  >
+    <!-- Table Header -->
+    <div
+      class="p-6 border-b border-slate-700/50 bg-gradient-to-r from-dark-800/50 to-transparent backdrop-blur-sm"
+    >
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-blue-500/10 rounded-xl">
+          <i class="ph-fill ph-list text-blue-400 text-2xl"></i>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-white">Registered Users</h2>
+          <p class="text-xs text-slate-500">
+            Manage user accounts and permissions
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Content -->
+    <div class="overflow-x-auto rounded-lg border border-slate-700/50">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-slate-800/80 border-b border-slate-700/50">
+            <th
+              class="w-[20%] py-3 px-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide"
+            >
+              User
+            </th>
+            <th
+              class="w-[20%] py-3 px-4 text-center text-xs font-semibold text-slate-400 uppercase tracking-wide"
+            >
+              Role
+            </th>
+            <th
+              class="w-[20%] py-3 px-4 text-center text-xs font-semibold text-slate-400 uppercase tracking-wide"
+            >
+              Scans
+            </th>
+            <th
+              class="w-[20%] py-3 px-4 text-center text-xs font-semibold text-slate-400 uppercase tracking-wide"
+            >
+              Joined
+            </th>
+            <th
+              class="w-[20%] py-3 px-4 text-right text-xs font-semibold text-slate-400 uppercase tracking-wide"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr class="border-b border-slate-700/30 hover:bg-slate-800/40">
+            <td class="w-[20%] py-3 px-4 text-left">
+              <div class="flex items-center gap-2">
+                {% if u.is_admin %}
+                <div
+                  class="w-7 h-7 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="ph-fill ph-crown text-amber-400 text-xs"></i>
+                </div>
+                {% else %}
+                <div
+                  class="w-7 h-7 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="ph-fill ph-user text-blue-400 text-xs"></i>
+                </div>
+                {% endif %}
+                <div class="min-w-0">
+                  <span class="block font-medium text-white text-sm truncate"
+                    >{{ u.username }}</span
+                  >
+                  <span class="block text-xs text-slate-500"
+                    >ID: {{ u.id }}</span
+                  >
+                </div>
+              </div>
+            </td>
+            <td class="w-[20%] py-3 px-4 text-center">
+              {% if u.is_primary_admin %}
+              <span
+                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-500/30"
+              >
+                <i class="ph-fill ph-shield-star"></i> Primary Admin
+              </span>
+              {% elif u.is_admin %}
+              <span
+                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-amber-500/20 text-amber-400"
+              >
+                <i class="ph-fill ph-crown"></i> Admin
+              </span>
+              {% else %}
+              <span
+                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-slate-500/20 text-slate-400"
+              >
+                <i class="ph-fill ph-user"></i> User
+              </span>
+              {% endif %}
+            </td>
+            <td class="w-[20%] py-3 px-4 text-center">
+              <span class="text-sm font-medium text-white"
+                >{{ u.scan_count }}</span
+              >
+              <span class="text-xs text-slate-500 ml-0.5">scans</span>
+            </td>
+            <td class="w-[20%] py-3 px-4 text-center">
+              <span class="text-sm text-slate-400 font-mono"
+                >{{ u.created_at or 'N/A' }}</span
+              >
+            </td>
+            <td class="w-[20%] py-3 px-4 text-right">
+              <div class="inline-flex items-center gap-1">
+                {% if u.is_primary_admin %}
+                <span class="text-xs text-amber-400/70 flex items-center gap-1"
+                  ><i class="ph-fill ph-shield-star"></i> Protected</span
+                >
+                {% elif user.is_primary_admin %}
+                <!-- Primary admin can manage any non-primary user -->
+                <button
+                  onclick="deleteUser({{ u.id }}, '{{ u.username }}')"
+                  class="p-1 rounded text-red-400 hover:bg-red-500/20 transition-colors"
+                  title="Delete User"
+                >
+                  <i class="ph-fill ph-trash"></i>
+                </button>
+                {% elif not u.is_admin %}
+                <!-- Promoted admin can only manage regular (non-admin) users -->
+                <button
+                  onclick="deleteUser({{ u.id }}, '{{ u.username }}')"
+                  class="p-1 rounded text-red-400 hover:bg-red-500/20 transition-colors"
+                  title="Delete User"
+                >
+                  <i class="ph-fill ph-trash"></i>
+                </button>
+                {% else %}
+                <!-- Promoted admin cannot manage other admins -->
+                <span class="text-xs text-slate-500">Restricted</span>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    {% if not users %}
+    <div class="py-10 text-center text-slate-500">
+      <i class="ph ph-users text-3xl mb-2 block"></i>
+      <p class="text-sm">No users found</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script>
+  async function deleteUser(userId, username) {
+    if (
+      !confirm(
+        `Are you sure you want to delete user "${username}"?\n\nThis will also delete all their scan history. This action cannot be undone.`,
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/admin/users/delete/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        showToast(`User "${username}" deleted successfully`, "success");
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        const data = await response.json();
+        showToast(data.detail || "Failed to delete user", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      showToast("An error occurred while deleting the user", "error");
+    }
+  }
+</script>
+{% endblock %}

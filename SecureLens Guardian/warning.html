@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureLens Warning</title>
+    <link rel="stylesheet" href="warning.css" />
+  </head>
+  <body>
+    <main class="warning-shell">
+      <section class="warning-stage warning-card" id="warningCard">
+        <header class="warning-masthead">
+          <div class="brand-lockup">
+            <div class="brand-mark">SL</div>
+            <div class="brand-copy">
+              <div class="eyebrow">Navigation interrupted</div>
+              <h1 id="warningTitle">Review this site before continuing</h1>
+              <p class="warning-copy" id="warningCopy">
+                SecureLens found signals that deserve a second look before this page is trusted.
+              </p>
+            </div>
+          </div>
+
+          <span class="confidence-pill confidence-pill--low" id="confidenceValue">Baseline confidence</span>
+        </header>
+
+        <section class="warning-hero">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <span class="summary-label">Verdict</span>
+              <span class="summary-value" id="verdictValue">-</span>
+            </div>
+            <div class="summary-box">
+              <span class="summary-label">Risk</span>
+              <span class="summary-value" id="riskValue">-</span>
+            </div>
+            <div class="summary-box">
+              <span class="summary-label">Engines</span>
+              <span class="summary-value" id="engineValue">-</span>
+            </div>
+            <div class="summary-box">
+              <span class="summary-label">Ports</span>
+              <span class="summary-value" id="portsValue">-</span>
+            </div>
+          </div>
+
+          <aside class="decision-card">
+            <div class="panel-label">Recommended move</div>
+            <div class="decision-card__title" id="decisionHeadline">Leave this site until it is verified.</div>
+            <p class="decision-card__copy" id="decisionCopy">
+              Continuing temporarily bypasses this warning for the current URL, so only proceed if you intentionally trust the destination.
+            </p>
+            <div class="decision-points" id="decisionPoints">
+              <div class="decision-point">Use the AI report if you need more evidence before deciding.</div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="warning-grid">
+          <section class="detail-panel">
+            <div class="panel-label">Site snapshot</div>
+
+            <div class="detail-row">
+              <span class="detail-label">Canonical domain</span>
+              <span class="detail-value" id="domainValue">-</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Requested URL</span>
+              <span class="detail-value detail-value--url" id="urlValue">-</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Why SecureLens paused</span>
+              <span class="detail-value detail-value--copy" id="summaryValue">-</span>
+            </div>
+          </section>
+
+          <section class="detail-panel">
+            <div class="panel-label">Strongest signals</div>
+            <div class="signal-list" id="signalList">
+              <div class="empty-state">SecureLens will list the strongest reasons here.</div>
+            </div>
+          </section>
+        </section>
+
+        <section class="response-panel">
+          <div class="panel-label">Safer response options</div>
+          <div class="action-list" id="actionList">
+            <div class="empty-state">SecureLens will suggest safer next steps here.</div>
+          </div>
+        </section>
+
+        <footer class="warning-footer">
+          <div class="responsibility-note">
+            Continuing will temporarily bypass this warning for the current URL, so only proceed if you intentionally trust the destination.
+          </div>
+
+          <div class="actions">
+            <button class="btn btn--primary" id="backBtn">Leave Site</button>
+            <button class="btn btn--secondary" id="reportBtn">Review AI Report</button>
+            <button class="btn btn--danger" id="continueBtn">Continue Once</button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <script src="shared-intel.js"></script>
+    <script src="warning.js"></script>
+  </body>
+</html>

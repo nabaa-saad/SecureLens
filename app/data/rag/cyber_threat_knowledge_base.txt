@@ -1,0 +1,4189 @@
+================================================================================
+CATEGORY: SOCIAL ENGINEERING ATTACKS
+DESCRIPTION:
+Social engineering attacks exploit human psychology rather than technical vulnerabilities.
+They manipulate users into revealing confidential information or performing harmful actions.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: PHISHING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Phishing is a deceptive attack technique in which an adversary impersonates a trusted entity
+to trick victims into revealing sensitive information such as login credentials, financial data,
+or personal identification details.
+
+Attack Mechanism:
+Attackers typically distribute fraudulent emails, messages, or websites that mimic legitimate
+organizations. Victims are persuaded to click malicious links, download attachments, or enter
+credentials into fake portals.
+
+Technical Indicators:
+- Suspicious sender domain variations
+- Mismatched URLs
+- Urgent or threatening language
+- Unexpected attachments
+- Spoofed branding elements
+
+Common Payloads:
+- Credential harvesting pages
+- Malware download links
+- Malicious PDF/Office attachments
+- Fake login portals
+
+Detection Methods:
+- Email header analysis
+- URL reputation analysis
+- Domain similarity detection
+- User behavior anomaly monitoring
+- Secure email gateways
+
+Severity Factors:
+- Number of targeted users
+- Sensitivity of requested data
+- Organizational privilege level of victims
+- Presence of malware payload
+
+Risk Level Logic:
+Risk increases when phishing targets high-privilege accounts, financial systems,
+or critical infrastructure environments.
+
+MITRE ATT&CK Mapping:
+- Initial Access (T1566)
+- Credential Access
+- Execution (if malware delivered)
+
+Real-World Impact:
+Phishing remains one of the most prevalent initial access vectors for ransomware,
+business email compromise (BEC), and data breaches worldwide.
+
+Keywords:
+email spoofing, credential harvesting, fake login, social manipulation,
+deceptive communication, malicious link
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: SPEAR PHISHING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Spear phishing is a targeted phishing attack directed at a specific individual,
+organization, or role, using personalized information to increase credibility.
+
+Attack Mechanism:
+Attackers gather intelligence about the victim (job role, colleagues, suppliers,
+recent activities) and craft customized messages that appear legitimate and relevant.
+
+Technical Indicators:
+- Highly personalized content
+- Spoofed internal email addresses
+- Impersonation of executives or partners
+- Context-aware messaging
+- Target-specific malicious attachments
+
+Common Payloads:
+- Malware-laced documents
+- Credential harvesting portals
+- Business email compromise setups
+- Remote access trojans (RATs)
+
+Detection Methods:
+- Behavioral anomaly detection
+- Email authentication validation (SPF, DKIM, DMARC)
+- Advanced threat intelligence correlation
+- Endpoint detection and response (EDR)
+
+Severity Factors:
+- Executive-level targeting
+- Financial authorization access
+- Access to confidential databases
+- Lateral movement potential
+
+Risk Level Logic:
+Risk is significantly higher than generic phishing due to personalization,
+higher success rate, and targeted privilege exploitation.
+
+MITRE ATT&CK Mapping:
+- Initial Access (T1566.002)
+- Credential Access
+- Lateral Movement
+
+Real-World Impact:
+Frequently used in corporate espionage, ransomware deployment,
+and large-scale financial fraud operations.
+
+Keywords:
+targeted phishing, executive impersonation, business email compromise,
+personalized attack, credential theft
+--------------------------------------------------------------------------------
+THREAT NAME: WHALING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Whaling is a form of spear phishing specifically targeting high-profile individuals
+such as CEOs, CFOs, and senior executives.
+
+Attack Mechanism:
+Attackers impersonate trusted authorities or board members to manipulate executives
+into authorizing fraudulent financial transfers or sharing sensitive data.
+
+Technical Indicators:
+- Financial urgency language
+- Fake legal notices
+- Executive impersonation domains
+- Payment redirection requests
+
+Common Payloads:
+- Wire transfer instructions
+- Fake legal subpoenas
+- Confidential document requests
+- Executive credential harvesting
+
+Detection Methods:
+- Multi-factor authentication enforcement
+- Transaction verification workflows
+- Executive communication verification protocols
+- Domain monitoring
+
+Severity Factors:
+- Financial authority of victim
+- Access to strategic information
+- Time-sensitive manipulation tactics
+
+Risk Level Logic:
+Extremely high risk due to financial authority and potential direct monetary loss.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Impact (Financial Theft)
+
+Real-World Impact:
+Whaling attacks have resulted in multimillion-dollar losses and
+long-term reputational damage for organizations.
+
+Keywords:
+CEO fraud, executive phishing, wire fraud, financial impersonation,
+high-value target
+--------------------------------------------------------------------------------
+THREAT NAME: SMISHING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Smishing is phishing conducted through SMS or mobile messaging platforms.
+
+Attack Mechanism:
+Attackers send fraudulent text messages containing malicious links,
+fake delivery notifications, or urgent banking alerts.
+
+Technical Indicators:
+- Unknown sender numbers
+- Shortened URLs
+- Urgent call-to-action messages
+- Mobile-targeted credential portals
+
+Common Payloads:
+- Mobile phishing sites
+- Malware APK downloads
+- Account verification scams
+
+Detection Methods:
+- Mobile threat defense (MTD)
+- URL filtering
+- SMS filtering gateways
+- User awareness training
+
+Severity Factors:
+- Mobile device usage in enterprise
+- BYOD policies
+- Mobile banking integration
+
+Risk Level Logic:
+Risk increases when mobile devices are integrated with enterprise
+authentication systems or corporate email accounts.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+
+Real-World Impact:
+Commonly used to bypass email security controls and target personal devices.
+
+Keywords:
+SMS phishing, mobile scam, malicious text, fake delivery message
+--------------------------------------------------------------------------------
+THREAT NAME: VISHING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Vishing (Voice Phishing) is a social engineering attack conducted through phone calls
+or voice communication systems to extract confidential information.
+
+Attack Mechanism:
+Attackers impersonate bank officials, IT support, or government representatives
+to convince victims to disclose passwords, OTP codes, or financial data.
+
+Technical Indicators:
+- Caller ID spoofing
+- Automated robocalls
+- Urgent financial verification requests
+- Pressure-based communication tactics
+
+Common Payloads:
+- OTP harvesting
+- Remote desktop installation guidance
+- Bank credential extraction
+- Social security information theft
+
+Detection Methods:
+- Call-back verification policies
+- Voice authentication systems
+- Employee awareness programs
+- Fraud detection monitoring
+
+Severity Factors:
+- Real-time manipulation
+- Emotional pressure
+- Immediate financial transaction requests
+
+Risk Level Logic:
+High risk due to real-time persuasion and reduced opportunity
+for victims to verify authenticity.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Collection
+
+Real-World Impact:
+Frequently used in banking fraud, identity theft,
+and multi-factor authentication bypass attempts.
+
+Keywords:
+voice scam, caller spoofing, phone fraud, OTP theft,
+bank impersonation
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: PRETEXTING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Pretexting is a social engineering technique in which an attacker fabricates
+a believable scenario (pretext) to obtain sensitive information from a victim.
+
+Attack Mechanism:
+The attacker builds trust by impersonating a legitimate role such as HR,
+IT support, bank representative, or government authority to extract
+confidential data.
+
+Technical Indicators:
+- Identity impersonation
+- Requests for verification data
+- Context-driven storytelling
+- Gradual trust building
+
+Common Payloads:
+- Personal information harvesting
+- Credential disclosure
+- Security question extraction
+
+Detection Methods:
+- Identity verification policies
+- Zero-trust information sharing
+- Security awareness training
+- Strict data access policies
+
+Severity Factors:
+- Authority level impersonated
+- Sensitivity of requested information
+- Trust relationship exploitation
+
+Risk Level Logic:
+Risk increases when attackers successfully exploit authority bias
+and social trust to bypass technical controls.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Collection
+
+Real-World Impact:
+Often used in identity theft, insider data theft,
+and targeted corporate intelligence gathering.
+
+Keywords:
+impersonation, fabricated scenario, identity deception,
+information harvesting
+--------------------------------------------------------------------------------
+THREAT NAME: BAITING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Baiting is a social engineering attack that entices victims with
+a false promise or incentive to trigger malicious activity.
+
+Attack Mechanism:
+Attackers offer something attractive such as free software,
+USB drives, or exclusive content to lure victims into executing malware.
+
+Technical Indicators:
+- Unknown removable media
+- Suspicious free downloads
+- Fake promotional offers
+- Unexpected file execution
+
+Common Payloads:
+- Malware executables
+- Keyloggers
+- Remote access trojans
+- Data exfiltration tools
+
+Detection Methods:
+- Endpoint protection systems
+- USB device control policies
+- Application whitelisting
+- User awareness programs
+
+Severity Factors:
+- Physical access availability
+- User curiosity exploitation
+- Endpoint protection maturity
+
+Risk Level Logic:
+Risk is high in environments with weak device control
+or poor user security awareness.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Execution
+- Persistence
+
+Real-World Impact:
+Common vector for insider compromise and
+initial malware deployment inside secure environments.
+
+Keywords:
+malicious USB, free software scam, curiosity exploit,
+removable media attack
+--------------------------------------------------------------------------------
+THREAT NAME: QUID PRO QUO
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Quid pro quo attacks involve offering a service or benefit in exchange
+for confidential information or system access.
+
+Attack Mechanism:
+Attackers pose as IT staff offering technical support in return
+for login credentials or remote access permissions.
+
+Technical Indicators:
+- Unsolicited technical support calls
+- Remote access requests
+- Credential exchange promises
+- Service-for-information manipulation
+
+Common Payloads:
+- Remote desktop installation
+- Credential harvesting
+- Privilege escalation
+
+Detection Methods:
+- Verified IT support protocols
+- Restricted remote access tools
+- MFA enforcement
+- Internal communication validation
+
+Severity Factors:
+- IT support impersonation success
+- Privileged user targeting
+- Remote session control granted
+
+Risk Level Logic:
+High risk when attackers gain legitimate remote
+access under false pretenses.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Lateral Movement
+
+Real-World Impact:
+Often used to compromise enterprise systems
+through direct human manipulation.
+
+Keywords:
+fake IT support, service exchange scam,
+credential-for-service attack
+--------------------------------------------------------------------------------
+THREAT NAME: TAILGATING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Tailgating is a physical social engineering attack where an unauthorized
+individual gains access to restricted areas by following authorized personnel.
+
+Attack Mechanism:
+The attacker exploits courtesy or urgency to enter secure buildings
+without proper authentication.
+
+Technical Indicators:
+- Unbadged individuals in secure areas
+- Shared access doors
+- Lack of visitor logging
+- Physical security bypass
+
+Common Payloads:
+- Physical device installation
+- Network tap insertion
+- Insider reconnaissance
+
+Detection Methods:
+- Access control systems
+- Security guards
+- CCTV monitoring
+- Badge verification enforcement
+
+Severity Factors:
+- Facility sensitivity level
+- Access to server rooms
+- Insider collaboration possibility
+
+Risk Level Logic:
+Extremely high risk in critical infrastructure
+or data center environments.
+
+MITRE ATT&CK Mapping:
+- Initial Access (Physical)
+- Persistence
+- Collection
+
+Real-World Impact:
+Physical breaches often lead to network compromise,
+hardware tampering, and long-term espionage.
+
+Keywords:
+physical breach, unauthorized entry,
+badge bypass, facility infiltration
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: SCAREWARE
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Scareware is a deceptive attack that uses fear-based tactics to trick victims
+into installing malicious software or paying for fake security services.
+
+Attack Mechanism:
+Attackers display alarming pop-ups or fake security warnings claiming
+that the victim’s system is infected, urging immediate action.
+
+Technical Indicators:
+- Fake antivirus alerts
+- Urgent security warnings
+- Unexpected system scan results
+- Redirects to fraudulent software downloads
+
+Common Payloads:
+- Rogue security software
+- Malware installers
+- Spyware
+- Payment fraud portals
+
+Detection Methods:
+- Endpoint protection solutions
+- Browser security filtering
+- User awareness training
+- Application reputation monitoring
+
+Severity Factors:
+- User panic reaction
+- Payment submission
+- Malware installation success
+
+Risk Level Logic:
+Risk increases when users bypass security policies due to fear
+and install unauthorized applications.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Execution
+- Impact
+
+Real-World Impact:
+Scareware campaigns have generated large financial losses
+through fake software sales and malware infections.
+
+Keywords:
+fake antivirus, security scare, rogue software,
+malicious popup, panic exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: BUSINESS EMAIL COMPROMISE (BEC)
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Business Email Compromise (BEC) is a targeted fraud attack
+where attackers compromise or spoof legitimate business email accounts
+to manipulate financial transactions.
+
+Attack Mechanism:
+Attackers impersonate executives, vendors, or partners to request
+wire transfers, invoice payments, or sensitive financial information.
+
+Technical Indicators:
+- Email domain spoofing
+- Sudden payment instruction changes
+- Financial urgency language
+- Subtle domain misspellings
+
+Common Payloads:
+- Fraudulent invoice attachments
+- Wire transfer requests
+- Payment redirection instructions
+- Executive impersonation emails
+
+Detection Methods:
+- Email authentication (SPF, DKIM, DMARC)
+- Financial approval workflows
+- Transaction verification procedures
+- Anomaly detection systems
+
+Severity Factors:
+- Financial authority level
+- Vendor payment processes
+- Email account compromise depth
+
+Risk Level Logic:
+Extremely high risk due to direct financial theft
+without malware indicators.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Impact (Financial Theft)
+
+Real-World Impact:
+BEC attacks have resulted in billions of dollars in global losses
+and remain one of the most financially damaging cybercrime methods.
+
+Keywords:
+invoice fraud, executive impersonation,
+wire transfer scam, financial manipulation
+--------------------------------------------------------------------------------
+THREAT NAME: DEEPFAKE SOCIAL ENGINEERING
+CATEGORY: SOCIAL ENGINEERING
+
+Definition:
+Deepfake social engineering uses AI-generated voice, video,
+or image manipulation to impersonate trusted individuals.
+
+Attack Mechanism:
+Attackers create synthetic voice recordings or videos
+of executives or officials to authorize fraudulent actions
+or extract sensitive data.
+
+Technical Indicators:
+- AI-generated voice inconsistencies
+- Video manipulation artifacts
+- Urgent financial or confidential requests
+- Communication outside normal channels
+
+Common Payloads:
+- Fraudulent payment approvals
+- Credential disclosure
+- Confidential data sharing
+- Reputation damage operations
+
+Detection Methods:
+- Voice biometric verification
+- Multi-channel confirmation protocols
+- AI deepfake detection tools
+- Strict approval hierarchies
+
+Severity Factors:
+- Real-time executive impersonation
+- Financial authority targeting
+- Lack of verification procedures
+
+Risk Level Logic:
+Very high risk due to realistic AI impersonation
+and difficulty in detection.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Impact
+
+Real-World Impact:
+Emerging threat in financial fraud,
+corporate espionage, and political manipulation.
+
+Keywords:
+AI impersonation, synthetic voice, fake video,
+deepfake fraud, executive spoofing
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: MALWARE ATTACKS
+DESCRIPTION:
+Malware attacks involve malicious software designed to infiltrate, damage,
+disrupt, or gain unauthorized access to computer systems and networks.
+These threats may operate autonomously or be deployed as part of larger
+multi-stage attack campaigns.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: VIRUS
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A computer virus is a type of malicious software that attaches itself
+to legitimate programs or files and spreads when the infected file is executed.
+
+Attack Mechanism:
+Viruses replicate by modifying host files and propagating through
+user interaction such as file sharing, downloads, or removable media.
+
+Technical Indicators:
+- File modification without authorization
+- Unexpected executable behavior
+- Increased system instability
+- Unauthorized registry changes
+
+Common Payloads:
+- File corruption
+- Data deletion
+- System slowdown
+- Boot sector modification
+
+Detection Methods:
+- Signature-based antivirus scanning
+- Heuristic analysis
+- Behavioral monitoring
+- File integrity monitoring (FIM)
+
+Severity Factors:
+- Propagation speed
+- Targeted file types
+- Privilege level of execution
+- Payload destructiveness
+
+Risk Level Logic:
+Risk increases when viruses infect critical system files
+or propagate within enterprise networks.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Persistence
+- Defense Evasion
+- Impact
+
+Real-World Impact:
+Viruses historically caused large-scale system disruptions,
+data corruption incidents, and financial losses.
+
+Keywords:
+file infection, self-replication, executable malware,
+file corruption, host-based infection
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: WORM
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A worm is a standalone self-replicating malware that spreads automatically
+across networks without requiring user interaction.
+
+Attack Mechanism:
+Worms exploit network vulnerabilities to propagate between systems,
+often scanning for exposed services or unpatched software.
+
+Technical Indicators:
+- Unusual network traffic spikes
+- Rapid lateral movement
+- Exploitation of known vulnerabilities
+- System resource exhaustion
+
+Common Payloads:
+- Network congestion
+- Data exfiltration modules
+- Ransomware deployment
+- Botnet installation
+
+Detection Methods:
+- Network intrusion detection systems (NIDS)
+- Patch management
+- Traffic anomaly monitoring
+- Firewall restrictions
+
+Severity Factors:
+- Propagation speed
+- Network segmentation presence
+- Vulnerability exposure level
+
+Risk Level Logic:
+High risk in flat networks with unpatched services.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Lateral Movement
+- Impact
+
+Real-World Impact:
+Worms have historically caused massive global outages
+by rapidly spreading across enterprise and internet-scale networks.
+
+Keywords:
+self-spreading malware, network propagation,
+autonomous infection, vulnerability exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: TROJAN
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A Trojan is malicious software disguised as legitimate software
+to trick users into executing it.
+
+Attack Mechanism:
+Users unknowingly install Trojans believing them to be legitimate programs,
+after which the malware executes hidden malicious functions.
+
+Technical Indicators:
+- Suspicious outbound connections
+- Hidden background processes
+- Privilege escalation attempts
+- Unexpected software behavior
+
+Common Payloads:
+- Remote access trojans (RAT)
+- Credential stealers
+- Backdoors
+- Data exfiltration tools
+
+Detection Methods:
+- Behavioral endpoint monitoring
+- Application whitelisting
+- Sandboxing
+- Network traffic inspection
+
+Severity Factors:
+- Privilege level gained
+- Persistence mechanisms
+- Command and control connectivity
+
+Risk Level Logic:
+High risk due to stealth and ability to enable long-term compromise.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Persistence
+- Command and Control
+
+Real-World Impact:
+Trojans are frequently used in targeted espionage
+and financial data theft operations.
+
+Keywords:
+disguised malware, hidden payload,
+remote access, deceptive software
+--------------------------------------------------------------------------------
+THREAT NAME: RANSOMWARE
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+Ransomware is malware that encrypts victim data and demands payment
+for decryption keys.
+
+Attack Mechanism:
+Attackers deploy ransomware via phishing, exploit kits,
+or compromised credentials, then encrypt critical files.
+
+Technical Indicators:
+- Mass file encryption
+- Ransom notes
+- Disabled backups
+- Suspicious encryption processes
+
+Common Payloads:
+- File encryption modules
+- Data exfiltration components
+- System lock screens
+
+Detection Methods:
+- Endpoint detection & response (EDR)
+- Backup monitoring
+- Behavioral anomaly detection
+- Network isolation procedures
+
+Severity Factors:
+- Backup availability
+- Data sensitivity
+- Encryption scope
+- Double extortion tactics
+
+Risk Level Logic:
+Extremely high risk due to operational shutdown
+and financial impact.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Execution
+- Impact
+
+Real-World Impact:
+Ransomware attacks have disrupted hospitals,
+governments, and multinational corporations.
+
+Keywords:
+file encryption, ransom demand,
+data extortion, operational disruption
+--------------------------------------------------------------------------------
+THREAT NAME: SPYWARE
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+Spyware secretly monitors user activity and collects sensitive information.
+
+Attack Mechanism:
+Installed via malicious downloads or bundled software,
+spyware records keystrokes, browsing habits, or credentials.
+
+Technical Indicators:
+- Hidden data transmissions
+- Keylogging activity
+- Browser hijacking
+- Slow system performance
+
+Common Payloads:
+- Credential harvesting
+- Surveillance modules
+- Tracking cookies
+
+Detection Methods:
+- Anti-spyware tools
+- Network monitoring
+- Application permission review
+
+Severity Factors:
+- Data sensitivity
+- Monitoring duration
+- Stealth capability
+
+Risk Level Logic:
+High risk for privacy violations and credential theft.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Credential Access
+- Exfiltration
+
+Real-World Impact:
+Often used in identity theft and corporate espionage.
+
+Keywords:
+surveillance malware, data tracking,
+keystroke logging, hidden monitoring
+--------------------------------------------------------------------------------
+THREAT NAME: ROOTKIT
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A rootkit is malware designed to hide its presence
+and maintain privileged access within a compromised system.
+
+Attack Mechanism:
+Rootkits modify system components such as the kernel
+to evade detection and ensure persistence.
+
+Technical Indicators:
+- Hidden processes
+- Altered system calls
+- Disabled security tools
+- Kernel-level modifications
+
+Common Payloads:
+- Persistent backdoors
+- Privilege escalation modules
+- Defense evasion tools
+
+Detection Methods:
+- Kernel integrity monitoring
+- Secure boot verification
+- Rootkit scanners
+- Memory forensics
+
+Severity Factors:
+- Privilege level obtained
+- Persistence depth
+- Detection difficulty
+
+Risk Level Logic:
+Very high risk due to stealth and system-level control.
+
+MITRE ATT&CK Mapping:
+- Persistence
+- Privilege Escalation
+- Defense Evasion
+
+Real-World Impact:
+Rootkits enable long-term stealth espionage
+within enterprise environments.
+
+Keywords:
+kernel manipulation, stealth malware,
+hidden access, persistent control
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: KEYLOGGER
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A keylogger is malware designed to record keystrokes
+to capture sensitive information such as passwords and financial data.
+
+Attack Mechanism:
+Keyloggers run in the background, intercepting keyboard input
+and transmitting collected data to attackers.
+
+Technical Indicators:
+- Hidden background services
+- Suspicious outbound connections
+- Unusual keyboard hook activity
+- Unauthorized process injection
+
+Common Payloads:
+- Credential harvesting
+- Banking information theft
+- Account takeover facilitation
+
+Detection Methods:
+- Behavioral endpoint monitoring
+- Anti-malware scanning
+- Process integrity checks
+- Network traffic analysis
+
+Severity Factors:
+- Privilege level of installation
+- Duration of undetected operation
+- Sensitivity of captured data
+
+Risk Level Logic:
+High risk due to direct credential compromise
+without obvious system disruption.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Credential Access
+- Exfiltration
+
+Real-World Impact:
+Keyloggers are commonly used in financial fraud,
+corporate espionage, and identity theft.
+
+Keywords:
+keystroke logging, credential theft,
+input monitoring, password capture
+--------------------------------------------------------------------------------
+THREAT NAME: BACKDOOR
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A backdoor is a hidden access mechanism that bypasses normal authentication
+to provide unauthorized remote access to a system.
+
+Attack Mechanism:
+Backdoors are installed after initial compromise
+to maintain persistent control over infected systems.
+
+Technical Indicators:
+- Unauthorized listening ports
+- Suspicious remote connections
+- Disabled authentication controls
+- Hidden administrative accounts
+
+Common Payloads:
+- Remote command execution
+- Data exfiltration
+- Additional malware deployment
+
+Detection Methods:
+- Network traffic inspection
+- Port scanning
+- Endpoint monitoring
+- Authentication log review
+
+Severity Factors:
+- Level of access granted
+- Persistence mechanisms
+- Lateral movement capability
+
+Risk Level Logic:
+Very high risk due to long-term unauthorized control.
+
+MITRE ATT&CK Mapping:
+- Persistence
+- Command and Control
+- Lateral Movement
+
+Real-World Impact:
+Backdoors enable attackers to maintain covert access
+for extended espionage or sabotage campaigns.
+
+Keywords:
+unauthorized access, remote control,
+persistent access, hidden authentication bypass
+--------------------------------------------------------------------------------
+THREAT NAME: BOTNET
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+A botnet is a network of infected devices (bots)
+remotely controlled by attackers through command and control servers.
+
+Attack Mechanism:
+Malware infects devices and connects them to a centralized
+or decentralized control infrastructure.
+
+Technical Indicators:
+- Repeated communication with suspicious domains
+- High outbound traffic patterns
+- Participation in coordinated activity
+- DNS anomalies
+
+Common Payloads:
+- Distributed Denial of Service (DDoS)
+- Spam campaigns
+- Cryptocurrency mining
+- Credential stuffing attacks
+
+Detection Methods:
+- Network anomaly detection
+- DNS monitoring
+- Traffic pattern analysis
+- Threat intelligence feeds
+
+Severity Factors:
+- Botnet size
+- Control infrastructure resilience
+- Target scope
+
+Risk Level Logic:
+High to critical risk depending on botnet scale
+and coordinated attack capability.
+
+MITRE ATT&CK Mapping:
+- Command and Control
+- Impact
+- Resource Hijacking
+
+Real-World Impact:
+Botnets have been used to disrupt major online services
+and conduct large-scale cybercrime operations.
+
+Keywords:
+zombie network, command and control,
+distributed attack, infected devices
+--------------------------------------------------------------------------------
+THREAT NAME: ADWARE
+CATEGORY: MALWARE ATTACKS
+
+Definition:
+Adware is software that automatically displays or downloads advertisements,
+often without user consent.
+
+Attack Mechanism:
+Adware is commonly bundled with free software
+and injects ads into browsers or applications.
+
+Technical Indicators:
+- Browser redirections
+- Pop-up advertisements
+- Modified homepage settings
+- Unwanted browser extensions
+
+Common Payloads:
+- Advertising injection modules
+- Tracking scripts
+- Browser hijackers
+
+Detection Methods:
+- Browser extension audits
+- Anti-adware scanning
+- Application permission review
+- System cleanup utilities
+
+Severity Factors:
+- Data tracking extent
+- Browser manipulation depth
+- System performance degradation
+
+Risk Level Logic:
+Moderate risk but can escalate if bundled
+with spyware or additional malware.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Impact
+
+Real-World Impact:
+Adware degrades user experience and may
+serve as an entry point for more serious infections.
+
+Keywords:
+advertising malware, browser hijack,
+popup injection, unwanted ads
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: WEB APPLICATION ATTACKS
+DESCRIPTION:
+Web application attacks target vulnerabilities in web-based systems
+and online services. These attacks exploit improper input validation,
+authentication weaknesses, misconfigurations, or insecure coding practices.
+They are commonly delivered through malicious URLs, HTTP requests,
+or manipulated web parameters.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: SQL INJECTION
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+SQL Injection is a web attack that injects malicious SQL queries
+into input fields to manipulate backend databases.
+
+Attack Mechanism:
+Attackers insert crafted SQL statements into URL parameters,
+forms, or cookies. If the application fails to sanitize input,
+the malicious query is executed by the database server.
+
+Technical Indicators:
+- Suspicious URL parameters containing SQL syntax
+- Database error messages in responses
+- Unusual query behavior
+- Authentication bypass patterns
+
+Common Payloads:
+- ' OR 1=1 --
+- UNION SELECT statements
+- Database enumeration queries
+- Data extraction commands
+
+Detection Methods:
+- Input validation
+- Prepared statements
+- Web Application Firewall (WAF)
+- Log analysis
+
+Severity Factors:
+- Database privilege level
+- Data sensitivity
+- Ability to modify or delete records
+
+Risk Level Logic:
+Critical risk if backend database access is achieved.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Collection
+- Impact
+
+Real-World Impact:
+SQL Injection has led to massive data breaches,
+exposing millions of user records worldwide.
+
+Keywords:
+database injection, SQL payload,
+authentication bypass, query manipulation
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: CROSS-SITE SCRIPTING (XSS)
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+Cross-Site Scripting (XSS) is a vulnerability that allows attackers
+to inject malicious scripts into web pages viewed by other users.
+
+Attack Mechanism:
+Malicious JavaScript is injected via URL parameters,
+form inputs, or stored fields and executed in the victim’s browser.
+
+Technical Indicators:
+- Script tags in URL parameters
+- Encoded JavaScript payloads
+- Suspicious DOM manipulation
+- Session hijacking behavior
+
+Common Payloads:
+- <script>alert(1)</script>
+- Cookie stealing scripts
+- Redirect scripts
+- Keylogging JavaScript
+
+Detection Methods:
+- Output encoding
+- Content Security Policy (CSP)
+- Input sanitization
+- Web vulnerability scanning
+
+Severity Factors:
+- Stored vs Reflected XSS
+- Session hijacking capability
+- Access to privileged users
+
+Risk Level Logic:
+High risk if session tokens or authentication cookies are exposed.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Collection
+- Credential Access
+
+Real-World Impact:
+XSS attacks are frequently used to hijack sessions,
+deface websites, and steal credentials.
+
+Keywords:
+script injection, browser exploitation,
+session hijacking, malicious JavaScript
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: CROSS-SITE REQUEST FORGERY (CSRF)
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+CSRF is an attack that tricks authenticated users into performing
+unintended actions on a web application.
+
+Attack Mechanism:
+The attacker crafts a malicious request and forces the victim’s browser
+to send it automatically while the victim is authenticated.
+
+Technical Indicators:
+- Unauthorized state-changing requests
+- Missing CSRF tokens
+- Suspicious form submissions
+- Requests triggered without user interaction
+
+Common Payloads:
+- Hidden form submissions
+- Forged POST requests
+- Automatic image-based GET requests
+
+Detection Methods:
+- CSRF tokens
+- SameSite cookie attributes
+- Referer validation
+- Multi-factor authentication
+
+Severity Factors:
+- Privilege level of victim
+- Ability to modify sensitive data
+- Lack of token validation
+
+Risk Level Logic:
+High risk if attackers can modify accounts or financial data.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Impact
+
+Real-World Impact:
+CSRF has been used to change passwords,
+transfer funds, and alter account settings.
+
+Keywords:
+forged request, session abuse,
+unauthorized action, token validation bypass
+--------------------------------------------------------------------------------
+THREAT NAME: COMMAND INJECTION
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+Command Injection allows attackers to execute system-level commands
+through vulnerable web inputs.
+
+Attack Mechanism:
+Unsanitized input is passed to system shell commands,
+allowing attackers to append malicious instructions.
+
+Technical Indicators:
+- Presence of shell operators (&&, |, ;)
+- Unexpected system output in HTTP responses
+- Server process anomalies
+- File system manipulation logs
+
+Common Payloads:
+- ; ls
+- && cat /etc/passwd
+- | whoami
+
+Detection Methods:
+- Strict input validation
+- Use of safe APIs
+- WAF filtering
+- Server-side logging
+
+Severity Factors:
+- System privileges
+- Ability to execute arbitrary commands
+- Network exposure
+
+Risk Level Logic:
+Critical risk due to direct server compromise potential.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Privilege Escalation
+- Impact
+
+Real-World Impact:
+Command Injection can lead to full server takeover.
+
+Keywords:
+shell injection, system command execution,
+OS compromise, input validation failure
+--------------------------------------------------------------------------------
+THREAT NAME: DIRECTORY TRAVERSAL
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+Directory Traversal allows attackers to access restricted files
+by manipulating file path inputs.
+
+Attack Mechanism:
+Attackers use ../ sequences to navigate outside
+the intended directory structure.
+
+Technical Indicators:
+- ../ patterns in URLs
+- Access to sensitive files
+- Unexpected file disclosure
+- File path manipulation
+
+Common Payloads:
+- ../../etc/passwd
+- ..\..\windows\system32
+
+Detection Methods:
+- Input path normalization
+- File access restrictions
+- Web server hardening
+
+Severity Factors:
+- File system exposure
+- Sensitive data accessibility
+- Privilege level
+
+Risk Level Logic:
+High risk if attackers access configuration or credential files.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Credential Access
+
+Real-World Impact:
+Directory traversal exposes confidential configuration
+and system credential files.
+
+Keywords:
+path traversal, file disclosure,
+unauthorized file access, directory manipulation
+--------------------------------------------------------------------------------
+THREAT NAME: LOCAL FILE INCLUSION (LFI)
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+LFI allows attackers to include and execute local server files
+through vulnerable parameters.
+
+Attack Mechanism:
+Attackers manipulate file include functions
+to load unintended local files.
+
+Technical Indicators:
+- Suspicious include parameters
+- Unexpected file output
+- PHP wrapper abuse
+
+Common Payloads:
+- ../../etc/passwd
+- php://filter
+
+Detection Methods:
+- Input validation
+- Disable dynamic file inclusion
+- Server configuration hardening
+
+Severity Factors:
+- Execution capability
+- Sensitive file access
+- Privilege level
+
+Risk Level Logic:
+High risk if attackers achieve remote code execution.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Collection
+
+Real-World Impact:
+LFI vulnerabilities can escalate into full server compromise.
+
+Keywords:
+file inclusion, local file abuse,
+code execution, path manipulation
+--------------------------------------------------------------------------------
+THREAT NAME: REMOTE FILE INCLUSION (RFI)
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+RFI allows attackers to include malicious files
+hosted on remote servers.
+
+Attack Mechanism:
+Vulnerable applications load attacker-controlled external files
+which execute malicious code.
+
+Technical Indicators:
+- External URL references in parameters
+- Unexpected remote script execution
+- Suspicious outbound requests
+
+Common Payloads:
+- http://malicious-site/shell.txt
+- Remote web shell links
+
+Detection Methods:
+- Disable remote includes
+- Input filtering
+- Web server restrictions
+
+Severity Factors:
+- Remote execution capability
+- Server privilege level
+
+Risk Level Logic:
+Critical risk due to remote code execution.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Initial Access
+
+Real-World Impact:
+RFI has enabled remote attackers
+to fully control web servers.
+
+Keywords:
+remote inclusion, external script injection,
+web shell deployment, remote code execution
+--------------------------------------------------------------------------------
+THREAT NAME: SERVER-SIDE REQUEST FORGERY (SSRF)
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+SSRF allows attackers to force the server
+to make unauthorized internal or external requests.
+
+Attack Mechanism:
+Attackers manipulate URL-based input fields
+to access internal services or cloud metadata.
+
+Technical Indicators:
+- Access to internal IP ranges
+- Unexpected outbound requests
+- Cloud metadata exposure
+
+Common Payloads:
+- http://127.0.0.1
+- http://169.254.169.254
+
+Detection Methods:
+- URL validation
+- Network segmentation
+- Block internal IP access
+- Cloud metadata protection
+
+Severity Factors:
+- Internal network exposure
+- Cloud environment presence
+- Privilege escalation potential
+
+Risk Level Logic:
+Critical risk in cloud environments.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Discovery
+- Credential Access
+
+Real-World Impact:
+SSRF has been used to extract cloud credentials
+and compromise internal infrastructure.
+
+Keywords:
+server-side request abuse,
+internal network access,
+cloud metadata exploitation
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: CLICKJACKING
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+Clickjacking is an attack that tricks users into clicking
+on hidden or disguised elements within a web page.
+
+Attack Mechanism:
+Attackers embed a legitimate website inside an invisible iframe
+and overlay malicious elements to hijack user clicks.
+
+Technical Indicators:
+- Suspicious iframe usage
+- Absence of X-Frame-Options header
+- Unexpected UI redressing behavior
+- Hidden overlay elements
+
+Common Payloads:
+- Invisible buttons
+- Hidden authentication prompts
+- Deceptive UI layers
+
+Detection Methods:
+- X-Frame-Options header
+- Content Security Policy (CSP) frame restrictions
+- Frame busting scripts
+
+Severity Factors:
+- Privilege level of victim
+- Ability to trigger financial or account actions
+- Lack of frame protection
+
+Risk Level Logic:
+Moderate to high risk depending on
+sensitivity of triggered actions.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Impact
+
+Real-World Impact:
+Clickjacking has been used to trick users
+into enabling webcam access or changing account settings.
+
+Keywords:
+UI redressing, iframe abuse,
+hidden click manipulation,
+visual deception attack
+--------------------------------------------------------------------------------
+THREAT NAME: OPEN REDIRECT
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+Open Redirect is a vulnerability that allows attackers
+to redirect users to malicious external websites.
+
+Attack Mechanism:
+Attackers manipulate URL redirection parameters
+to send victims to phishing or malware-hosting sites.
+
+Technical Indicators:
+- Redirect parameters with external URLs
+- Unvalidated redirect inputs
+- Suspicious outbound navigation
+
+Common Payloads:
+- ?redirect=http://malicious-site
+- URL parameter manipulation
+
+Detection Methods:
+- Strict redirect validation
+- Allowlist enforcement
+- URL sanitization
+
+Severity Factors:
+- Trust level of vulnerable domain
+- Phishing integration capability
+- User awareness
+
+Risk Level Logic:
+High risk when used in phishing campaigns
+leveraging trusted domains.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+
+Real-World Impact:
+Open Redirect vulnerabilities are frequently abused
+to bypass user trust and security filters.
+
+Keywords:
+URL redirection abuse,
+phishing relay,
+trusted domain exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: INSECURE DESERIALIZATION
+CATEGORY: WEB APPLICATION ATTACKS
+
+Definition:
+Insecure Deserialization occurs when applications deserialize
+untrusted data without proper validation,
+leading to code execution or logic manipulation.
+
+Attack Mechanism:
+Attackers modify serialized objects
+to inject malicious instructions
+that execute upon deserialization.
+
+Technical Indicators:
+- Serialized object patterns in requests
+- Unexpected object behavior
+- Application crashes during deserialization
+- Suspicious encoded payloads
+
+Common Payloads:
+- Modified session objects
+- Malicious serialized Java/PHP objects
+- Encoded binary manipulation
+
+Detection Methods:
+- Avoid deserializing untrusted input
+- Integrity verification
+- Use of safe serialization libraries
+- Runtime monitoring
+
+Severity Factors:
+- Code execution capability
+- Application privilege level
+- Object control scope
+
+Risk Level Logic:
+Critical risk when remote code execution is possible.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Privilege Escalation
+- Impact
+
+Real-World Impact:
+Insecure deserialization has led to
+remote server compromise in enterprise systems.
+
+Keywords:
+object injection,
+serialization abuse,
+remote code execution,
+logic manipulation
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: NETWORK ATTACKS
+DESCRIPTION:
+Network attacks target communication channels, network infrastructure,
+and data transmission protocols. These attacks exploit weaknesses in
+network configurations, routing mechanisms, encryption protocols,
+or traffic validation processes to intercept, disrupt, or manipulate data.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: DENIAL OF SERVICE (DoS)
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+Denial of Service (DoS) is an attack that overwhelms a system,
+server, or network with excessive traffic,
+making it unavailable to legitimate users.
+
+Attack Mechanism:
+The attacker floods the target with requests,
+consuming bandwidth, CPU, or memory resources
+until normal service becomes inaccessible.
+
+Technical Indicators:
+- Sudden traffic spikes
+- High CPU or memory usage
+- Service timeouts
+- Connection saturation
+
+Common Payloads:
+- SYN Flood
+- HTTP Flood
+- UDP Flood
+- ICMP Flood
+
+Detection Methods:
+- Traffic rate limiting
+- Intrusion Detection Systems (IDS)
+- Traffic anomaly monitoring
+- Firewall filtering rules
+
+Severity Factors:
+- Target infrastructure capacity
+- Attack duration
+- Traffic amplification techniques
+
+Risk Level Logic:
+High risk when business-critical services become unavailable.
+
+MITRE ATT&CK Mapping:
+- Impact
+- Resource Hijacking
+
+Real-World Impact:
+DoS attacks disrupt online services,
+causing financial loss and reputational damage.
+
+Keywords:
+service disruption, traffic flooding,
+resource exhaustion, availability attack
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: DISTRIBUTED DENIAL OF SERVICE (DDoS)
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+DDoS is a large-scale version of DoS,
+where multiple compromised systems (botnets)
+simultaneously flood a target.
+
+Attack Mechanism:
+Attackers use distributed infected devices
+to generate massive coordinated traffic.
+
+Technical Indicators:
+- Traffic from multiple global IP addresses
+- Large-scale bandwidth consumption
+- Amplified DNS or NTP responses
+- Abnormal traffic distribution patterns
+
+Common Payloads:
+- DNS Amplification
+- NTP Amplification
+- SYN Flood at scale
+- Application-layer floods
+
+Detection Methods:
+- DDoS protection services
+- Traffic scrubbing centers
+- Rate limiting
+- Load balancing
+
+Severity Factors:
+- Botnet size
+- Amplification factor
+- Target redundancy
+
+Risk Level Logic:
+Critical risk due to large-scale service shutdown potential.
+
+MITRE ATT&CK Mapping:
+- Impact
+- Command and Control
+
+Real-World Impact:
+DDoS attacks have taken down major global platforms
+and infrastructure providers.
+
+Keywords:
+distributed flooding, amplification attack,
+botnet traffic, large-scale disruption
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: MAN-IN-THE-MIDDLE (MITM)
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+Man-in-the-Middle (MITM) is an attack where an attacker secretly
+intercepts and possibly alters communication between two parties.
+
+Attack Mechanism:
+The attacker positions themselves between victim and server,
+capturing or modifying transmitted data without detection.
+
+Technical Indicators:
+- Certificate mismatches
+- Unexpected SSL warnings
+- Duplicate ARP responses
+- Suspicious gateway behavior
+
+Common Payloads:
+- Traffic interception
+- Credential harvesting
+- Session token capture
+- Data modification
+
+Detection Methods:
+- HTTPS with certificate validation
+- VPN usage
+- Network monitoring
+- ARP inspection
+
+Severity Factors:
+- Encryption strength
+- Credential exposure
+- Ability to alter transactions
+
+Risk Level Logic:
+High risk if credentials or financial data are intercepted.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Credential Access
+- Adversary-in-the-Middle
+
+Real-World Impact:
+MITM attacks have been used to steal login credentials
+and manipulate financial transactions.
+
+Keywords:
+traffic interception, communication hijacking,
+data manipulation, credential capture
+--------------------------------------------------------------------------------
+THREAT NAME: ARP SPOOFING
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+ARP Spoofing is a network attack that associates the attacker’s MAC address
+with the IP address of another host.
+
+Attack Mechanism:
+The attacker sends forged ARP replies,
+redirecting network traffic through their device.
+
+Technical Indicators:
+- Duplicate IP-MAC mappings
+- ARP table inconsistencies
+- Unexpected gateway MAC changes
+
+Common Payloads:
+- Fake ARP responses
+- Network traffic redirection
+
+Detection Methods:
+- Static ARP entries
+- ARP monitoring tools
+- Switch security configurations
+
+Severity Factors:
+- Network segmentation
+- Internal access level
+- Encryption presence
+
+Risk Level Logic:
+High risk in unsecured internal networks.
+
+MITRE ATT&CK Mapping:
+- Adversary-in-the-Middle
+- Collection
+
+Real-World Impact:
+ARP spoofing enables traffic sniffing
+and credential interception inside local networks.
+
+Keywords:
+ARP poisoning, MAC spoofing,
+local network hijack, gateway impersonation
+--------------------------------------------------------------------------------
+THREAT NAME: DNS SPOOFING
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+DNS Spoofing manipulates DNS responses
+to redirect users to malicious websites.
+
+Attack Mechanism:
+Attackers alter DNS records or responses,
+causing victims to resolve legitimate domains
+to attacker-controlled IP addresses.
+
+Technical Indicators:
+- Mismatched DNS records
+- Unexpected IP resolution
+- Suspicious DNS cache entries
+
+Common Payloads:
+- Fake DNS responses
+- DNS cache poisoning
+- Malicious domain redirection
+
+Detection Methods:
+- DNSSEC implementation
+- DNS monitoring
+- Secure resolver configuration
+
+Severity Factors:
+- Domain trust level
+- Phishing integration
+- Credential theft potential
+
+Risk Level Logic:
+Critical risk when redirecting trusted domains.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Collection
+
+Real-World Impact:
+DNS spoofing has enabled large-scale phishing
+and malware distribution campaigns.
+
+Keywords:
+DNS poisoning, malicious redirection,
+domain hijack, resolver manipulation
+--------------------------------------------------------------------------------
+THREAT NAME: PACKET SNIFFING
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+Packet Sniffing is the interception and analysis
+of network traffic to capture sensitive data.
+
+Attack Mechanism:
+Attackers use packet capture tools
+to monitor unencrypted communication.
+
+Technical Indicators:
+- Network interface in promiscuous mode
+- Unusual traffic monitoring tools detected
+- Suspicious data exfiltration patterns
+
+Common Payloads:
+- Credential capture
+- Session data collection
+- Plaintext information extraction
+
+Detection Methods:
+- Encryption (HTTPS, TLS)
+- Network segmentation
+- IDS monitoring
+
+Severity Factors:
+- Presence of unencrypted traffic
+- Network exposure level
+- Monitoring detection capability
+
+Risk Level Logic:
+High risk in networks lacking encryption.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Credential Access
+
+Real-World Impact:
+Packet sniffing has exposed passwords
+and confidential communication data.
+
+Keywords:
+traffic monitoring, network eavesdropping,
+plaintext capture, data interception
+--------------------------------------------------------------------------------
+THREAT NAME: SESSION HIJACKING
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+Session Hijacking occurs when attackers take over
+an active user session to gain unauthorized access.
+
+Attack Mechanism:
+Attackers capture session tokens
+through sniffing or XSS attacks
+and reuse them to impersonate the victim.
+
+Technical Indicators:
+- Duplicate session IDs
+- Suspicious login activity
+- Token reuse from different IPs
+
+Common Payloads:
+- Stolen session cookies
+- Token replay attacks
+
+Detection Methods:
+- HTTPS enforcement
+- Secure cookie flags
+- Session expiration policies
+
+Severity Factors:
+- Session privilege level
+- Authentication strength
+- Token protection mechanisms
+
+Risk Level Logic:
+High risk if privileged sessions are compromised.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Lateral Movement
+
+Real-World Impact:
+Session hijacking enables attackers
+to bypass authentication controls.
+
+Keywords:
+session token theft,
+authentication bypass,
+cookie reuse, account takeover
+--------------------------------------------------------------------------------
+THREAT NAME: ROGUE ACCESS POINT
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+A Rogue Access Point is an unauthorized wireless access device
+that mimics legitimate networks.
+
+Attack Mechanism:
+Attackers deploy fake Wi-Fi networks
+to lure users into connecting.
+
+Technical Indicators:
+- Duplicate SSID names
+- Weak encryption settings
+- Unknown access point MAC address
+
+Common Payloads:
+- Credential harvesting portals
+- Traffic interception
+- Malware delivery
+
+Detection Methods:
+- Wireless monitoring tools
+- Network authentication enforcement
+- WPA3 encryption
+
+Severity Factors:
+- User awareness
+- Network monitoring presence
+- Encryption level
+
+Risk Level Logic:
+High risk in public or corporate environments.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Adversary-in-the-Middle
+
+Real-World Impact:
+Rogue AP attacks steal corporate credentials
+and sensitive browsing data.
+
+Keywords:
+fake Wi-Fi, wireless impersonation,
+network lure, credential harvesting
+--------------------------------------------------------------------------------
+THREAT NAME: EVIL TWIN ATTACK
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+Evil Twin is a wireless attack
+where a malicious access point replicates
+a legitimate Wi-Fi network.
+
+Attack Mechanism:
+Victims connect to the fake AP,
+allowing attackers to intercept
+or manipulate traffic.
+
+Technical Indicators:
+- Identical SSID with stronger signal
+- SSL warnings
+- Suspicious captive portals
+
+Common Payloads:
+- Login credential capture
+- Phishing pages
+- Traffic modification
+
+Detection Methods:
+- Network certificate validation
+- Avoid public Wi-Fi
+- Wireless intrusion detection systems
+
+Severity Factors:
+- Encryption configuration
+- User authentication methods
+- Network monitoring level
+
+Risk Level Logic:
+High risk when users access sensitive accounts.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+
+Real-World Impact:
+Evil Twin attacks are common in airports,
+cafes, and public spaces.
+
+Keywords:
+Wi-Fi impersonation,
+wireless MITM,
+fake hotspot, traffic interception
+--------------------------------------------------------------------------------
+THREAT NAME: IP SPOOFING
+CATEGORY: NETWORK ATTACKS
+
+Definition:
+IP Spoofing is the forging of source IP addresses
+to hide attacker identity or bypass filters.
+
+Attack Mechanism:
+Attackers manipulate packet headers
+to impersonate trusted systems.
+
+Technical Indicators:
+- Mismatched routing paths
+- Inconsistent TTL values
+- Abnormal source address behavior
+
+Common Payloads:
+- Forged TCP packets
+- Reflection attack traffic
+- Trust exploitation attempts
+
+Detection Methods:
+- Ingress/Egress filtering
+- Packet validation
+- Network monitoring
+
+Severity Factors:
+- Trust-based systems
+- Filter weaknesses
+- Amplification integration
+
+Risk Level Logic:
+Medium to high risk depending on
+trust exploitation potential.
+
+MITRE ATT&CK Mapping:
+- Defense Evasion
+- Impact
+
+Real-World Impact:
+IP spoofing is commonly used in DDoS
+and trust exploitation attacks.
+
+Keywords:
+address forgery,
+packet manipulation,
+identity masking,
+traffic deception
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: AUTHENTICATION ATTACKS
+DESCRIPTION:
+Authentication attacks target login mechanisms, identity verification
+systems, and credential validation processes. These attacks attempt to
+gain unauthorized access by bypassing, stealing, or brute-forcing
+authentication credentials.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: BRUTE FORCE ATTACK
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+A brute force attack systematically attempts
+multiple password combinations until the correct one is found.
+
+Attack Mechanism:
+Attackers use automated tools to try
+large numbers of username-password combinations.
+
+Technical Indicators:
+- Multiple failed login attempts
+- Rapid authentication requests
+- Login attempts from a single IP
+
+Common Payloads:
+- Password dictionaries
+- Automated login scripts
+- Credential testing tools
+
+Detection Methods:
+- Account lockout policies
+- Rate limiting
+- CAPTCHA enforcement
+- Multi-factor authentication
+
+Severity Factors:
+- Password complexity
+- Rate limiting presence
+- Account privilege level
+
+Risk Level Logic:
+High risk if weak passwords are used.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+
+Real-World Impact:
+Brute force attacks compromise weak accounts
+and administrative panels.
+
+Keywords:
+password guessing,
+credential cracking,
+login flooding,
+authentication abuse
+--------------------------------------------------------------------------------
+THREAT NAME: CREDENTIAL STUFFING
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Credential stuffing uses previously leaked
+username-password pairs to access accounts.
+
+Attack Mechanism:
+Attackers automate login attempts
+using credentials obtained from data breaches.
+
+Technical Indicators:
+- Login attempts using known leaked credentials
+- Multiple account access attempts
+- High success rate with reused passwords
+
+Common Payloads:
+- Breach databases
+- Automated credential testing scripts
+
+Detection Methods:
+- MFA enforcement
+- Password uniqueness checks
+- Login anomaly detection
+
+Severity Factors:
+- Password reuse rate
+- MFA absence
+- Account privilege
+
+Risk Level Logic:
+High risk when users reuse passwords.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Initial Access
+
+Real-World Impact:
+Credential stuffing has led to mass account takeovers
+on social and financial platforms.
+
+Keywords:
+password reuse,
+breach exploitation,
+automated login abuse,
+account takeover
+--------------------------------------------------------------------------------
+THREAT NAME: PASSWORD SPRAYING
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Password spraying attempts a single common password
+across many accounts to avoid lockout detection.
+
+Attack Mechanism:
+Attackers try weak common passwords
+on multiple usernames over time.
+
+Technical Indicators:
+- Same password attempt across many accounts
+- Low frequency login attempts
+- Distributed authentication patterns
+
+Common Payloads:
+- "Password123"
+- "Welcome2024"
+- Common seasonal passwords
+
+Detection Methods:
+- Strong password policies
+- Login anomaly monitoring
+- MFA enforcement
+
+Severity Factors:
+- Password policy strength
+- Account lockout configuration
+- Privileged account targeting
+
+Risk Level Logic:
+High risk in enterprise environments
+with weak password policies.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+
+Real-World Impact:
+Password spraying is common
+in corporate Active Directory attacks.
+
+Keywords:
+low-rate guessing,
+enterprise credential attack,
+common password abuse
+--------------------------------------------------------------------------------
+THREAT NAME: KEYLOGGING
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Keylogging captures keystrokes
+to steal login credentials.
+
+Attack Mechanism:
+Attackers deploy malware
+that records keyboard input
+and transmits it to attackers.
+
+Technical Indicators:
+- Suspicious background processes
+- Outbound traffic to unknown servers
+- Credential compromise patterns
+
+Common Payloads:
+- Software keyloggers
+- Hardware keylogging devices
+
+Detection Methods:
+- Anti-malware tools
+- Behavioral monitoring
+- Endpoint security solutions
+
+Severity Factors:
+- User privilege level
+- System access scope
+- Detection speed
+
+Risk Level Logic:
+High risk due to stealth credential theft.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Collection
+
+Real-World Impact:
+Keyloggers have been used
+to steal banking and corporate credentials.
+
+Keywords:
+keystroke capture,
+credential theft,
+spyware,
+input monitoring
+--------------------------------------------------------------------------------
+THREAT NAME: MFA FATIGUE ATTACK
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+MFA fatigue exploits push-based
+multi-factor authentication systems
+by overwhelming users with repeated approval requests.
+
+Attack Mechanism:
+Attackers trigger continuous MFA prompts
+until the victim accidentally approves one.
+
+Technical Indicators:
+- Repeated MFA push requests
+- User complaints about spam authentication
+- Successful login after multiple denials
+
+Common Payloads:
+- Push notification flooding
+- Social engineering combined with MFA spam
+
+Detection Methods:
+- Number matching MFA
+- Login origin validation
+- User awareness training
+
+Severity Factors:
+- MFA implementation type
+- User awareness level
+- Monitoring presence
+
+Risk Level Logic:
+Critical risk when MFA approval is blindly accepted.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+
+Real-World Impact:
+MFA fatigue attacks have bypassed
+modern authentication protections.
+
+Keywords:
+push bombing,
+MFA spam,
+authentication fatigue,
+approval abuse
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: SESSION FIXATION
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Session Fixation occurs when an attacker forces a victim
+to use a known session ID, allowing the attacker
+to hijack the session after authentication.
+
+Attack Mechanism:
+The attacker sets or predicts a session identifier
+before the victim logs in, then reuses it
+after successful authentication.
+
+Technical Indicators:
+- Same session ID before and after login
+- Suspicious session reuse
+- Lack of session regeneration
+
+Common Payloads:
+- Fixed session cookies
+- URL session parameters
+
+Detection Methods:
+- Regenerate session ID after login
+- Secure cookie flags
+- Session expiration controls
+
+Severity Factors:
+- Privilege level of account
+- Session security configuration
+- HTTPS enforcement
+
+Risk Level Logic:
+High risk if session tokens are not refreshed after authentication.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Lateral Movement
+
+Real-World Impact:
+Session fixation enables attackers
+to bypass login protections.
+
+Keywords:
+session reuse,
+token prediction,
+authentication bypass,
+cookie manipulation
+--------------------------------------------------------------------------------
+THREAT NAME: OAUTH TOKEN THEFT
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+OAuth Token Theft involves stealing access tokens
+used in OAuth-based authentication systems.
+
+Attack Mechanism:
+Attackers intercept or extract OAuth access tokens
+through phishing, XSS, or insecure storage.
+
+Technical Indicators:
+- Token reuse from different IP addresses
+- Unusual API activity
+- Suspicious third-party application behavior
+
+Common Payloads:
+- Stolen bearer tokens
+- Malicious OAuth redirects
+- API token replay
+
+Detection Methods:
+- Short token expiration
+- Token binding
+- Secure storage mechanisms
+- Activity monitoring
+
+Severity Factors:
+- Token privilege scope
+- Token expiration time
+- API access permissions
+
+Risk Level Logic:
+Critical risk if tokens grant broad API access.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Collection
+- Initial Access
+
+Real-World Impact:
+OAuth token theft has enabled unauthorized
+API access and account compromise.
+
+Keywords:
+access token theft,
+API abuse,
+bearer token replay,
+OAuth exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: PASS-THE-HASH
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Pass-the-Hash allows attackers to authenticate
+using stolen password hashes without knowing the plaintext password.
+
+Attack Mechanism:
+Attackers extract hashed credentials
+from memory or systems and reuse them
+to authenticate across network services.
+
+Technical Indicators:
+- Authentication without password entry
+- Suspicious lateral movement
+- Repeated NTLM authentication attempts
+
+Common Payloads:
+- NTLM hash reuse
+- Credential dumping tools
+
+Detection Methods:
+- Credential Guard
+- Disable NTLM where possible
+- Network monitoring
+- Least privilege enforcement
+
+Severity Factors:
+- Domain admin privileges
+- Internal network segmentation
+- Credential protection level
+
+Risk Level Logic:
+Critical risk in enterprise environments.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Lateral Movement
+
+Real-World Impact:
+Pass-the-Hash attacks are common
+in Active Directory compromises.
+
+Keywords:
+hash reuse,
+NTLM exploitation,
+credential dumping,
+lateral authentication abuse
+--------------------------------------------------------------------------------
+THREAT NAME: GOLDEN TICKET ATTACK
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Golden Ticket Attack forges Kerberos tickets
+to gain persistent domain-level access.
+
+Attack Mechanism:
+Attackers compromise the KRBTGT account hash
+and generate forged Kerberos Ticket Granting Tickets (TGTs).
+
+Technical Indicators:
+- Unusual Kerberos ticket lifetimes
+- Suspicious domain admin activity
+- Anomalous authentication logs
+
+Common Payloads:
+- Forged TGTs
+- Kerberos ticket manipulation
+
+Detection Methods:
+- Monitor KRBTGT account changes
+- Kerberos log auditing
+- Domain controller monitoring
+
+Severity Factors:
+- Domain admin access
+- KRBTGT compromise
+- Detection delay
+
+Risk Level Logic:
+Critical risk due to full domain control potential.
+
+MITRE ATT&CK Mapping:
+- Privilege Escalation
+- Persistence
+- Credential Access
+
+Real-World Impact:
+Golden Ticket attacks grant attackers
+long-term control over enterprise domains.
+
+Keywords:
+Kerberos forgery,
+domain persistence,
+ticket manipulation,
+enterprise compromise
+--------------------------------------------------------------------------------
+THREAT NAME: ACCOUNT ENUMERATION
+CATEGORY: AUTHENTICATION ATTACKS
+
+Definition:
+Account Enumeration identifies valid usernames
+through login response differences.
+
+Attack Mechanism:
+Attackers analyze authentication responses
+to determine whether usernames exist.
+
+Technical Indicators:
+- Different error messages for invalid user vs password
+- Timing differences in login responses
+- Repeated username testing
+
+Common Payloads:
+- Automated username probing
+- API login response analysis
+
+Detection Methods:
+- Generic login error messages
+- Response time normalization
+- Rate limiting
+
+Severity Factors:
+- Exposure of valid accounts
+- Integration with brute force attacks
+- Lack of monitoring
+
+Risk Level Logic:
+Medium risk alone, high risk when combined
+with password attacks.
+
+MITRE ATT&CK Mapping:
+- Discovery
+- Credential Access
+
+Real-World Impact:
+Account enumeration enables
+targeted password attacks and phishing.
+
+Keywords:
+username discovery,
+login probing,
+identity validation abuse,
+authentication reconnaissance
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: CLOUD SECURITY THREATS
+DESCRIPTION:
+Cloud security threats target cloud-based infrastructure,
+services, storage, APIs, and identity management systems.
+These attacks exploit misconfigurations, weak access controls,
+insecure APIs, and cloud privilege escalation paths.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: MISCONFIGURED CLOUD STORAGE
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Misconfigured cloud storage occurs when cloud buckets
+or storage services are publicly accessible
+without proper access restrictions.
+
+Attack Mechanism:
+Attackers scan for exposed storage buckets
+and access sensitive files directly via URL.
+
+Technical Indicators:
+- Publicly accessible cloud storage URLs
+- Missing access control policies
+- Unrestricted read/write permissions
+
+Common Payloads:
+- Direct object download
+- File enumeration scripts
+- Data exfiltration automation
+
+Detection Methods:
+- Access control audits
+- Cloud security posture management (CSPM)
+- Logging and monitoring
+
+Severity Factors:
+- Data sensitivity
+- Write permissions availability
+- Exposure duration
+
+Risk Level Logic:
+Critical risk when sensitive data is publicly exposed.
+
+MITRE ATT&CK Mapping:
+- Collection
+- Exfiltration
+
+Real-World Impact:
+Misconfigured storage has exposed millions of records
+including personal and corporate data.
+
+Keywords:
+public bucket,
+cloud exposure,
+data leak,
+storage misconfiguration
+--------------------------------------------------------------------------------
+THREAT NAME: CLOUD PRIVILEGE ESCALATION
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Cloud privilege escalation occurs when attackers
+gain higher permissions within a cloud environment.
+
+Attack Mechanism:
+Attackers exploit IAM misconfigurations
+or overly permissive roles to elevate privileges.
+
+Technical Indicators:
+- Unusual IAM role changes
+- Suspicious policy modifications
+- Privilege boundary violations
+
+Common Payloads:
+- Role assumption abuse
+- Policy attachment exploitation
+- Token misuse
+
+Detection Methods:
+- Least privilege enforcement
+- IAM auditing
+- Cloud activity logging
+
+Severity Factors:
+- Role scope
+- Administrative access gained
+- Monitoring effectiveness
+
+Risk Level Logic:
+Critical risk if administrative cloud control is obtained.
+
+MITRE ATT&CK Mapping:
+- Privilege Escalation
+- Persistence
+
+Real-World Impact:
+Privilege escalation enables attackers
+to control entire cloud environments.
+
+Keywords:
+IAM abuse,
+role escalation,
+cloud admin takeover,
+policy exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: INSECURE CLOUD API
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Insecure Cloud APIs expose cloud services
+to unauthorized access or manipulation.
+
+Attack Mechanism:
+Attackers exploit weak authentication,
+missing validation, or exposed API endpoints.
+
+Technical Indicators:
+- Public API endpoints without authentication
+- Excessive API error responses
+- Unusual API request volume
+
+Common Payloads:
+- API parameter manipulation
+- Token abuse
+- Unauthorized data queries
+
+Detection Methods:
+- API authentication enforcement
+- Rate limiting
+- API gateway security
+
+Severity Factors:
+- API privilege scope
+- Data sensitivity
+- Rate limiting presence
+
+Risk Level Logic:
+High to critical risk depending on API exposure.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Credential Access
+- Collection
+
+Real-World Impact:
+Insecure APIs have enabled
+large-scale cloud data breaches.
+
+Keywords:
+API exposure,
+cloud endpoint abuse,
+unauthorized API access,
+service manipulation
+--------------------------------------------------------------------------------
+THREAT NAME: CLOUD ACCOUNT HIJACKING
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Cloud account hijacking occurs when attackers
+gain control of cloud accounts through stolen credentials.
+
+Attack Mechanism:
+Attackers use phishing, credential stuffing,
+or token theft to access cloud consoles.
+
+Technical Indicators:
+- Login from unusual geolocations
+- Privilege escalation after login
+- Suspicious resource creation
+
+Common Payloads:
+- Stolen API keys
+- Compromised console credentials
+- Token replay
+
+Detection Methods:
+- MFA enforcement
+- Cloud login monitoring
+- Conditional access policies
+
+Severity Factors:
+- Account privilege level
+- Monitoring presence
+- Credential protection
+
+Risk Level Logic:
+Critical risk if root or admin account is compromised.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Persistence
+- Privilege Escalation
+
+Real-World Impact:
+Cloud hijacking has resulted in
+cryptomining abuse and data theft.
+
+Keywords:
+cloud credential theft,
+console compromise,
+API key abuse,
+account takeover
+--------------------------------------------------------------------------------
+THREAT NAME: CONTAINER ESCAPE
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Container escape occurs when attackers break out
+of a containerized environment
+to access the host system.
+
+Attack Mechanism:
+Attackers exploit container runtime vulnerabilities
+or misconfigurations to gain host-level access.
+
+Technical Indicators:
+- Suspicious container privilege flags
+- Unexpected host process access
+- Container runtime anomalies
+
+Common Payloads:
+- Privileged container abuse
+- Host file system access
+- Kernel exploit usage
+
+Detection Methods:
+- Least privilege container configuration
+- Runtime monitoring
+- Kernel patching
+
+Severity Factors:
+- Host exposure level
+- Container privilege settings
+- Monitoring effectiveness
+
+Risk Level Logic:
+Critical risk when host control is achieved.
+
+MITRE ATT&CK Mapping:
+- Privilege Escalation
+- Lateral Movement
+
+Real-World Impact:
+Container escapes enable attackers
+to compromise cloud infrastructure nodes.
+
+Keywords:
+container breakout,
+runtime exploit,
+host compromise,
+cloud workload attack
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: SERVERLESS EXPLOITATION
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Serverless exploitation targets vulnerabilities
+in cloud-based function services (FaaS).
+
+Attack Mechanism:
+Attackers abuse insecure function triggers,
+environment variables, or excessive permissions
+to execute malicious logic.
+
+Technical Indicators:
+- Unusual function invocation spikes
+- Suspicious environment variable access
+- Unauthorized outbound connections
+
+Common Payloads:
+- Malicious function code injection
+- Trigger manipulation
+- API abuse through serverless endpoints
+
+Detection Methods:
+- Least privilege IAM roles
+- Function logging and monitoring
+- Input validation
+
+Severity Factors:
+- Function privilege scope
+- External connectivity permissions
+- Monitoring coverage
+
+Risk Level Logic:
+High to critical risk depending on function privileges.
+
+MITRE ATT&CK Mapping:
+- Execution
+- Persistence
+- Privilege Escalation
+
+Real-World Impact:
+Serverless abuse can enable data theft
+and backdoor persistence in cloud apps.
+
+Keywords:
+FaaS exploitation,
+cloud function abuse,
+event trigger manipulation,
+serverless privilege abuse
+--------------------------------------------------------------------------------
+THREAT NAME: CLOUD METADATA SERVICE ABUSE
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Cloud metadata service abuse occurs when attackers
+access instance metadata endpoints
+to steal temporary credentials.
+
+Attack Mechanism:
+Attackers exploit SSRF or local access
+to retrieve sensitive metadata,
+including access tokens and IAM credentials.
+
+Technical Indicators:
+- Requests to metadata IP addresses
+- Unusual internal HTTP requests
+- Credential exposure patterns
+
+Common Payloads:
+- Metadata endpoint queries
+- Token extraction scripts
+- Credential replay
+
+Detection Methods:
+- Disable metadata where unnecessary
+- Require IMDSv2 (where applicable)
+- Network filtering
+
+Severity Factors:
+- IAM role permissions
+- Metadata protection configuration
+- Internal segmentation
+
+Risk Level Logic:
+Critical risk when privileged tokens are exposed.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Privilege Escalation
+
+Real-World Impact:
+Metadata abuse has enabled full cloud takeover
+after SSRF exploitation.
+
+Keywords:
+instance metadata theft,
+temporary credential abuse,
+cloud token extraction,
+internal endpoint exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: SHADOW IT EXPOSURE
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Shadow IT exposure occurs when unauthorized
+cloud services are used without security oversight.
+
+Attack Mechanism:
+Employees deploy or use cloud applications
+outside approved security controls.
+
+Technical Indicators:
+- Unknown SaaS usage
+- Unmonitored cloud accounts
+- Unsanctioned API integrations
+
+Common Payloads:
+- Third-party SaaS accounts
+- External data storage apps
+- Unapproved collaboration tools
+
+Detection Methods:
+- Cloud access security broker (CASB)
+- Network traffic monitoring
+- SaaS discovery tools
+
+Severity Factors:
+- Data sensitivity
+- Access control absence
+- Monitoring gaps
+
+Risk Level Logic:
+Medium to high risk depending on data exposure.
+
+MITRE ATT&CK Mapping:
+- Discovery
+- Exfiltration
+
+Real-World Impact:
+Shadow IT increases attack surface
+and bypasses centralized security policies.
+
+Keywords:
+unauthorized SaaS,
+unmonitored cloud usage,
+IT bypass,
+data exposure risk
+--------------------------------------------------------------------------------
+THREAT NAME: DATA RESIDENCY VIOLATIONS
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Data residency violations occur when sensitive data
+is stored or processed in unauthorized geographic regions.
+
+Attack Mechanism:
+Improper cloud configuration
+causes data to be replicated or stored
+outside regulatory boundaries.
+
+Technical Indicators:
+- Cross-region replication logs
+- Unexpected storage region settings
+- Compliance audit failures
+
+Common Payloads:
+- Cross-region data transfers
+- Misconfigured storage policies
+
+Detection Methods:
+- Region restrictions
+- Compliance auditing tools
+- Cloud governance enforcement
+
+Severity Factors:
+- Regulatory impact
+- Data sensitivity level
+- Detection delay
+
+Risk Level Logic:
+High risk due to legal and compliance penalties.
+
+MITRE ATT&CK Mapping:
+- Exfiltration
+- Impact
+
+Real-World Impact:
+Data residency violations can lead to heavy fines
+and regulatory action.
+
+Keywords:
+compliance breach,
+cross-border data storage,
+cloud governance failure,
+regulatory violation
+--------------------------------------------------------------------------------
+THREAT NAME: CLOUD CRYPTOMINING ABUSE
+CATEGORY: CLOUD SECURITY THREATS
+
+Definition:
+Cloud cryptomining abuse occurs when attackers
+compromise cloud accounts to run cryptocurrency mining workloads.
+
+Attack Mechanism:
+Attackers hijack cloud resources
+and deploy mining software,
+consuming compute power and increasing costs.
+
+Technical Indicators:
+- Unexpected high CPU usage
+- Creation of large compute instances
+- Outbound connections to mining pools
+
+Common Payloads:
+- Mining scripts
+- Compromised cloud instances
+- Automated resource scaling abuse
+
+Detection Methods:
+- Cloud cost monitoring
+- Resource usage alerts
+- Anomaly detection
+
+Severity Factors:
+- Compute resource limits
+- Billing alert configuration
+- Account privilege level
+
+Risk Level Logic:
+High financial and operational risk.
+
+MITRE ATT&CK Mapping:
+- Resource Hijacking
+- Persistence
+
+Real-World Impact:
+Cloud cryptomining attacks cause massive
+unexpected cloud bills and service disruption.
+
+Keywords:
+cloud mining,
+resource hijacking,
+unauthorized compute usage,
+financial exploitation
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+DESCRIPTION:
+Cryptographic attacks target encryption mechanisms,
+hashing algorithms, digital signatures, and key management systems.
+These attacks aim to break, weaken, bypass, or exploit weaknesses
+in cryptographic implementations to access sensitive data.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: MAN-IN-THE-MIDDLE TLS DOWNGRADE
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+TLS downgrade attacks force a connection
+to use weaker encryption protocols.
+
+Attack Mechanism:
+Attackers intercept communication
+and manipulate handshake negotiation
+to downgrade encryption standards.
+
+Technical Indicators:
+- Unexpected TLS version downgrade
+- Weak cipher suite usage
+- SSL warnings
+
+Common Payloads:
+- Protocol downgrade manipulation
+- Weak cipher enforcement
+
+Detection Methods:
+- Enforce minimum TLS version
+- Disable legacy protocols
+- Certificate pinning
+
+Severity Factors:
+- Protocol version enforced
+- Cipher strength
+- User awareness
+
+Risk Level Logic:
+High risk when weak encryption is forced.
+
+MITRE ATT&CK Mapping:
+- Adversary-in-the-Middle
+- Defense Evasion
+
+Real-World Impact:
+TLS downgrade enables traffic decryption
+and credential theft.
+
+Keywords:
+protocol downgrade,
+weak cipher exploitation,
+TLS manipulation,
+encryption weakening
+--------------------------------------------------------------------------------
+THREAT NAME: HASH COLLISION ATTACK
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+A hash collision attack generates two inputs
+that produce the same hash value.
+
+Attack Mechanism:
+Attackers exploit weak hash algorithms
+to forge digital signatures or integrity checks.
+
+Technical Indicators:
+- Use of deprecated hash algorithms (e.g., MD5, SHA1)
+- Signature verification anomalies
+
+Common Payloads:
+- Forged certificates
+- Malicious file replacement
+
+Detection Methods:
+- Use SHA-256 or stronger
+- Deprecate legacy hash functions
+- Certificate monitoring
+
+Severity Factors:
+- Hash algorithm strength
+- Digital signature dependency
+- System trust model
+
+Risk Level Logic:
+Critical risk in certificate-based systems.
+
+MITRE ATT&CK Mapping:
+- Defense Evasion
+- Credential Access
+
+Real-World Impact:
+Hash collision attacks have compromised
+digital certificate trust.
+
+Keywords:
+hash forgery,
+collision exploit,
+digital signature bypass,
+integrity compromise
+--------------------------------------------------------------------------------
+THREAT NAME: BRUTE FORCE CRYPTOGRAPHIC KEY ATTACK
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+A brute force key attack attempts
+all possible key combinations
+to decrypt protected data.
+
+Attack Mechanism:
+Attackers use computational power
+to systematically guess encryption keys.
+
+Technical Indicators:
+- Repeated decryption attempts
+- Suspicious computational workload
+- Weak key length usage
+
+Common Payloads:
+- Key guessing scripts
+- GPU-based cracking tools
+
+Detection Methods:
+- Strong key lengths (256-bit+)
+- Rate limiting attempts
+- Key rotation
+
+Severity Factors:
+- Key length
+- Algorithm strength
+- Computational resources
+
+Risk Level Logic:
+High risk with weak encryption keys.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Collection
+
+Real-World Impact:
+Weak encryption keys have led
+to data decryption by attackers.
+
+Keywords:
+key cracking,
+cryptographic brute force,
+weak key exploitation,
+decryption attack
+--------------------------------------------------------------------------------
+THREAT NAME: SIDE-CHANNEL ATTACK
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+Side-channel attacks extract cryptographic secrets
+by analyzing physical implementation leaks
+such as timing or power consumption.
+
+Attack Mechanism:
+Attackers observe timing differences,
+power usage, or electromagnetic signals
+to infer secret keys.
+
+Technical Indicators:
+- Timing response inconsistencies
+- Hardware anomaly patterns
+
+Common Payloads:
+- Timing attack scripts
+- Cache-based extraction methods
+
+Detection Methods:
+- Constant-time implementations
+- Hardware isolation
+- Secure enclave usage
+
+Severity Factors:
+- Physical or local access
+- Implementation design
+- Monitoring controls
+
+Risk Level Logic:
+Medium to critical depending on access level.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Collection
+
+Real-World Impact:
+Side-channel attacks have extracted
+private cryptographic keys from hardware.
+
+Keywords:
+timing attack,
+power analysis,
+hardware leakage,
+crypto key extraction
+--------------------------------------------------------------------------------
+THREAT NAME: REPLAY ATTACK
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+A replay attack reuses captured encrypted data
+to repeat a valid transaction or authentication.
+
+Attack Mechanism:
+Attackers capture legitimate encrypted messages
+and resend them to gain unauthorized access.
+
+Technical Indicators:
+- Duplicate authentication requests
+- Repeated transaction identifiers
+- Nonce reuse detection
+
+Common Payloads:
+- Token replay
+- Authentication packet reuse
+
+Detection Methods:
+- Nonce implementation
+- Timestamp validation
+- Token expiration
+
+Severity Factors:
+- Session management design
+- Token uniqueness
+- Expiration enforcement
+
+Risk Level Logic:
+High risk if nonces or timestamps are absent.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Initial Access
+
+Real-World Impact:
+Replay attacks have bypassed
+authentication systems.
+
+Keywords:
+packet replay,
+token reuse,
+authentication duplication,
+nonce bypass
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+THREAT NAME: PADDING ORACLE ATTACK
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+Padding Oracle Attack exploits padding validation
+in block cipher encryption modes (e.g., CBC).
+
+Attack Mechanism:
+Attackers manipulate encrypted ciphertext blocks
+and observe server responses
+to gradually decrypt protected data.
+
+Technical Indicators:
+- Distinct padding error responses
+- Repeated modified ciphertext submissions
+- Abnormal decryption failure patterns
+
+Common Payloads:
+- Modified ciphertext blocks
+- Adaptive decryption scripts
+
+Detection Methods:
+- Uniform error responses
+- Use authenticated encryption (e.g., AES-GCM)
+- Disable vulnerable cipher modes
+
+Severity Factors:
+- Encryption mode used
+- Error message exposure
+- Rate limiting presence
+
+Risk Level Logic:
+High risk in legacy encryption systems.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Collection
+
+Real-World Impact:
+Padding oracle vulnerabilities
+have enabled decryption of secure session data.
+
+Keywords:
+CBC exploit,
+ciphertext manipulation,
+adaptive decryption,
+padding validation flaw
+--------------------------------------------------------------------------------
+THREAT NAME: GENERAL PROTOCOL DOWNGRADE ATTACK
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+Protocol downgrade attacks force systems
+to use weaker security protocols.
+
+Attack Mechanism:
+Attackers interfere during negotiation
+to downgrade encryption or authentication protocols.
+
+Technical Indicators:
+- Unexpected fallback to legacy protocols
+- Weak cipher negotiation logs
+- Repeated handshake anomalies
+
+Common Payloads:
+- Forced SSL fallback
+- Legacy authentication enforcement
+
+Detection Methods:
+- Disable deprecated protocols
+- Enforce strict negotiation policies
+- Certificate validation enforcement
+
+Severity Factors:
+- Legacy protocol support
+- Strict transport security configuration
+- Client compatibility settings
+
+Risk Level Logic:
+High risk if weak protocols remain enabled.
+
+MITRE ATT&CK Mapping:
+- Defense Evasion
+- Adversary-in-the-Middle
+
+Real-World Impact:
+Protocol downgrade attacks weaken encrypted channels
+and expose data to interception.
+
+Keywords:
+protocol fallback,
+legacy encryption abuse,
+handshake manipulation,
+security downgrade
+--------------------------------------------------------------------------------
+THREAT NAME: WEAK RANDOM NUMBER GENERATION
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+Weak random number generation compromises
+the unpredictability of cryptographic keys or tokens.
+
+Attack Mechanism:
+Attackers exploit predictable random values
+to guess session IDs, keys, or tokens.
+
+Technical Indicators:
+- Repeated or predictable tokens
+- Low entropy detection
+- Similar session identifiers
+
+Common Payloads:
+- Predictable session ID sequences
+- Key generation flaws
+
+Detection Methods:
+- Use cryptographically secure RNG
+- Entropy monitoring
+- Regular security testing
+
+Severity Factors:
+- Key generation method
+- Entropy source quality
+- Token lifetime
+
+Risk Level Logic:
+Critical risk when cryptographic keys are predictable.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Persistence
+
+Real-World Impact:
+Weak randomness has enabled
+session hijacking and key prediction attacks.
+
+Keywords:
+low entropy,
+predictable token,
+insecure RNG,
+key generation flaw
+--------------------------------------------------------------------------------
+THREAT NAME: CERTIFICATE FORGERY
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+Certificate forgery involves creating fraudulent
+digital certificates to impersonate trusted entities.
+
+Attack Mechanism:
+Attackers exploit weak validation,
+compromised certificate authorities,
+or hash collisions to generate fake certificates.
+
+Technical Indicators:
+- Untrusted certificate chains
+- Unexpected issuer details
+- Certificate signature anomalies
+
+Common Payloads:
+- Fake SSL certificates
+- Forged signing certificates
+
+Detection Methods:
+- Certificate transparency monitoring
+- Strong certificate validation
+- Revocation checking (OCSP/CRL)
+
+Severity Factors:
+- Trust chain impact
+- CA compromise level
+- Detection speed
+
+Risk Level Logic:
+Critical risk in PKI-dependent environments.
+
+MITRE ATT&CK Mapping:
+- Defense Evasion
+- Credential Access
+
+Real-World Impact:
+Certificate forgery can enable
+large-scale phishing and traffic interception.
+
+Keywords:
+fake certificate,
+PKI abuse,
+certificate spoofing,
+trust chain compromise
+--------------------------------------------------------------------------------
+THREAT NAME: KEY MANAGEMENT FAILURE
+CATEGORY: CRYPTOGRAPHIC ATTACKS
+
+Definition:
+Key management failure occurs when cryptographic keys
+are improperly stored, rotated, or protected.
+
+Attack Mechanism:
+Attackers access exposed keys
+through misconfiguration, hardcoded secrets,
+or insecure storage.
+
+Technical Indicators:
+- Hardcoded keys in source code
+- Public repository secret exposure
+- Missing key rotation logs
+
+Common Payloads:
+- Exposed API keys
+- Hardcoded encryption secrets
+- Secret repository scraping
+
+Detection Methods:
+- Secure key vault usage
+- Automated secret scanning
+- Key rotation policies
+
+Severity Factors:
+- Key exposure scope
+- Privilege level tied to key
+- Detection delay
+
+Risk Level Logic:
+Critical risk when master keys are exposed.
+
+MITRE ATT&CK Mapping:
+- Credential Access
+- Collection
+- Persistence
+
+Real-World Impact:
+Poor key management has led
+to large-scale cloud and API breaches.
+
+Keywords:
+secret exposure,
+hardcoded key,
+cryptographic mismanagement,
+API key leak
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: SUPPLY CHAIN ATTACKS
+DESCRIPTION:
+Supply chain attacks target third-party vendors,
+software dependencies, service providers,
+or hardware components to compromise
+organizations indirectly through trusted relationships.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: SOFTWARE SUPPLY CHAIN COMPROMISE
+CATEGORY: SUPPLY CHAIN ATTACKS
+
+Definition:
+Software supply chain compromise occurs
+when attackers inject malicious code
+into legitimate software updates or builds.
+
+Attack Mechanism:
+Attackers infiltrate vendor build systems
+and distribute backdoored software
+to downstream customers.
+
+Technical Indicators:
+- Unexpected behavior after legitimate updates
+- Suspicious outbound connections
+- Integrity verification mismatches
+
+Common Payloads:
+- Backdoored updates
+- Malicious installers
+- Trojanized software packages
+
+Detection Methods:
+- Code signing verification
+- Software integrity validation
+- Vendor security auditing
+
+Severity Factors:
+- Distribution scale
+- Privilege level of software
+- Detection delay
+
+Risk Level Logic:
+Critical risk due to trusted update channels.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Persistence
+- Supply Chain Compromise
+
+Real-World Impact:
+Supply chain attacks have compromised
+thousands of organizations through trusted vendors.
+
+Keywords:
+trojanized update,
+vendor compromise,
+malicious build injection,
+trusted software abuse
+--------------------------------------------------------------------------------
+THREAT NAME: DEPENDENCY CONFUSION
+CATEGORY: SUPPLY CHAIN ATTACKS
+
+Definition:
+Dependency confusion exploits package managers
+by uploading malicious packages
+with the same name as internal libraries.
+
+Attack Mechanism:
+Attackers publish higher-version malicious packages
+to public repositories,
+causing systems to download them automatically.
+
+Technical Indicators:
+- Unexpected external package downloads
+- Version mismatch alerts
+- Unknown package source references
+
+Common Payloads:
+- Malicious npm packages
+- Fake Python modules
+- Backdoored dependency libraries
+
+Detection Methods:
+- Private package repository configuration
+- Dependency pinning
+- Integrity hash verification
+
+Severity Factors:
+- CI/CD pipeline configuration
+- Repository priority settings
+- Code review absence
+
+Risk Level Logic:
+High risk in automated build environments.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Persistence
+
+Real-World Impact:
+Dependency confusion has led
+to remote code execution in enterprise systems.
+
+Keywords:
+package poisoning,
+repository hijack,
+malicious dependency,
+build pipeline attack
+--------------------------------------------------------------------------------
+THREAT NAME: MALICIOUS OPEN-SOURCE CONTRIBUTION
+CATEGORY: SUPPLY CHAIN ATTACKS
+
+Definition:
+Attackers submit malicious code
+into open-source projects
+to compromise downstream users.
+
+Attack Mechanism:
+Malicious pull requests or subtle backdoors
+are introduced into widely used projects.
+
+Technical Indicators:
+- Suspicious commit history
+- Obfuscated logic in new code
+- Unexpected network behavior after update
+
+Common Payloads:
+- Hidden backdoor logic
+- Credential exfiltration functions
+- Remote command execution code
+
+Detection Methods:
+- Code review processes
+- Contributor verification
+- Static code analysis
+
+Severity Factors:
+- Popularity of project
+- Code review rigor
+- Update frequency
+
+Risk Level Logic:
+High to critical depending on project reach.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Persistence
+
+Real-World Impact:
+Open-source compromise affects
+large ecosystems of dependent applications.
+
+Keywords:
+malicious commit,
+open-source poisoning,
+backdoor contribution,
+library compromise
+--------------------------------------------------------------------------------
+THREAT NAME: THIRD-PARTY SERVICE PROVIDER BREACH
+CATEGORY: SUPPLY CHAIN ATTACKS
+
+Definition:
+Third-party provider breach occurs
+when attackers compromise a vendor
+to access client organizations.
+
+Attack Mechanism:
+Attackers infiltrate managed service providers (MSPs)
+or SaaS vendors to pivot into customer networks.
+
+Technical Indicators:
+- Simultaneous breaches across clients
+- Suspicious access via vendor accounts
+- Abnormal vendor API usage
+
+Common Payloads:
+- Compromised vendor credentials
+- Remote access abuse
+- Shared infrastructure exploitation
+
+Detection Methods:
+- Vendor access monitoring
+- Zero trust architecture
+- Third-party risk assessment
+
+Severity Factors:
+- Vendor privilege level
+- Network integration depth
+- Monitoring effectiveness
+
+Risk Level Logic:
+Critical risk due to trusted external access.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Lateral Movement
+- Persistence
+
+Real-World Impact:
+Vendor breaches have led
+to large-scale multi-organization compromises.
+
+Keywords:
+MSP compromise,
+SaaS breach,
+vendor pivot attack,
+trusted partner exploitation
+--------------------------------------------------------------------------------
+THREAT NAME: HARDWARE SUPPLY CHAIN TAMPERING
+CATEGORY: SUPPLY CHAIN ATTACKS
+
+Definition:
+Hardware supply chain tampering involves
+modifying physical components
+before delivery to target organizations.
+
+Attack Mechanism:
+Attackers implant malicious hardware
+or firmware during manufacturing or shipping.
+
+Technical Indicators:
+- Firmware integrity mismatch
+- Unexpected hardware behavior
+- BIOS or firmware anomalies
+
+Common Payloads:
+- Malicious firmware implants
+- Hardware backdoors
+- Embedded spying components
+
+Detection Methods:
+- Hardware integrity checks
+- Secure boot enforcement
+- Vendor chain verification
+
+Severity Factors:
+- Physical access control
+- Hardware deployment scale
+- Detection capabilities
+
+Risk Level Logic:
+Critical risk due to low-level system compromise.
+
+MITRE ATT&CK Mapping:
+- Persistence
+- Privilege Escalation
+- Supply Chain Compromise
+
+Real-World Impact:
+Hardware tampering enables stealth
+long-term espionage operations.
+
+Keywords:
+firmware implant,
+hardware backdoor,
+supply chain hardware attack,
+pre-deployment compromise
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY: INSIDER THREATS
+DESCRIPTION:
+Insider threats originate from individuals within an organization
+who misuse legitimate access to compromise data,
+systems, or operational integrity.
+These threats may be malicious, negligent, or accidental.
+================================================================================
+
+--------------------------------------------------------------------------------
+THREAT NAME: MALICIOUS INSIDER
+CATEGORY: INSIDER THREATS
+
+Definition:
+A malicious insider intentionally abuses authorized access
+to steal data, sabotage systems,
+or disrupt organizational operations.
+
+Attack Mechanism:
+The insider leverages legitimate credentials
+to exfiltrate data, delete assets,
+or introduce backdoors.
+
+Technical Indicators:
+- Large data downloads before resignation
+- Privileged access outside working hours
+- Access to unrelated systems
+
+Common Payloads:
+- Data exfiltration scripts
+- Unauthorized database exports
+- Sabotage commands
+
+Detection Methods:
+- User behavior analytics (UBA)
+- Access monitoring
+- Data loss prevention (DLP)
+
+Severity Factors:
+- Access privilege level
+- Data sensitivity
+- Monitoring maturity
+
+Risk Level Logic:
+Critical risk when privileged users act maliciously.
+
+MITRE ATT&CK Mapping:
+- Exfiltration
+- Impact
+- Credential Access
+
+Real-World Impact:
+Malicious insiders have caused
+massive intellectual property theft.
+
+Keywords:
+internal sabotage,
+authorized abuse,
+data theft,
+privilege misuse
+--------------------------------------------------------------------------------
+THREAT NAME: NEGLIGENT INSIDER
+CATEGORY: INSIDER THREATS
+
+Definition:
+A negligent insider unintentionally exposes
+sensitive information through careless actions.
+
+Attack Mechanism:
+Employees mishandle data,
+fall for phishing,
+or misconfigure systems.
+
+Technical Indicators:
+- Upload of sensitive files to public platforms
+- Credential sharing
+- Phishing-based account compromise
+
+Common Payloads:
+- Misconfigured cloud storage
+- Weak passwords
+- Public document sharing
+
+Detection Methods:
+- Security awareness training
+- Access restriction policies
+- Monitoring file-sharing activity
+
+Severity Factors:
+- Data classification
+- Employee awareness level
+- Monitoring presence
+
+Risk Level Logic:
+Medium to high risk depending on exposure.
+
+MITRE ATT&CK Mapping:
+- Initial Access
+- Exfiltration
+
+Real-World Impact:
+Negligent insiders are one of the most common
+causes of data breaches.
+
+Keywords:
+human error,
+misconfiguration,
+accidental exposure,
+careless credential handling
+--------------------------------------------------------------------------------
+THREAT NAME: PRIVILEGE MISUSE
+CATEGORY: INSIDER THREATS
+
+Definition:
+Privilege misuse occurs when an employee
+uses elevated permissions beyond their job role.
+
+Attack Mechanism:
+An insider accesses confidential systems
+or modifies data outside assigned responsibilities.
+
+Technical Indicators:
+- Access to unauthorized systems
+- Role boundary violations
+- Unauthorized data queries
+
+Common Payloads:
+- Database manipulation
+- Record alteration
+- Audit log tampering
+
+Detection Methods:
+- Least privilege enforcement
+- Role-based access control (RBAC)
+- Continuous auditing
+
+Severity Factors:
+- Level of privilege
+- Data sensitivity
+- Logging configuration
+
+Risk Level Logic:
+High risk in environments without strict RBAC.
+
+MITRE ATT&CK Mapping:
+- Privilege Escalation
+- Impact
+
+Real-World Impact:
+Privilege misuse undermines
+internal trust and compliance.
+
+Keywords:
+access abuse,
+role violation,
+internal overreach,
+authorization bypass
+--------------------------------------------------------------------------------
+THREAT NAME: DATA EXFILTRATION BY INSIDER
+CATEGORY: INSIDER THREATS
+
+Definition:
+Insider data exfiltration involves
+the unauthorized transfer of sensitive data
+to external locations.
+
+Attack Mechanism:
+Insiders copy files to external drives,
+cloud storage, or personal emails.
+
+Technical Indicators:
+- Large file transfers
+- USB device activity spikes
+- Suspicious outbound cloud uploads
+
+Common Payloads:
+- Bulk database exports
+- Intellectual property archives
+- Email forwarding rules
+
+Detection Methods:
+- DLP solutions
+- Endpoint monitoring
+- Network traffic analysis
+
+Severity Factors:
+- Data classification level
+- Monitoring coverage
+- Exit controls for employees
+
+Risk Level Logic:
+Critical risk when trade secrets are stolen.
+
+MITRE ATT&CK Mapping:
+- Exfiltration
+- Collection
+
+Real-World Impact:
+Insider exfiltration has led
+to corporate espionage cases.
+
+Keywords:
+internal data leak,
+USB copying,
+email forwarding abuse,
+IP theft
+--------------------------------------------------------------------------------
+THREAT NAME: SABOTAGE BY INSIDER
+CATEGORY: INSIDER THREATS
+
+Definition:
+Sabotage occurs when an insider intentionally
+damages systems, deletes data,
+or disrupts services.
+
+Attack Mechanism:
+The insider deletes backups,
+alters configurations,
+or disables security controls.
+
+Technical Indicators:
+- Sudden deletion of critical files
+- Disabled logging
+- Service disruption linked to internal accounts
+
+Common Payloads:
+- Data wiping scripts
+- Backup deletion
+- Security control disablement
+
+Detection Methods:
+- Separation of duties
+- Backup integrity monitoring
+- Activity logging
+
+Severity Factors:
+- Administrative privilege
+- Backup resilience
+- Incident response speed
+
+Risk Level Logic:
+Critical risk due to operational disruption.
+
+MITRE ATT&CK Mapping:
+- Impact
+- Defense Evasion
+
+Real-World Impact:
+Insider sabotage can halt operations
+and cause long-term financial damage.
+
+Keywords:
+internal destruction,
+backup deletion,
+operational sabotage,
+system disruption
+--------------------------------------------------------------------------------
+

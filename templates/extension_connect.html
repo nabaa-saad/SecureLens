@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Connect Browser Extension{% endblock %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto py-12">
+  <div class="glass-panel rounded-3xl p-8 md:p-10">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+        <i class="ph-fill ph-plugs-connected text-blue-400 text-4xl"></i>
+      </div>
+      <div>
+        <h1 class="text-3xl font-black text-white tracking-tight">Connect URL Analysis Using LLM Extension</h1>
+        <p class="text-slate-400 mt-1">Approve this request to link the browser extension with your website account.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
+        <div class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-2">Website Account</div>
+        <div class="text-xl font-bold text-white">{{ user.username }}</div>
+        <div class="text-sm text-slate-400 mt-1">
+          {% if user.is_admin %}Administrator{% else %}Standard user{% endif %}
+        </div>
+      </div>
+      <div class="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
+        <div class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-2">Pairing Status</div>
+        <div class="text-xl font-bold {% if pairing.status == 'PENDING' %}text-amber-400{% elif pairing.status in ['APPROVED', 'COMPLETED'] %}text-emerald-400{% else %}text-red-400{% endif %}">
+          {{ pairing.status }}
+        </div>
+        <div class="text-sm text-slate-400 mt-1">Expires at {{ pairing.expires_at }}</div>
+      </div>
+    </div>
+
+    {% if pairing.status == 'PENDING' %}
+    <div class="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-5 mb-8">
+      <div class="flex items-start gap-3">
+        <i class="ph-fill ph-info text-blue-400 text-2xl mt-0.5"></i>
+        <div class="space-y-2 text-sm text-slate-300">
+          <p>The extension will receive a revocable session token after you approve this request.</p>
+          <p>Logging out of the website will automatically revoke that extension session.</p>
+        </div>
+      </div>
+    </div>
+
+    <form action="/extension/connect" method="post" class="flex flex-col sm:flex-row gap-3">
+      <input type="hidden" name="code" value="{{ code }}" />
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold transition-all duration-300 hover:scale-[1.02]"
+      >
+        <i class="ph-fill ph-check-circle text-xl"></i>
+        <span>Approve Connection</span>
+      </button>
+      <a
+        href="/dashboard"
+        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition-all duration-300"
+      >
+        <i class="ph ph-arrow-left text-xl"></i>
+        <span>Back to Dashboard</span>
+      </a>
+    </form>
+    {% else %}
+    <div class="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
+      <div class="flex items-start gap-3">
+        <i class="ph-fill ph-check-circle text-emerald-400 text-3xl mt-0.5"></i>
+        <div>
+          <h2 class="text-xl font-bold text-white mb-2">Extension Approved</h2>
+          <p class="text-slate-300 text-sm">
+            You can return to the extension popup now. It will finish pairing automatically within a few seconds.
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

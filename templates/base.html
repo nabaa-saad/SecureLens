@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="URL Analysis Using LLM graduation project for intelligent URL risk assessment"
+    />
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+    {% block head_extra %}{% endblock %}
+
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              dark: {
+                950: "#0a0e1a",
+                900: "#0f172a",
+                800: "#1e293b",
+                700: "#334155",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+              mono: ["JetBrains Mono", "Consolas", "monospace"],
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "bounce-slow": "bounce 2s infinite",
+              "spin-slow": "spin 3s linear infinite",
+              "ping-slow": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+            },
+            backdropBlur: {
+              xs: "2px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Theme: Dark Mode Only (Light Mode Disabled) -->
+    <script>
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    </script>
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='/css/styles.css') }}?v=3"
+    />
+    <script
+      src="{{ url_for('static', path='/js/scripts.js') }}?v=3"
+      defer
+    ></script>
+    {% block vendor_scripts %}{% endblock %}
+  </head>
+
+  <body
+    data-page="{% block page_id %}app{% endblock %}"
+    class="bg-dark-950 min-h-screen text-slate-200 selection:bg-blue-500/30 selection:text-white flex flex-col overflow-x-hidden antialiased"
+  >
+    <!-- Animated Top Accent Bar -->
+    <div
+      id="topAccentBar"
+      class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 z-50 shadow-lg shadow-blue-500/30"
+    >
+      <div
+        class="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"
+      ></div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="overlay">
+      <div class="relative mb-8">
+        <div class="loader"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <i
+            class="ph-fill ph-shield-check text-blue-400 text-4xl animate-pulse"
+          ></i>
+        </div>
+      </div>
+      <h2
+        class="text-3xl font-bold text-white tracking-tight mb-2 animate-pulse"
+      >
+        Analyzing URL
+      </h2>
+      <p class="text-sm text-slate-400 font-medium max-w-md text-center">
+        Running comprehensive security scan using AI and threat intelligence...
+      </p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Enhanced Navigation Bar -->
+    <nav
+      class="bg-dark-900/95 backdrop-blur-xl border-b border-slate-800/50 sticky top-1 z-40 no-print"
+    >
+      <div class="max-w-7xl mx-auto px-6 py-3.5">
+        <div class="flex justify-between items-center gap-6">
+          <!-- Logo Section -->
+          <a href="/" class="flex items-center gap-3 group shrink-0">
+            <div class="relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition-opacity"
+              ></div>
+              <div
+                class="relative w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300 group-hover:scale-110"
+              >
+                <i class="ph-fill ph-shield-check text-white text-2xl"></i>
+              </div>
+            </div>
+            <div class="flex flex-col leading-tight">
+              <span class="text-lg xl:text-[1.7rem] font-bold tracking-tight text-white whitespace-nowrap">
+                <span>URL Analysis</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 ml-1.5"
+                  >Using LLM</span
+                >
+              </span>
+              <span
+                class="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.18em] mt-1"
+                >{{ app_tagline }}</span
+              >
+            </div>
+          </a>
+
+          <!-- Navigation Links & Actions -->
+          <div class="flex items-center gap-4 xl:gap-6 min-w-0">
+            {% if user %}
+            <!-- Main Navigation (Desktop) -->
+            <div class="hidden md:flex gap-1 shrink-0">
+              <a
+                href="/"
+                class="nav-link {% if request.path == '/' %}active{% endif %}"
+              >
+                <i class="ph ph-scan"></i>
+                <span>Scan</span>
+              </a>
+              <a
+                href="/dashboard"
+                class="nav-link {% if '/dashboard' in request.path %}active{% endif %}"
+              >
+                <i class="ph ph-chart-pie-slice"></i>
+                <span>Dashboard</span>
+              </a>
+              <a
+                href="/settings"
+                class="nav-link {% if '/settings' in request.path %}active{% endif %}"
+              >
+                <i class="ph ph-gear"></i>
+                <span>Settings</span>
+              </a>
+            </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2 xl:gap-3 shrink-0">
+              {% if user %}
+              <!-- User Profile -->
+              <div
+                class="hidden xl:flex items-center gap-3 px-3.5 py-2 rounded-xl border backdrop-blur-sm transition-all duration-300 {% if user.is_admin %}bg-amber-500/8 border-amber-500/20 hover:border-amber-500/35{% else %}bg-dark-800/50 border-slate-700/50 hover:border-slate-600/50{% endif %}"
+              >
+                <div class="relative">
+                  {% if user.is_admin %}
+                  <div
+                    class="absolute inset-0 bg-amber-500 rounded-full blur opacity-30"
+                  ></div>
+                  <i
+                    class="ph-fill ph-crown text-amber-400 text-xl relative"
+                  ></i>
+                  {% else %}
+                  <div
+                    class="absolute inset-0 bg-blue-500 rounded-full blur opacity-30"
+                  ></div>
+                  <i
+                    class="ph-fill ph-user-circle text-blue-400 text-xl relative"
+                  ></i>
+                  {% endif %}
+                </div>
+                <div class="flex flex-col leading-tight min-w-[6.5rem]">
+                  <span class="text-sm font-semibold text-slate-200"
+                    >{{ user.username }}</span
+                  >
+                  <span
+                    class="text-[10px] font-bold uppercase tracking-[0.16em] {% if user.is_admin %}text-amber-400{% else %}text-blue-400{% endif %}"
+                    >{% if user.is_admin %}Administrator{% else %}Regular User{% endif %}</span
+                  >
+                </div>
+              </div>
+
+              <!-- Admin Panel Link -->
+              {% if user.is_admin %}
+              <a
+                href="/admin/users"
+                class="px-3.5 py-2 rounded-xl bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 flex items-center gap-2 font-semibold text-sm group"
+                title="User Management"
+              >
+                <i
+                  class="ph-fill ph-users-three group-hover:scale-110 transition-transform"
+                ></i>
+                <span class="hidden xl:inline">Manage Users</span>
+              </a>
+              {% endif %}
+
+              <!-- Logout Button -->
+              <a
+                href="/logout"
+                class="px-3.5 py-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/40 transition-all duration-300 flex items-center gap-2 font-semibold text-sm group"
+              >
+                <i
+                  class="ph ph-sign-out group-hover:translate-x-0.5 transition-transform"
+                ></i>
+                <span class="hidden sm:inline">Logout</span>
+              </a>
+
+              {% else %}
+              <!-- Login Button -->
+              <a
+                href="/login"
+                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold text-sm tracking-wide transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 active:scale-95 flex items-center gap-2"
+              >
+                <i class="ph-bold ph-sign-in"></i>
+                <span>Sign In</span>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main
+      class="flex-grow w-full max-w-7xl mx-auto p-6 relative z-10"
+      id="main-content"
+    >
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer
+      class="relative text-center p-8 text-slate-500 text-xs font-medium no-print border-t border-slate-800/50 mt-auto overflow-hidden"
+    >
+      <!-- Background decoration -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-dark-950 to-transparent opacity-50"
+      ></div>
+
+      <div class="relative z-10">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <i class="ph-fill ph-shield-check text-blue-500 text-lg"></i>
+          <span class="font-semibold text-slate-400"
+            >&copy; 2026 {{ app_name }}</span
+          >
+        </div>
+
+        <div class="flex items-center justify-center gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+              ></span>
+            </span>
+            <span
+              class="text-[10px] font-semibold uppercase tracking-wider text-emerald-400"
+              >All Systems Operational</span
+            >
+          </div>
+          <span class="text-slate-700">|</span>
+          <span
+            class="text-[10px] font-semibold uppercase tracking-wider text-slate-500"
+            >v{{ app_version }}</span
+          >
+        </div>
+
+        <div
+          class="flex items-center justify-center gap-4 text-[10px] text-slate-600"
+        >
+          <span>URL Classification • Threat Intelligence • LLM Summaries</span>
+          <span>•</span>
+          <span>{{ app_tagline }}</span>
+        </div>
+      </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+
+    <!-- Additional inline styles for navigation -->
+    <style>
+      .nav-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1rem;
+        border-radius: 0.75rem;
+        color: rgb(148 163 184);
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition:
+          color 0.3s ease,
+          background-color 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 80%;
+        height: 2px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        transition: transform 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .nav-link:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .nav-link:hover::before,
+      .nav-link.active::before {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      .nav-link.active {
+        color: rgb(96 165 250);
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      .nav-link i {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .nav-link:hover i {
+        transform: scale(1.1);
+      }
+    </style>
+  </body>
+</html>

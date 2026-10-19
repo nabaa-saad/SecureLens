@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security Report - {{ url }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              dark: {
+                950: "#0a0e1a",
+                900: "#0f172a",
+                800: "#1e293b",
+                700: "#334155",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+              mono: ["JetBrains Mono", "Consolas", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      {{ inline_css }}
+      body { background: #0a0e1a; }
+      .glass-panel {
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(51, 65, 85, 0.5);
+        backdrop-filter: blur(12px);
+      }
+      @media print {
+        body { background: white !important; color: black !important; }
+        .glass-panel { background: #f8fafc !important; border: 1px solid #e2e8f0 !important; }
+        .no-print { display: none !important; }
+      }
+    </style>
+  </head>
+  <body class="bg-dark-950 min-h-screen text-slate-200 antialiased">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <!-- Report Header -->
+      <div class="text-center mb-8">
+        <div
+          class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-2"
+        >
+          URL Analysis Using LLM Security Report
+        </div>
+        <div class="text-slate-400 text-sm font-mono">
+          Scan ID: {{ scan_id }} &bull; Generated: {{ generated_at }}
+        </div>
+      </div>
+
+      <!-- Verdict Banner -->
+      <div
+        class="relative rounded-2xl shadow-2xl p-8 md:p-10 text-white overflow-hidden mb-8 {% if verdict == 'MALICIOUS' %}bg-gradient-to-br from-red-600 via-red-700 to-red-900{% elif verdict == 'SUSPICIOUS' %}bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700{% elif verdict == 'CAUTION' %}bg-gradient-to-br from-yellow-500 via-yellow-600 to-yellow-700{% else %}bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-900{% endif %}"
+      >
+        <div class="absolute inset-0 opacity-10">
+          <div
+            class="absolute inset-0"
+            style="
+              background-image: radial-gradient(
+                circle at 2px 2px,
+                white 1px,
+                transparent 0
+              );
+              background-size: 40px 40px;
+            "
+          ></div>
+        </div>
+        <div
+          class="relative z-10 flex flex-col md:flex-row justify-between items-start gap-6"
+        >
+          <div class="flex-1">
+            <div
+              class="inline-flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider mb-4 backdrop-blur-sm"
+            >
+              <i class="ph-fill ph-shield-warning"></i> Security Assessment
+            </div>
+            <h1
+              class="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-lg"
+            >
+              {{ verdict }}
+            </h1>
+            <div
+              class="flex items-center gap-2 bg-black/30 inline-block px-4 py-2 rounded-xl backdrop-blur-md border border-white/10"
+            >
+              <i class="ph-fill ph-link-simple text-lg"></i>
+              <p class="font-mono text-sm break-all">{{ url }}</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <div
+              class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border-4 border-white/20 shadow-2xl"
+            >
+              {% if verdict == 'MALICIOUS' %}
+              <i class="ph-fill ph-warning-octagon text-6xl md:text-7xl"></i>
+              {% elif verdict == 'SUSPICIOUS' %}
+              <i class="ph-fill ph-warning text-6xl md:text-7xl"></i>
+              {% else %}
+              <i class="ph-fill ph-shield-check text-6xl md:text-7xl"></i>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Analysis -->
+      <div class="mb-8">
+        <div class="glass-panel rounded-2xl p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="p-3 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-xl border border-purple-500/30"
+            >
+              <i class="ph-fill ph-brain text-purple-400 text-3xl"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-xl mb-1">
+                AI Security Assessment
+              </h3>
+              <p class="text-slate-400 text-sm">
+                Analysis powered by advanced language models
+              </p>
+            </div>
+          </div>
+          <div
+            class="prose prose-sm prose-invert max-w-none leading-relaxed text-slate-300 bg-slate-800/30 p-6 rounded-xl border border-slate-700/50"
+          >
+            {{ llm_report_text | e | replace('\n', '<br />') | safe }}
+          </div>
+        </div>
+      </div>
+
+      {% set rag = llm_report.rag if llm_report.rag else {} %}
+      {% if rag and rag.threat_name and rag.threat_name != 'Unknown' %}
+      <div class="mb-8">
+        <div class="glass-panel rounded-2xl p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="p-3 bg-gradient-to-br from-cyan-500/20 to-sky-600/20 rounded-xl border border-cyan-500/30"
+            >
+              <i class="ph-fill ph-books text-cyan-400 text-3xl"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-xl mb-1">Threat RAG Context</h3>
+              <p class="text-slate-400 text-sm">
+                Knowledge-grounded threat matching generated from the bundled ai_reports corpus
+              </p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4 mb-5">
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div class="text-slate-400 text-xs uppercase font-bold mb-2">Primary Match</div>
+              <div class="text-white font-bold">{{ rag.threat_name }}</div>
+              <div class="text-slate-400 text-sm mt-1">{{ rag.category }}</div>
+            </div>
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div class="text-slate-400 text-xs uppercase font-bold mb-2">Confidence</div>
+              <div class="text-white font-bold">{{ rag.confidence }}%</div>
+              <div class="text-slate-400 text-sm mt-1">Mode: {{ rag.retrieval_mode|default('hybrid') }}</div>
+            </div>
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div class="text-slate-400 text-xs uppercase font-bold mb-2">MITRE ATT&CK</div>
+              <div class="text-white font-bold">{{ rag.mitre.id|default('Unknown') }}</div>
+              <div class="text-slate-400 text-sm mt-1">{{ rag.mitre.name|default('Unknown') }} | {{ rag.mitre.tactic|default('Unknown') }}</div>
+            </div>
+          </div>
+
+          {% if rag.retrieved_documents %}
+          <div class="space-y-3">
+            {% for doc in rag.retrieved_documents[:3] %}
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <div class="text-white font-bold text-sm">{{ doc.threat_name }}</div>
+                  <div class="text-slate-400 text-xs">{{ doc.category }}</div>
+                </div>
+                <span class="text-cyan-300 text-xs font-bold">{{ doc.confidence }}%</span>
+              </div>
+              {% if doc.definition %}
+              <p class="text-slate-300 text-sm leading-relaxed">{{ doc.definition }}</p>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="glass-panel rounded-xl p-4 text-center">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <i class="ph-fill ph-virus text-red-400"></i>
+            <span class="text-xs text-slate-400 uppercase font-bold"
+              >Detections</span
+            >
+          </div>
+          {% set vt_malicious = details.VirusTotal.malicious_count|default(0) if
+          details.VirusTotal else 0 %} {% set vt_suspicious =
+          details.VirusTotal.suspicious_count|default(0) if details.VirusTotal
+          else 0 %}
+          <div
+            class="text-2xl font-black {% if vt_malicious > 0 %}text-red-400{% elif vt_suspicious > 0 %}text-amber-400{% else %}text-emerald-400{% endif %}"
+          >
+            {{ vt_malicious + vt_suspicious }}
+          </div>
+          <div class="text-xs text-slate-500 mt-1">
+            {% if details.VirusTotal and details.VirusTotal.total_engines %}of
+            {{ details.VirusTotal.total_engines }} engines{% else %}N/A{% endif
+            %}
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-4 text-center">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <i class="ph-fill ph-warning-diamond text-orange-400"></i>
+            <span class="text-xs text-slate-400 uppercase font-bold"
+              >Abuse Score</span
+            >
+          </div>
+          {% set abuse_score = details.AbuseIPDB.score|default(0) if
+          details.AbuseIPDB and details.AbuseIPDB.status == 'Found' else 0 %}
+          <div
+            class="text-2xl font-black {% if abuse_score > 50 %}text-red-400{% elif abuse_score > 20 %}text-amber-400{% else %}text-emerald-400{% endif %}"
+          >
+            {{ abuse_score }}%
+          </div>
+          <div class="text-xs text-slate-500 mt-1">
+            {% if details.AbuseIPDB and details.AbuseIPDB.totalReports %}{{
+            details.AbuseIPDB.totalReports }} reports{% else %}No reports{%
+            endif %}
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-4 text-center">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <i class="ph-fill ph-plugs text-cyan-400"></i>
+            <span class="text-xs text-slate-400 uppercase font-bold"
+              >Open Ports</span
+            >
+          </div>
+          {% set port_count = details.Shodan.ports|length if details.Shodan and
+          details.Shodan.ports else 0 %}
+          <div
+            class="text-2xl font-black {% if port_count > 10 %}text-amber-400{% else %}text-slate-200{% endif %}"
+          >
+            {{ port_count }}
+          </div>
+          <div class="text-xs text-slate-500 mt-1">
+            {% if details.Shodan and details.Shodan.ports %}{{
+            details.Shodan.ports[:3]|join(', ') }}{% if port_count > 3 %}...{%
+            endif %}{% else %}No data{% endif %}
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-4 text-center">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <i class="ph-fill ph-shield-checkered text-purple-400"></i>
+            <span class="text-xs text-slate-400 uppercase font-bold"
+              >Sec Headers</span
+            >
+          </div>
+          {% set sec_score = security_headers_score|default(0) %}
+          <div
+            class="text-2xl font-black {% if sec_score >= 70 %}text-emerald-400{% elif sec_score >= 40 %}text-amber-400{% else %}text-red-400{% endif %}"
+          >
+            {{ sec_score }}%
+          </div>
+          <div class="text-xs text-slate-500 mt-1">
+            {% if security_headers %}{% set present =
+            security_headers.values()|select('ne', 'Missing')|list|length %}{{
+            present }}/{{ security_headers|length }} present{% else %}Unknown{%
+            endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Risk Score Breakdown -->
+        <div class="glass-panel rounded-2xl p-6">
+          <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+            <i class="ph-fill ph-chart-bar text-rose-400"></i> Risk Analysis
+          </h3>
+          <div class="flex items-center gap-6 mb-6">
+            <div class="relative w-28 h-28">
+              <svg
+                class="w-full h-full transform -rotate-90"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="currentColor"
+                  stroke-width="8"
+                  fill="none"
+                  class="text-slate-700/50"
+                ></circle>
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="currentColor"
+                  stroke-width="8"
+                  fill="none"
+                  stroke-dasharray="283"
+                  stroke-dashoffset="{{ 283 - (283 * risk_score / 100) }}"
+                  stroke-linecap="round"
+                  class="{% if risk_score >= 75 %}text-red-500{% elif risk_score >= 50 %}text-amber-500{% elif risk_score >= 25 %}text-yellow-500{% else %}text-emerald-500{% endif %}"
+                ></circle>
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span
+                  class="text-2xl font-black {% if risk_score >= 75 %}text-red-400{% elif risk_score >= 50 %}text-amber-400{% elif risk_score >= 25 %}text-yellow-400{% else %}text-emerald-400{% endif %}"
+                  >{{ risk_score }}</span
+                >
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-400 mb-2">Risk Level</div>
+              <div
+                class="text-xl font-bold {% if risk_score >= 75 %}text-red-400{% elif risk_score >= 50 %}text-amber-400{% elif risk_score >= 25 %}text-yellow-400{% else %}text-emerald-400{% endif %}"
+              >
+                {% if risk_score >= 75 %}Critical{% elif risk_score >= 50
+                %}High{% elif risk_score >= 25 %}Medium{% else %}Low{% endif %}
+              </div>
+              <div class="text-xs text-slate-500 mt-1">
+                {% if risk_breakdown %}{{ risk_breakdown|length }} risk
+                factors{% else %}No risk factors{% endif %}
+              </div>
+            </div>
+          </div>
+          {% if risk_breakdown %}
+          <div class="text-xs text-slate-400 uppercase font-bold mb-3">
+            Contributing Factors
+          </div>
+          <div class="space-y-2">
+            {% for item in risk_breakdown[:10] %}
+            <div
+              class="flex items-center justify-between text-sm bg-slate-800/30 px-3 py-2 rounded-lg"
+            >
+              <span class="text-slate-300 flex items-center gap-2">
+                <span
+                  class="w-2 h-2 rounded-full {% if item.weighted_risk >= 50 %}bg-red-400{% elif item.weighted_risk >= 25 %}bg-amber-400{% else %}bg-emerald-400{% endif %}"
+                ></span>
+                {{ item.source }}
+              </span>
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-16 h-1.5 bg-slate-700 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full {% if item.weighted_risk >= 50 %}bg-red-400{% elif item.weighted_risk >= 25 %}bg-amber-400{% else %}bg-emerald-400{% endif %}"
+                    style="width: {{ item.weighted_risk }}%"
+                  ></div>
+                </div>
+                <span
+                  class="font-mono font-bold text-xs w-8 text-right {% if item.weighted_risk >= 50 %}text-red-400{% elif item.weighted_risk >= 25 %}text-amber-400{% else %}text-slate-400{% endif %}"
+                  >{{ item.weighted_risk|round|int }}</span
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div
+            class="flex items-center gap-3 p-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20"
+          >
+            <i class="ph-fill ph-check-circle text-emerald-400 text-xl"></i>
+            <span class="text-emerald-400 text-sm"
+              >No significant risk factors detected</span
+            >
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Infrastructure -->
+        <div class="glass-panel rounded-2xl p-6">
+          <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+            <i class="ph-fill ph-hard-drives text-blue-400"></i> Infrastructure
+          </h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div
+                class="flex items-center gap-2 text-slate-400 text-xs uppercase font-bold mb-2"
+              >
+                <i class="ph-fill ph-map-pin text-indigo-400"></i> Location
+              </div>
+              <div class="text-white font-bold">
+                {{ details.GeoIP.country if details.GeoIP else 'Unknown' }}
+              </div>
+              <div class="text-slate-400 text-sm">
+                {{ details.GeoIP.city if details.GeoIP and details.GeoIP.city
+                else 'N/A' }}
+              </div>
+            </div>
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div
+                class="flex items-center gap-2 text-slate-400 text-xs uppercase font-bold mb-2"
+              >
+                <i class="ph-fill ph-hash text-cyan-400"></i> IP Address
+              </div>
+              <div class="text-white font-mono text-sm">
+                {% if details.Shodan and details.Shodan.ip %}{{
+                details.Shodan.ip }}{% elif details.AbuseIPDB and
+                details.AbuseIPDB.ip %}{{ details.AbuseIPDB.ip }}{% elif
+                details.GeoIP and details.GeoIP.ip %}{{ details.GeoIP.ip }}{%
+                else %}Unresolved{% endif %}
+              </div>
+              {% if details.Shodan and details.Shodan.org %}
+              <div class="text-slate-400 text-xs mt-1 truncate">
+                {{ details.Shodan.org }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div
+                class="flex items-center gap-2 text-slate-400 text-xs uppercase font-bold mb-2"
+              >
+                <i class="ph-fill ph-cpu text-emerald-400"></i> Server
+              </div>
+              <div class="text-white font-medium text-sm truncate">
+                {{ server_info.server if server_info and server_info.server else
+                'Hidden' }}
+              </div>
+              {% if server_info and server_info.powered_by %}
+              <div class="text-slate-400 text-xs mt-1">
+                {{ server_info.powered_by }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="bg-slate-800/30 rounded-xl p-4">
+              <div
+                class="flex items-center gap-2 text-slate-400 text-xs uppercase font-bold mb-2"
+              >
+                <i class="ph-fill ph-globe text-purple-400"></i> ISP
+              </div>
+              <div class="text-white text-sm truncate">
+                {{ details.GeoIP.isp if details.GeoIP and details.GeoIP.isp else
+                'Unknown' }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Threat Signals -->
+      <div class="glass-panel rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+          <i class="ph-fill ph-warning text-amber-400"></i> Threat Signals
+        </h3>
+        {% set signals = details.DeepContent.signals if details.DeepContent and
+        details.DeepContent.signals else [] %} {% if signals %}
+        <div class="space-y-2">
+          {% for signal in signals %}
+          <div
+            class="flex items-center gap-3 p-3 bg-amber-500/10 rounded-lg border border-amber-500/20"
+          >
+            <i class="ph-fill ph-warning-circle text-amber-400"></i>
+            <span class="text-amber-200 text-sm">{{ signal }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="flex items-center gap-3 p-4 bg-slate-800/30 rounded-xl">
+          <i class="ph-fill ph-shield-check text-emerald-400 text-xl"></i>
+          <span class="text-slate-400 text-sm"
+            >No suspicious content patterns detected</span
+          >
+        </div>
+        {% endif %} {% if details.VirusTotal and
+        details.VirusTotal.malicious_engines %}
+        <div class="mt-4 pt-4 border-t border-slate-700/50">
+          <div
+            class="text-xs text-slate-400 uppercase font-bold mb-3 flex items-center gap-2"
+          >
+            <i class="ph-fill ph-virus text-red-400"></i> Malicious Detections
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {% for engine in details.VirusTotal.malicious_engines[:12] %}
+            <span
+              class="px-2 py-1 bg-red-500/10 text-red-400 rounded text-xs border border-red-500/20"
+              >{{ engine.name }}: {{ engine.result }}</span
+            >
+            {% endfor %} {% if details.VirusTotal.malicious_engines|length > 12
+            %}
+            <span
+              class="px-2 py-1 bg-slate-700/50 text-slate-400 rounded text-xs"
+              >+{{ details.VirusTotal.malicious_engines|length - 12 }}
+              more</span
+            >
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Threat Intelligence -->
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <i class="ph-fill ph-detective text-indigo-400"></i> Threat
+          Intelligence
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- VirusTotal -->
+          {% if details.VirusTotal %}
+          <div class="glass-panel rounded-2xl p-6">
+            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="ph-fill ph-shield-warning text-red-400"></i> VirusTotal
+            </h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Detection Ratio</span
+                ><span class="text-white font-mono"
+                  >{{ details.VirusTotal.detection_ratio|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Malicious</span
+                ><span class="text-red-400 font-bold"
+                  >{{ details.VirusTotal.malicious_count|default(0) }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Suspicious</span
+                ><span class="text-amber-400 font-bold"
+                  >{{ details.VirusTotal.suspicious_count|default(0) }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Harmless</span
+                ><span class="text-emerald-400"
+                  >{{ details.VirusTotal.harmless_count|default(0) }}</span
+                >
+              </div>
+              {% if details.VirusTotal.reputation is defined %}
+              <div class="flex justify-between">
+                <span class="text-slate-400">Reputation</span
+                ><span class="text-white"
+                  >{{ details.VirusTotal.reputation }}</span
+                >
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- AbuseIPDB -->
+          {% if details.AbuseIPDB %}
+          <div class="glass-panel rounded-2xl p-6">
+            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="ph-fill ph-warning-diamond text-orange-400"></i>
+              AbuseIPDB
+            </h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-slate-400">IP</span
+                ><span class="text-white font-mono"
+                  >{{ details.AbuseIPDB.ip|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Confidence Score</span
+                ><span
+                  class="{% if details.AbuseIPDB.score|default(0) > 50 %}text-red-400{% else %}text-emerald-400{% endif %} font-bold"
+                  >{{ details.AbuseIPDB.score|default(0) }}%</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Total Reports</span
+                ><span class="text-white"
+                  >{{ details.AbuseIPDB.totalReports|default(0) }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">ISP</span
+                ><span class="text-white truncate ml-4"
+                  >{{ details.AbuseIPDB.isp|default('N/A') }}</span
+                >
+              </div>
+              {% if details.AbuseIPDB.isTor %}
+              <div
+                class="flex items-center gap-2 p-2 bg-red-500/10 rounded-lg border border-red-500/20"
+              >
+                <i class="ph-fill ph-warning text-red-400"></i
+                ><span class="text-red-400 text-xs font-bold"
+                  >TOR Exit Node</span
+                >
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Shodan -->
+          {% if details.Shodan %}
+          <div class="glass-panel rounded-2xl p-6">
+            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="ph-fill ph-magnifying-glass text-cyan-400"></i> Shodan
+            </h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-slate-400">IP</span
+                ><span class="text-white font-mono"
+                  >{{ details.Shodan.ip|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Organization</span
+                ><span class="text-white truncate ml-4"
+                  >{{ details.Shodan.org|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Open Ports</span
+                ><span class="text-white"
+                  >{{ details.Shodan.port_count|default(0) }}</span
+                >
+              </div>
+              {% if details.Shodan.os %}
+              <div class="flex justify-between">
+                <span class="text-slate-400">OS</span
+                ><span class="text-white">{{ details.Shodan.os }}</span>
+              </div>
+              {% endif %} {% if details.Shodan.ports %}
+              <div class="mt-2">
+                <span class="text-slate-400 text-xs uppercase font-bold"
+                  >Ports:</span
+                >
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {% for port in details.Shodan.ports[:15] %}
+                  <span
+                    class="px-2 py-0.5 bg-slate-700/50 text-slate-300 rounded text-xs font-mono"
+                    >{{ port }}</span
+                  >
+                  {% endfor %} {% if details.Shodan.ports|length > 15 %}
+                  <span
+                    class="px-2 py-0.5 bg-slate-700/50 text-slate-400 rounded text-xs"
+                    >+{{ details.Shodan.ports|length - 15 }}</span
+                  >
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- SSL Certificate -->
+          {% if details.SSLCheck %}
+          <div class="glass-panel rounded-2xl p-6">
+            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="ph-fill ph-lock text-emerald-400"></i> SSL Certificate
+            </h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Status</span
+                ><span
+                  class="{% if details.SSLCheck.status == 'Valid' %}text-emerald-400{% else %}text-red-400{% endif %} font-bold"
+                  >{{ details.SSLCheck.status|default('Unknown') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Issuer</span
+                ><span class="text-white truncate ml-4"
+                  >{{ details.SSLCheck.issuer|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Valid Until</span
+                ><span class="text-white"
+                  >{{ details.SSLCheck.valid_until|default('N/A') }}</span
+                >
+              </div>
+              {% if details.SSLCheck.days_until_expiry is defined %}
+              <div class="flex justify-between">
+                <span class="text-slate-400">Days Until Expiry</span
+                ><span
+                  class="{% if details.SSLCheck.days_until_expiry < 30 %}text-amber-400{% else %}text-emerald-400{% endif %}"
+                  >{{ details.SSLCheck.days_until_expiry }}</span
+                >
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- WHOIS -->
+          {% if details.WHOIS %}
+          <div class="glass-panel rounded-2xl p-6">
+            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="ph-fill ph-identification-card text-blue-400"></i> WHOIS
+            </h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Registrar</span
+                ><span class="text-white truncate ml-4"
+                  >{{ details.WHOIS.registrar|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Created</span
+                ><span class="text-white"
+                  >{{ details.WHOIS.creation_date|default('N/A') }}</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Expires</span
+                ><span class="text-white"
+                  >{{ details.WHOIS.expiration_date|default('N/A') }}</span
+                >
+              </div>
+              {% if details.WHOIS.domain_age_days is defined %}
+              <div class="flex justify-between">
+                <span class="text-slate-400">Domain Age</span
+                ><span class="text-white"
+                  >{{ details.WHOIS.domain_age_days }} days</span
+                >
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- DNS -->
+          {% if details.DNS %}
+          <div class="glass-panel rounded-2xl p-6">
+            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="ph-fill ph-dns text-teal-400"></i> DNS Records
+            </h4>
+            <div class="space-y-3 text-sm">
+              {% if details.DNS.a_records %}
+              <div>
+                <span class="text-slate-400 text-xs uppercase font-bold"
+                  >A Records</span
+                >
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {% for r in details.DNS.a_records[:6] %}<span
+                    class="px-2 py-0.5 bg-slate-700/50 text-slate-300 rounded text-xs font-mono"
+                    >{{ r }}</span
+                  >{% endfor %}
+                </div>
+              </div>
+              {% endif %} {% if details.DNS.mx_records %}
+              <div>
+                <span class="text-slate-400 text-xs uppercase font-bold"
+                  >MX Records</span
+                >
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {% for r in details.DNS.mx_records[:4] %}<span
+                    class="px-2 py-0.5 bg-slate-700/50 text-slate-300 rounded text-xs font-mono"
+                    >{{ r }}</span
+                  >{% endfor %}
+                </div>
+              </div>
+              {% endif %} {% if details.DNS.ns_records %}
+              <div>
+                <span class="text-slate-400 text-xs uppercase font-bold"
+                  >NS Records</span
+                >
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {% for r in details.DNS.ns_records[:4] %}<span
+                    class="px-2 py-0.5 bg-slate-700/50 text-slate-300 rounded text-xs font-mono"
+                    >{{ r }}</span
+                  >{% endfor %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Security Headers -->
+      {% if security_headers %}
+      <div class="glass-panel rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+          <i class="ph-fill ph-shield-checkered text-purple-400"></i> Security
+          Headers
+          <span class="text-sm font-normal text-slate-400 ml-2"
+            >(Score: {{ security_headers_score|default(0) }}%)</span
+          >
+        </h3>
+        <div class="space-y-2">
+          {% for header, value in security_headers.items() %}
+          <div
+            class="flex items-center justify-between text-sm bg-slate-800/30 px-4 py-3 rounded-lg"
+          >
+            <span class="text-slate-300 font-mono text-xs">{{ header }}</span>
+            {% if value == 'Missing' %}
+            <span class="text-red-400 text-xs font-bold flex items-center gap-1"
+              ><i class="ph-fill ph-x-circle"></i> Missing</span
+            >
+            {% else %}
+            <span
+              class="text-emerald-400 text-xs font-bold flex items-center gap-1"
+              ><i class="ph-fill ph-check-circle"></i> Present</span
+            >
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Vulnerabilities (Informational) -->
+      {% set total_cves = 0 %} {% if details.CVEAnalysis and
+      details.CVEAnalysis.total_vulnerabilities %}{% set total_cves = total_cves
+      + details.CVEAnalysis.total_vulnerabilities %}{% endif %} {% if
+      details.NVD and details.NVD.total_found %}{% set total_cves = total_cves +
+      details.NVD.total_found %}{% endif %} {% if total_cves > 0 %}
+      <div class="glass-panel rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-white mb-2 flex items-center gap-2 text-lg">
+          <i class="ph-fill ph-bug text-red-400"></i> Vulnerabilities
+          (Informational)
+        </h3>
+        <p class="text-slate-400 text-sm mb-4">
+          <i class="ph-fill ph-info text-blue-400"></i>
+          CVE data is shown for informational purposes only and does not affect
+          the overall risk score.
+        </p>
+
+        {% if details.CVEAnalysis and details.CVEAnalysis.vulnerabilities %}
+        <div class="space-y-3">
+          {% for cve in details.CVEAnalysis.vulnerabilities[:20] %}
+          <div class="bg-slate-800/30 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-white font-mono font-bold text-sm"
+                >{{ cve.id|default('Unknown') }}</span
+              >
+              <span
+                class="px-2 py-0.5 rounded text-xs font-bold {% if cve.severity == 'CRITICAL' %}bg-red-500/20 text-red-400{% elif cve.severity == 'HIGH' %}bg-orange-500/20 text-orange-400{% elif cve.severity == 'MEDIUM' %}bg-amber-500/20 text-amber-400{% else %}bg-slate-700/50 text-slate-400{% endif %}"
+              >
+                {{ cve.severity|default('N/A') }} {% if cve.cvss %}({{ cve.cvss
+                }}){% endif %}
+              </span>
+            </div>
+            {% if cve.description %}
+            <p class="text-slate-400 text-xs leading-relaxed">
+              {{ cve.description[:200] }}{% if cve.description|length > 200
+              %}...{% endif %}
+            </p>
+            {% endif %} {% if cve.technology %}
+            <span
+              class="inline-block mt-2 px-2 py-0.5 bg-slate-700/50 text-slate-300 rounded text-xs"
+              >{{ cve.technology }}</span
+            >
+            {% endif %}
+          </div>
+          {% endfor %} {% if details.CVEAnalysis.vulnerabilities|length > 20 %}
+          <div class="text-center text-slate-400 text-sm py-2">
+            ...and {{ details.CVEAnalysis.vulnerabilities|length - 20 }} more
+            vulnerabilities
+          </div>
+          {% endif %}
+        </div>
+        {% endif %} {% if details.NVD and details.NVD.vulnerabilities %}
+        <div class="mt-6 pt-4 border-t border-slate-700/50">
+          <div class="text-xs text-slate-400 uppercase font-bold mb-3">
+            NVD Keyword Results
+          </div>
+          <div class="space-y-3">
+            {% for cve in details.NVD.vulnerabilities[:10] %}
+            <div class="bg-slate-800/30 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-white font-mono font-bold text-sm"
+                  >{{ cve.id|default('Unknown') }}</span
+                >
+                <span
+                  class="px-2 py-0.5 rounded text-xs font-bold {% if cve.severity == 'CRITICAL' %}bg-red-500/20 text-red-400{% elif cve.severity == 'HIGH' %}bg-orange-500/20 text-orange-400{% elif cve.severity == 'MEDIUM' %}bg-amber-500/20 text-amber-400{% else %}bg-slate-700/50 text-slate-400{% endif %}"
+                >
+                  {{ cve.severity|default('N/A') }} {% if cve.cvss %}({{
+                  cve.cvss }}){% endif %}
+                </span>
+              </div>
+              {% if cve.description %}
+              <p class="text-slate-400 text-xs leading-relaxed">
+                {{ cve.description[:200] }}{% if cve.description|length > 200
+                %}...{% endif %}
+              </p>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Redirect Chain -->
+      {% if redirect_chain %}
+      <div class="glass-panel rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+          <i class="ph-fill ph-arrows-split text-purple-400"></i> Redirect Chain
+        </h3>
+        <div class="space-y-3">
+          {% for hop in redirect_chain %}
+          <div class="flex items-start gap-3">
+            <div class="flex flex-col items-center">
+              <div
+                class="w-8 h-8 rounded-full {% if hop.status >= 300 and hop.status < 400 %}bg-amber-500/20 text-amber-400{% elif hop.status >= 200 and hop.status < 300 %}bg-emerald-500/20 text-emerald-400{% else %}bg-red-500/20 text-red-400{% endif %} flex items-center justify-center text-xs font-bold"
+              >
+                {{ loop.index }}
+              </div>
+              {% if not loop.last %}
+              <div class="w-0.5 h-6 bg-slate-700 mt-1"></div>
+              {% endif %}
+            </div>
+            <div class="flex-1 bg-slate-800/30 rounded-lg p-3">
+              <div class="flex items-center gap-2">
+                <span
+                  class="px-2 py-0.5 rounded text-xs font-bold {% if hop.status >= 300 and hop.status < 400 %}bg-amber-500/20 text-amber-400{% elif hop.status >= 200 and hop.status < 300 %}bg-emerald-500/20 text-emerald-400{% else %}bg-red-500/20 text-red-400{% endif %}"
+                  >{{ hop.status }}</span
+                >
+                <span class="text-slate-300 text-sm font-mono break-all"
+                  >{{ hop.url }}</span
+                >
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Page Details -->
+      <div class="glass-panel rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+          <i class="ph-fill ph-file-text text-emerald-400"></i> Page Details
+        </h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-slate-800/30 rounded-xl p-4">
+            <div class="text-slate-400 text-xs uppercase font-bold mb-2">
+              Title
+            </div>
+            <div class="text-white text-sm">
+              {{ page_meta.title|default('N/A') }}
+            </div>
+          </div>
+          {% if page_meta.description %}
+          <div class="bg-slate-800/30 rounded-xl p-4">
+            <div class="text-slate-400 text-xs uppercase font-bold mb-2">
+              Description
+            </div>
+            <div class="text-slate-300 text-xs">
+              {{ page_meta.description[:200] }}
+            </div>
+          </div>
+          {% endif %} {% if details.TechStack and details.TechStack.technologies
+          %}
+          <div class="bg-slate-800/30 rounded-xl p-4 md:col-span-2">
+            <div class="text-slate-400 text-xs uppercase font-bold mb-2">
+              Technologies
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {% for tech in details.TechStack.technologies[:20] %}
+              <span
+                class="px-2 py-1 bg-slate-700/50 text-slate-300 rounded text-xs"
+                >{{ tech }}</span
+              >
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- DOM Stats -->
+      {% if dom_stats %}
+      <div class="glass-panel rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-lg">
+          <i class="ph-fill ph-code text-cyan-400"></i> DOM Analysis Summary
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-slate-800/30 rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-slate-200">
+              {{ dom_stats.total_scripts|default(0) }}
+            </div>
+            <div class="text-xs text-slate-400 uppercase font-bold mt-1">
+              Scripts
+            </div>
+          </div>
+          <div class="bg-slate-800/30 rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-slate-200">
+              {{ dom_stats.total_forms|default(0) }}
+            </div>
+            <div class="text-xs text-slate-400 uppercase font-bold mt-1">
+              Forms
+            </div>
+          </div>
+          <div class="bg-slate-800/30 rounded-xl p-4 text-center">
+            <div
+              class="text-2xl font-black {% if dom_stats.password_inputs|default(0) > 0 %}text-amber-400{% else %}text-slate-200{% endif %}"
+            >
+              {{ dom_stats.password_inputs|default(0) }}
+            </div>
+            <div class="text-xs text-slate-400 uppercase font-bold mt-1">
+              Password Fields
+            </div>
+          </div>
+          <div class="bg-slate-800/30 rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-slate-200">
+              {{ dom_stats.iframes|default(0) }}
+            </div>
+            <div class="text-xs text-slate-400 uppercase font-bold mt-1">
+              Iframes
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Footer -->
+      <div class="text-center py-8 border-t border-slate-700/50 mt-8">
+        <div class="text-slate-500 text-sm">
+          <i class="ph-fill ph-shield-check text-blue-400"></i>
+        URL Analysis Using LLM Security Report &bull; Scan ID: {{ scan_id }}
+        </div>
+        <div class="text-slate-600 text-xs mt-1">
+          This report was generated automatically. CVE data is informational and
+          does not affect the risk assessment.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

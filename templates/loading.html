@@ -1,0 +1,1143 @@
+{% extends "base.html" %}
+{% block page_id %}loading{% endblock %}
+{% block content %}
+<div class="loading-shell px-4 py-8 lg:py-12">
+  <div class="loading-layout">
+    <section class="analysis-column">
+      <div class="analysis-panel">
+        <div class="analysis-topline">
+          <span class="analysis-badge">
+            <i class="ph-fill ph-activity"></i>
+            <span>Live Analysis Pipeline</span>
+          </span>
+          <div class="analysis-timer">
+            <i class="ph ph-timer"></i>
+            <span id="elapsedTime">0s</span>
+          </div>
+        </div>
+
+        <div class="analysis-hero">
+          <div class="analysis-copy">
+            <h1 class="analysis-title">Analyzing URL</h1>
+            <p id="statusText" class="analysis-subtitle">
+              Building a staged security profile from page signals, network
+              records, reputation sources, and final risk analysis
+            </p>
+          </div>
+
+          <div class="analysis-visual">
+            <div class="scan-orb" id="progressOrb">
+              <div class="scan-orb-ring scan-orb-ring-outer"></div>
+              <div class="scan-orb-ring scan-orb-ring-middle"></div>
+              <div class="scan-orb-ring scan-orb-ring-inner"></div>
+              <div class="scan-orb-grid"></div>
+              <div class="scan-orb-pulse" id="progressPulse"></div>
+              <div class="scan-orb-center">
+                <i
+                  id="loaderIcon"
+                  class="ph-fill ph-shield-check text-sky-300 text-4xl"
+                ></i>
+              </div>
+              <div class="scan-orb-percent" id="progressPercent">3%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-header">
+            <div>
+              <p class="progress-eyebrow">Execution Progress</p>
+              <p id="phaseLabel" class="progress-phase">Preparing Scan Queue</p>
+            </div>
+            <div class="progress-chip">
+              <span id="progressPercentLabel">3%</span>
+              <span>Complete</span>
+            </div>
+          </div>
+
+          <div class="progress-rail">
+            <div
+              id="progressBar"
+              class="progress-fill"
+              style="width: 3%"
+            ></div>
+            <div class="progress-sheen"></div>
+          </div>
+
+          <div class="progress-steps">
+            <div id="step1" class="progress-step" data-state="active">
+              <div class="step-circle">
+                <i class="ph-fill ph-globe text-lg"></i>
+              </div>
+              <div class="step-copy">
+                <span class="step-title">Fetching</span>
+                <span class="step-desc">Page and DNS signals</span>
+              </div>
+            </div>
+            <div id="step2" class="progress-step" data-state="idle">
+              <div class="step-circle">
+                <i class="ph-fill ph-detective text-lg"></i>
+              </div>
+              <div class="step-copy">
+                <span class="step-title">Scanning</span>
+                <span class="step-desc">Reputation and services</span>
+              </div>
+            </div>
+            <div id="step3" class="progress-step" data-state="idle">
+              <div class="step-circle">
+                <i class="ph-fill ph-brain text-lg"></i>
+              </div>
+              <div class="step-copy">
+                <span class="step-title">AI Analysis</span>
+                <span class="step-desc">Correlation and summary</span>
+              </div>
+            </div>
+            <div id="step4" class="progress-step" data-state="idle">
+              <div class="step-circle">
+                <i class="ph-fill ph-check-circle text-lg"></i>
+              </div>
+              <div class="step-copy">
+                <span class="step-title">Complete</span>
+                <span class="step-desc">Report is being prepared</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="activity-header">
+            <div>
+              <p class="progress-eyebrow">Live Trace</p>
+              <h2 class="activity-title">What the engine is doing now</h2>
+            </div>
+            <div class="activity-ledger">
+              <span class="activity-led"></span>
+              <span>Streaming</span>
+            </div>
+          </div>
+
+          <div class="activity-body">
+            <div class="activity-feed" id="activityFeed">
+              <div class="activity-line text-sky-300">
+                <i class="ph ph-caret-right"></i>
+                <span>Preparing the staged analysis pipeline...</span>
+              </div>
+            </div>
+
+            <div class="constellation-card">
+              <div class="constellation-header">
+                <span class="progress-eyebrow">Signal Flow</span>
+                <span class="constellation-status">Synced with progress</span>
+              </div>
+              <div class="constellation-grid" id="progressConstellation">
+                <span class="constellation-node is-active"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+                <span class="constellation-node"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="analysis-actions">
+          <button
+            id="cancelBtn"
+            onclick="cancelScan()"
+            class="cancel-button group"
+          >
+            <i class="ph ph-x-circle text-xl group-hover:animate-pulse"></i>
+            <span>Cancel Scan</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="games-column">
+      <div class="games-panel">
+        <div class="games-header">
+          <div>
+            <span class="analysis-badge analysis-badge-soft">
+              <i class="ph-fill ph-game-controller"></i>
+              <span>Waiting Lounge</span>
+            </span>
+            <h2 class="games-title">Mini games while the scan runs</h2>
+            <p class="games-subtitle">
+              Your analysis keeps running in the background while you play.
+            </p>
+          </div>
+        </div>
+
+        <div class="game-tab-bar">
+          <button
+            onclick="switchGame('ttt')"
+            id="tabTtt"
+            class="game-tab game-tab-active"
+          >
+            <i class="ph ph-grid-four text-lg"></i><span>Tic-Tac-Toe</span>
+          </button>
+          <button
+            onclick="switchGame('snake')"
+            id="tabSnake"
+            class="game-tab"
+          >
+            <i class="ph ph-cell-signal-full text-lg"></i><span>Snake</span>
+          </button>
+          <button
+            onclick="switchGame('memory')"
+            id="tabMemory"
+            class="game-tab"
+          >
+            <i class="ph ph-cards-three text-lg"></i><span>Memory</span>
+          </button>
+        </div>
+
+        <div class="game-stage">
+          <div id="gamePanel_ttt" class="game-panel">
+            <div class="game-card">
+              <p id="tttStatus" class="text-sm font-semibold text-sky-300 mb-4">
+                Your turn (X)
+              </p>
+              <div class="grid grid-cols-3 gap-2 max-w-[240px] mx-auto mb-4">
+                <button onclick="handleCellClick(0)" id="c0" class="ttt-cell"></button>
+                <button onclick="handleCellClick(1)" id="c1" class="ttt-cell"></button>
+                <button onclick="handleCellClick(2)" id="c2" class="ttt-cell"></button>
+                <button onclick="handleCellClick(3)" id="c3" class="ttt-cell"></button>
+                <button onclick="handleCellClick(4)" id="c4" class="ttt-cell"></button>
+                <button onclick="handleCellClick(5)" id="c5" class="ttt-cell"></button>
+                <button onclick="handleCellClick(6)" id="c6" class="ttt-cell"></button>
+                <button onclick="handleCellClick(7)" id="c7" class="ttt-cell"></button>
+                <button onclick="handleCellClick(8)" id="c8" class="ttt-cell"></button>
+              </div>
+              <div class="flex items-center justify-between text-xs text-slate-500 mb-3">
+                <span>
+                  Score:
+                  <span id="tttPlayerScore" class="text-sky-300 font-bold">0</span>
+                  -
+                  <span id="tttAiScore" class="text-fuchsia-300 font-bold">0</span>
+                </span>
+                <span class="text-slate-600">
+                  You: <span class="text-sky-300">X</span> | AI:
+                  <span class="text-fuchsia-300">O</span>
+                </span>
+              </div>
+              <button onclick="resetGame()" class="game-button-secondary">
+                <i class="ph ph-arrow-counter-clockwise"></i><span>New Game</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="gamePanel_snake" class="game-panel hidden">
+            <div class="game-card">
+              <div class="flex items-center justify-between mb-4">
+                <p id="snakeStatus" class="text-sm font-semibold text-emerald-400">
+                  Press Start to play
+                </p>
+                <div class="text-xs text-slate-500">
+                  Score:
+                  <span id="snakeScore" class="text-emerald-400 font-bold">0</span>
+                  &nbsp;|&nbsp; Best:
+                  <span id="snakeHigh" class="text-fuchsia-300 font-bold">0</span>
+                </div>
+              </div>
+              <div class="flex justify-center mb-4">
+                <canvas
+                  id="snakeCanvas"
+                  width="240"
+                  height="240"
+                  class="snake-canvas"
+                ></canvas>
+              </div>
+              <div class="flex items-center justify-between">
+                <button onclick="startSnake()" id="snakeStartBtn" class="game-button-primary">
+                  <i class="ph ph-play"></i><span>Start</span>
+                </button>
+                <span class="text-[10px] text-slate-600">Arrow keys or WASD to move</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="gamePanel_memory" class="game-panel hidden">
+            <div class="game-card">
+              <div class="flex items-center justify-between mb-4">
+                <p id="memoryStatus" class="text-sm font-semibold text-amber-400">
+                  Find all matching pairs!
+                </p>
+                <div class="text-xs text-slate-500">
+                  Moves:
+                  <span id="memoryMoves" class="text-amber-400 font-bold">0</span>
+                  &nbsp;|&nbsp; Matched:
+                  <span id="memoryMatched" class="text-emerald-400 font-bold">0</span>/8
+                </div>
+              </div>
+              <div id="memoryGrid" class="grid grid-cols-4 gap-2 max-w-[260px] mx-auto mb-4"></div>
+              <div class="flex items-center justify-between">
+                <button onclick="resetMemory()" class="game-button-memory">
+                  <i class="ph ph-arrow-counter-clockwise"></i><span>New Game</span>
+                </button>
+                <span class="text-[10px] text-slate-600">
+                  Best:
+                  <span id="memoryBest" class="text-fuchsia-300 font-bold">—</span>
+                  moves
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+</div>
+
+<style>
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes slowSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes reverseSpin {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes orbPulse {
+    0%,
+    100% {
+      transform: scale(0.92);
+      opacity: 0.45;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 0.85;
+    }
+  }
+
+  @keyframes floatUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .loading-shell {
+    min-height: calc(100vh - 5rem);
+  }
+
+  .loading-layout {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .analysis-column,
+  .games-column {
+    min-width: 0;
+  }
+
+  .analysis-panel,
+  .games-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    border: 1px solid rgba(71, 85, 105, 0.45);
+    background:
+      radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 34%),
+      radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.1), transparent 28%),
+      rgba(8, 15, 31, 0.88);
+    box-shadow:
+      0 30px 60px rgba(2, 6, 23, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .analysis-panel {
+    padding: 1.5rem;
+  }
+
+  .games-panel {
+    padding: 1.4rem;
+  }
+
+  .analysis-topline,
+  .games-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .analysis-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    background: rgba(14, 165, 233, 0.12);
+    color: rgb(125, 211, 252);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .analysis-badge-soft {
+    border-color: rgba(52, 211, 153, 0.22);
+    background: rgba(16, 185, 129, 0.12);
+    color: rgb(110, 231, 183);
+  }
+
+  .analysis-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 1rem;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(51, 65, 85, 0.8);
+    color: rgb(148, 163, 184);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .analysis-hero {
+    display: grid;
+    gap: 1.2rem;
+    margin-top: 1.25rem;
+    align-items: center;
+  }
+
+  .analysis-title {
+    font-size: clamp(2rem, 4vw, 3.35rem);
+    line-height: 1.02;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: rgb(248, 250, 252);
+    margin: 0;
+  }
+
+  .analysis-subtitle,
+  .games-subtitle {
+    margin-top: 0.8rem;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: rgb(148, 163, 184);
+    max-width: 44rem;
+  }
+
+  .analysis-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .scan-orb {
+    --orb-progress: 0.03;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.18), transparent 34%),
+      radial-gradient(circle at 70% 75%, rgba(168, 85, 247, 0.2), transparent 28%),
+      rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(71, 85, 105, 0.55);
+    box-shadow:
+      inset 0 0 60px rgba(8, 47, 73, 0.25),
+      0 18px 40px rgba(2, 6, 23, 0.35);
+  }
+
+  .scan-orb-ring,
+  .scan-orb-grid,
+  .scan-orb-pulse,
+  .scan-orb-center,
+  .scan-orb-percent {
+    position: absolute;
+    inset: 0;
+  }
+
+  .scan-orb-ring {
+    border-radius: 999px;
+  }
+
+  .scan-orb-ring-outer {
+    inset: 14px;
+    border: 2px solid rgba(56, 189, 248, 0.12);
+    animation: slowSpin 16s linear infinite;
+  }
+
+  .scan-orb-ring-middle {
+    inset: 34px;
+    border: 1px dashed rgba(168, 85, 247, 0.28);
+    animation: reverseSpin 12s linear infinite;
+  }
+
+  .scan-orb-ring-inner {
+    inset: 62px;
+    border: 1px solid rgba(125, 211, 252, 0.18);
+    animation: slowSpin 10s linear infinite;
+  }
+
+  .scan-orb-grid {
+    inset: 26px;
+    border-radius: 999px;
+    background-image:
+      linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 58%, transparent 78%);
+  }
+
+  .scan-orb-pulse {
+    inset: 58px;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 62%);
+    animation: orbPulse 2.8s ease-in-out infinite;
+    transform: scale(calc(0.86 + var(--orb-progress) * 0.24));
+  }
+
+  .scan-orb-center {
+    inset: 86px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background:
+      linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.88));
+    border: 1px solid rgba(125, 211, 252, 0.25);
+    box-shadow:
+      inset 0 0 18px rgba(56, 189, 248, 0.12),
+      0 0 32px rgba(56, 189, 248, 0.12);
+  }
+
+  .scan-orb-percent {
+    inset: auto 0 22px 0;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: rgb(224, 242, 254);
+  }
+
+  .progress-card,
+  .activity-card,
+  .game-card {
+    border-radius: 1.55rem;
+    border: 1px solid rgba(51, 65, 85, 0.72);
+    background:
+      linear-gradient(180deg, rgba(15, 23, 42, 0.84), rgba(15, 23, 42, 0.7));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .progress-card {
+    margin-top: 1.35rem;
+    padding: 1.2rem;
+  }
+
+  .progress-header,
+  .activity-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .progress-eyebrow {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(100, 116, 139);
+    font-weight: 700;
+  }
+
+  .progress-phase,
+  .activity-title,
+  .games-title {
+    margin-top: 0.35rem;
+    color: rgb(241, 245, 249);
+    font-weight: 700;
+  }
+
+  .progress-phase {
+    font-size: 1.02rem;
+  }
+
+  .activity-title,
+  .games-title {
+    font-size: 1.15rem;
+  }
+
+  .progress-chip {
+    display: inline-flex;
+    gap: 0.45rem;
+    align-items: center;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.75);
+    color: rgb(186, 230, 253);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .progress-rail {
+    position: relative;
+    margin-top: 1rem;
+    height: 0.9rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.95);
+    overflow: hidden;
+    border: 1px solid rgba(51, 65, 85, 0.85);
+  }
+
+  .progress-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(90deg, rgba(14, 165, 233, 1), rgba(45, 212, 191, 1), rgba(168, 85, 247, 0.95));
+    box-shadow:
+      0 0 24px rgba(56, 189, 248, 0.28),
+      inset 0 0 12px rgba(255, 255, 255, 0.16);
+    transition: width 0.7s ease;
+  }
+
+  .progress-sheen {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.16) 50%, transparent 100%);
+    background-size: 220% 100%;
+    animation: shimmer 2.4s linear infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .progress-steps {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.15rem;
+  }
+
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.8rem 0.9rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(51, 65, 85, 0.5);
+    background: rgba(15, 23, 42, 0.42);
+    color: rgb(100, 116, 139);
+    transition: all 0.25s ease;
+  }
+
+  .step-circle {
+    width: 2.85rem;
+    height: 2.85rem;
+    flex: none;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(15, 23, 42, 0.94);
+    border: 1px solid rgba(71, 85, 105, 0.9);
+    color: inherit;
+    transition: inherit;
+  }
+
+  .step-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .step-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgb(226, 232, 240);
+  }
+
+  .step-desc {
+    font-size: 0.78rem;
+    color: inherit;
+  }
+
+  .progress-step[data-state="active"] {
+    color: rgb(125, 211, 252);
+    border-color: rgba(56, 189, 248, 0.32);
+    background: rgba(14, 165, 233, 0.08);
+    transform: translateX(4px);
+  }
+
+  .progress-step[data-state="active"] .step-circle {
+    background: rgba(14, 165, 233, 0.14);
+    border-color: rgba(56, 189, 248, 0.55);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.16);
+  }
+
+  .progress-step[data-state="completed"] {
+    color: rgb(110, 231, 183);
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.08);
+  }
+
+  .progress-step[data-state="completed"] .step-circle {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(52, 211, 153, 0.5);
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.12);
+  }
+
+  .progress-step[data-state="idle"] {
+    color: rgb(100, 116, 139);
+  }
+
+  .activity-card {
+    margin-top: 1.2rem;
+    padding: 1.2rem;
+  }
+
+  .activity-ledger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgb(148, 163, 184);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .activity-led {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: rgb(52, 211, 153);
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
+    animation: orbPulse 1.8s ease-in-out infinite;
+  }
+
+  .activity-body {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .activity-feed {
+    min-height: 240px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(30, 41, 59, 0.95);
+    background:
+      linear-gradient(180deg, rgba(8, 15, 31, 0.9), rgba(15, 23, 42, 0.8));
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+  }
+
+  .activity-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+    color: rgb(148, 163, 184);
+    animation: floatUp 0.35s ease;
+  }
+
+  .activity-line i {
+    margin-top: 0.1rem;
+    color: rgb(52, 211, 153);
+  }
+
+  .constellation-card {
+    padding: 1rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(51, 65, 85, 0.72);
+    background: rgba(15, 23, 42, 0.72);
+  }
+
+  .constellation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .constellation-status {
+    color: rgb(148, 163, 184);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .constellation-grid {
+    position: relative;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.25rem;
+    min-height: 170px;
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.08), transparent 46%),
+      rgba(8, 15, 31, 0.9);
+  }
+
+  .constellation-grid::before,
+  .constellation-grid::after {
+    content: "";
+    position: absolute;
+    inset: 1.7rem;
+    border-radius: 1rem;
+    pointer-events: none;
+  }
+
+  .constellation-grid::before {
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(56, 189, 248, 0.08) 50%, transparent 100%),
+      linear-gradient(transparent 0%, rgba(168, 85, 247, 0.08) 50%, transparent 100%);
+    background-size: 100% 1px, 1px 100%;
+    background-repeat: no-repeat;
+    background-position: center center, center center;
+  }
+
+  .constellation-grid::after {
+    border: 1px dashed rgba(71, 85, 105, 0.35);
+  }
+
+  .constellation-node {
+    width: 0.85rem;
+    height: 0.85rem;
+    justify-self: center;
+    align-self: center;
+    border-radius: 999px;
+    background: rgba(71, 85, 105, 0.9);
+    box-shadow: 0 0 0 6px rgba(30, 41, 59, 0.32);
+    transition: all 0.35s ease;
+  }
+
+  .constellation-node.is-active {
+    background: rgb(56, 189, 248);
+    box-shadow:
+      0 0 0 8px rgba(14, 165, 233, 0.12),
+      0 0 18px rgba(56, 189, 248, 0.45);
+    transform: scale(1.1);
+  }
+
+  .constellation-node.is-complete {
+    background: rgb(52, 211, 153);
+    box-shadow:
+      0 0 0 8px rgba(16, 185, 129, 0.12),
+      0 0 18px rgba(52, 211, 153, 0.42);
+  }
+
+  .analysis-actions {
+    margin-top: 1.2rem;
+  }
+
+  .cancel-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.95rem 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(71, 85, 105, 0.65);
+    background: rgba(15, 23, 42, 0.72);
+    color: rgb(148, 163, 184);
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: all 0.25s ease;
+  }
+
+  .cancel-button:hover {
+    border-color: rgba(248, 113, 113, 0.45);
+    background: rgba(127, 29, 29, 0.14);
+    color: rgb(248, 113, 113);
+  }
+
+  .games-title {
+    margin-bottom: 0;
+  }
+
+  .game-tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .game-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(51, 65, 85, 0.9);
+    background: rgba(15, 23, 42, 0.75);
+    color: rgb(148, 163, 184);
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 0.25s ease;
+  }
+
+  .game-tab:hover {
+    border-color: rgba(94, 234, 212, 0.35);
+    color: rgb(226, 232, 240);
+  }
+
+  .game-tab-active {
+    background: rgba(16, 185, 129, 0.12) !important;
+    border-color: rgba(52, 211, 153, 0.45) !important;
+    color: rgb(110, 231, 183) !important;
+    box-shadow: 0 12px 28px rgba(16, 185, 129, 0.08);
+  }
+
+  .game-stage {
+    min-height: 420px;
+  }
+
+  .game-panel.hidden {
+    display: none;
+  }
+
+  .game-card {
+    padding: 1.4rem;
+  }
+
+  .game-button-secondary,
+  .game-button-primary,
+  .game-button-memory {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+
+  .game-button-secondary {
+    background: rgba(30, 41, 59, 0.82);
+    border: 1px solid rgba(71, 85, 105, 0.8);
+    color: rgb(148, 163, 184);
+  }
+
+  .game-button-secondary:hover {
+    background: rgba(51, 65, 85, 0.95);
+    color: rgb(241, 245, 249);
+  }
+
+  .game-button-primary {
+    background: rgba(16, 185, 129, 0.16);
+    border: 1px solid rgba(52, 211, 153, 0.35);
+    color: rgb(110, 231, 183);
+  }
+
+  .game-button-primary:hover {
+    background: rgba(16, 185, 129, 0.22);
+  }
+
+  .game-button-memory {
+    background: rgba(245, 158, 11, 0.16);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    color: rgb(252, 211, 77);
+  }
+
+  .game-button-memory:hover {
+    background: rgba(245, 158, 11, 0.22);
+  }
+
+  .ttt-cell {
+    width: 100%;
+    aspect-ratio: 1;
+    background: rgba(15, 23, 42, 0.88);
+    border: 2px solid rgba(51, 65, 85, 0.95);
+    border-radius: 0.95rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ttt-cell:hover:not(:disabled) {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(94, 234, 212, 0.45);
+    transform: scale(1.05);
+  }
+
+  .ttt-cell:disabled {
+    cursor: default;
+  }
+
+  .ttt-cell.x-mark {
+    color: rgb(125, 211, 252);
+    text-shadow: 0 0 12px rgba(125, 211, 252, 0.5);
+  }
+
+  .ttt-cell.o-mark {
+    color: rgb(232, 121, 249);
+    text-shadow: 0 0 12px rgba(232, 121, 249, 0.45);
+  }
+
+  .ttt-cell.winner-cell {
+    animation: orbPulse 0.7s ease-in-out 3;
+    border-color: rgb(52, 211, 153);
+    background: rgba(52, 211, 153, 0.12);
+  }
+
+  .snake-canvas {
+    border-radius: 0.95rem;
+    border: 2px solid rgba(51, 65, 85, 0.8);
+    background: rgba(15, 23, 42, 0.92);
+  }
+
+  .mem-card {
+    width: 100%;
+    aspect-ratio: 1;
+    perspective: 600px;
+    cursor: pointer;
+  }
+
+  .mem-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.45s ease;
+    transform-style: preserve-3d;
+  }
+
+  .mem-card.flipped .mem-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .mem-card-front,
+  .mem-card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(51, 65, 85, 0.9);
+  }
+
+  .mem-card-front {
+    background: rgba(15, 23, 42, 0.88);
+    font-size: 1.1rem;
+    color: rgb(100, 116, 139);
+  }
+
+  .mem-card-back {
+    background: rgba(15, 23, 42, 0.98);
+    transform: rotateY(180deg);
+    font-size: 1.5rem;
+  }
+
+  .mem-card.matched .mem-card-back {
+    border-color: rgb(52, 211, 153);
+    background: rgba(52, 211, 153, 0.12);
+    animation: orbPulse 0.55s ease-in-out;
+  }
+
+  .mem-card.mismatched .mem-card-back {
+    border-color: rgb(239, 68, 68);
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  @media (min-width: 1024px) {
+    .loading-layout {
+      grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
+    }
+
+    .analysis-hero {
+      grid-template-columns: minmax(0, 1.1fr) 280px;
+    }
+
+    .activity-body {
+      grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+      align-items: stretch;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .analysis-panel,
+    .games-panel {
+      padding: 1.1rem;
+      border-radius: 1.5rem;
+    }
+
+    .scan-orb {
+      width: 220px;
+      height: 220px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .analysis-topline,
+    .progress-header,
+    .activity-header,
+    .games-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .scan-orb {
+      width: 200px;
+      height: 200px;
+    }
+
+    .progress-steps {
+      gap: 0.7rem;
+    }
+
+    .progress-step {
+      padding: 0.75rem;
+    }
+
+    .activity-feed {
+      min-height: 210px;
+    }
+  }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="application/json" id="loading-page-data">
+  {{ {"scanId": scan_id} | tojson }}
+</script>
+<script src="/static/js/loading-games.js" defer></script>
+<script src="/static/js/loading-page.js" defer></script>
+{% endblock %}

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureLens Guardian</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="masthead card">
+        <div class="masthead__top">
+          <div class="brand-lockup">
+            <div class="brand-mark">SL</div>
+            <div class="brand-copy">
+              <div class="label label--accent">Secure browsing companion</div>
+              <h1>SecureLens Guardian</h1>
+              <p>One place for verdicts, context, AI guidance, and the local trail left by risky sites.</p>
+            </div>
+          </div>
+
+          <div class="masthead__status">
+            <span class="status-badge status-badge--neutral" id="headerSessionBadge">Checking session</span>
+            <span class="status-badge status-badge--neutral" id="headerPageBadge">Waiting for a site</span>
+          </div>
+        </div>
+
+        <nav class="tab-strip" aria-label="SecureLens sections">
+          <button class="tab-strip__btn is-active" data-tab-target="main">
+            <span class="tab-strip__label">Overview</span>
+            <span class="tab-strip__hint">Scan + brief</span>
+          </button>
+          <button class="tab-strip__btn" data-tab-target="assistant">
+            <span class="tab-strip__label">Assistant</span>
+            <span class="tab-strip__hint">Ask follow-up questions</span>
+          </button>
+          <button class="tab-strip__btn" data-tab-target="tree">
+            <span class="tab-strip__label">History</span>
+            <span class="tab-strip__hint">Saved domains + URLs</span>
+          </button>
+          <button class="tab-strip__btn" data-tab-target="account">
+            <span class="tab-strip__label">Account</span>
+            <span class="tab-strip__hint">Pairing + session</span>
+          </button>
+        </nav>
+      </header>
+
+      <section class="notice hidden" id="messageCard">
+        <div class="notice__bar"></div>
+        <div class="subtle" id="messageText"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-main">
+        <section class="overview-grid">
+          <section class="card card--scan hidden" id="scanCard">
+            <div class="card-head card-head--spread">
+              <div>
+                <div class="label">Active website</div>
+                <div class="headline headline--strong" id="domainValue">-</div>
+                <div class="subtle subtle--wrap" id="scanUrlValue">-</div>
+              </div>
+              <button class="btn btn--ghost btn--compact" id="refreshBtn">Refresh</button>
+            </div>
+
+            <div class="risk-hero verdict" id="verdictBox">
+              <div class="risk-hero__score">
+                <span class="risk-hero__value" id="verdictScore">--</span>
+                <span class="risk-hero__caption">risk score</span>
+              </div>
+
+              <div class="risk-hero__copy">
+                <div class="meta-strip">
+                  <span class="meta-pill" id="scanStatePill">Waiting</span>
+                  <span class="meta-pill meta-pill--soft" id="scanDetectionRatio">0 engines</span>
+                </div>
+                <div class="risk-hero__title" id="verdictLabel">Pending</div>
+                <div class="subtle" id="verdictHelp">VirusTotal quick decision for the main domain</div>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat">
+                <span class="stat__label">Malicious</span>
+                <span class="stat__value" id="vtMalicious">0</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">Suspicious</span>
+                <span class="stat__value" id="vtSuspicious">0</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">Harmless</span>
+                <span class="stat__value" id="vtHarmless">0</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">Engines</span>
+                <span class="stat__value" id="vtTotal">0</span>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <button class="btn btn--secondary btn--wide" id="openReportBtn">Open Full AI Report</button>
+              <button class="btn btn--ghost btn--wide" data-switch-tab="assistant">Ask AI About This Scan</button>
+            </div>
+          </section>
+
+          <section class="card card--pulse" id="pulseCard">
+            <div class="card-head">
+              <div>
+                <div class="label">Protection pulse</div>
+                <div class="headline">What SecureLens knows right now</div>
+              </div>
+            </div>
+
+            <p class="subtle pulse-copy" id="pulseSummary">
+              Connect the extension to start scanning the active site and unlock the assistant.
+            </p>
+
+            <div class="pulse-grid">
+              <div class="pulse-item">
+                <span class="pulse-item__label">Account</span>
+                <span class="pulse-item__value" id="pulseAccount">Disconnected</span>
+              </div>
+              <div class="pulse-item">
+                <span class="pulse-item__label">Page</span>
+                <span class="pulse-item__value" id="pulsePage">No site</span>
+              </div>
+              <div class="pulse-item">
+                <span class="pulse-item__label">Decision</span>
+                <span class="pulse-item__value" id="pulseDecision">Waiting</span>
+              </div>
+              <div class="pulse-item">
+                <span class="pulse-item__label">AI report</span>
+                <span class="pulse-item__value" id="pulseReport">Unavailable</span>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="card card--intel hidden" id="intelCard">
+          <div class="card-head card-head--spread intel-head">
+            <div>
+              <div class="label">Threat brief</div>
+              <div class="headline" id="intelHeadline">Threat context will appear here.</div>
+            </div>
+            <span class="confidence-pill confidence-pill--low" id="intelConfidence">Baseline confidence</span>
+          </div>
+
+          <p class="intel-summary" id="intelSummary">
+            SecureLens will combine scan evidence and URL behavior patterns into a quick explanation.
+          </p>
+
+          <div class="intel-columns">
+            <section class="intel-block">
+              <div class="intel-block__label">Why this decision was made</div>
+              <div class="signal-list" id="signalList">
+                <div class="intel-empty">Signal details appear after the scan completes.</div>
+              </div>
+            </section>
+
+            <section class="intel-block">
+              <div class="intel-block__label">Best next step</div>
+              <div class="action-list" id="actionList">
+                <div class="intel-empty">Action guidance appears after the scan completes.</div>
+              </div>
+            </section>
+          </div>
+
+          <section class="intel-block intel-block--facts">
+            <div class="intel-block__label">Site facts</div>
+            <div class="fact-grid" id="factGrid">
+              <div class="fact-card">
+                <span class="fact-card__label">Status</span>
+                <span class="fact-card__value">Awaiting scan</span>
+              </div>
+            </div>
+          </section>
+
+          <div class="ports-strip" id="portsSummary">Port enrichment runs in the background when available.</div>
+        </section>
+
+        <section class="card card--timeline" id="timelineCard">
+          <div class="card-head card-head--spread">
+            <div>
+              <div class="label">Decision timeline</div>
+              <div class="headline">What happened on this tab</div>
+            </div>
+            <button class="btn btn--ghost btn--compact" data-switch-tab="tree">History</button>
+          </div>
+
+          <div class="timeline-list" id="timelineList">
+            <article class="timeline-item">
+              <div class="timeline-item__dot"></div>
+              <div class="timeline-item__copy">
+                <div class="timeline-item__title">Waiting for context</div>
+                <div class="timeline-item__meta">Open a website tab and connect your SecureLens account.</div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel hidden" id="tab-assistant">
+        <section class="card card--assistant-context" id="assistantContextCard">
+          <div class="card-head card-head--spread">
+            <div>
+              <div class="label">Conversation context</div>
+              <div class="headline" id="assistantHeadline">Ask SecureLens AI</div>
+              <div class="subtle" id="assistantSummary">Chat becomes more useful after a completed quick scan.</div>
+            </div>
+            <span class="status-badge status-badge--neutral" id="assistantVerdictBadge">No scan yet</span>
+          </div>
+
+          <div class="assistant-fact-grid" id="assistantFactGrid">
+            <div class="assistant-empty">Run a scan to populate the facts the assistant will use for follow-up questions.</div>
+          </div>
+        </section>
+
+        <section class="card card--chat" id="chatCard">
+          <div class="card-head card-head--spread">
+            <div class="chat-heading">
+              <div class="label">AI assistant</div>
+              <div class="headline">Ask about this result</div>
+              <div class="subtle" id="chatAvailabilityText">Finish a scan to ask for an explanation, risks, or next steps.</div>
+            </div>
+            <select id="providerSelect" class="provider-select"></select>
+          </div>
+
+          <div class="chat-log" id="chatLog">
+            <div class="chat-empty" id="chatEmpty">Ask about the verdict, the detected risk, or what to do next.</div>
+          </div>
+
+          <div class="quick-prompts">
+            <button class="prompt-chip" data-prompt="Is this site safe to use right now?">Safe now?</button>
+            <button class="prompt-chip" data-prompt="What are the biggest risks here?">Biggest risks</button>
+            <button class="prompt-chip" data-prompt="What should I do next?">Next step</button>
+            <button class="prompt-chip" data-prompt="Explain this result in simple language.">Explain simply</button>
+          </div>
+
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" type="text" placeholder="Ask about this scan..." autocomplete="off" />
+            <button class="btn btn--primary" id="chatSendBtn" type="submit">Send</button>
+          </form>
+        </section>
+      </section>
+
+      <section class="tab-panel hidden" id="tab-tree">
+        <section class="card card--history-tools">
+          <div class="card-head card-head--spread">
+            <div>
+              <div class="label">Saved activity</div>
+              <div class="headline">Local scan history</div>
+              <div class="subtle history-copy">
+                Search by domain, URL, or verdict, then reopen a page or jump back into a past report.
+              </div>
+            </div>
+            <button class="btn btn--ghost btn--compact" id="historyRefreshBtn">Reload</button>
+          </div>
+
+          <div class="history-toolbar">
+            <input
+              id="historySearch"
+              class="text-input"
+              type="search"
+              placeholder="Search domain, URL, or verdict"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="history-metrics">
+            <div class="mini-stat">
+              <span class="mini-stat__label">Domains</span>
+              <span class="mini-stat__value" id="historyDomainCount">0</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-stat__label">Risky groups</span>
+              <span class="mini-stat__value" id="historyRiskCount">0</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-stat__label">Saved URLs</span>
+              <span class="mini-stat__value" id="historyVisitCount">0</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card card--tree">
+          <div id="historyTree" class="history-tree">
+            <div class="history-empty">No local extension history yet.</div>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel hidden" id="tab-account">
+        <section class="account-layout">
+          <section class="card card--account" id="accountCard">
+            <div class="label">Account</div>
+            <div class="headline" id="sessionHeadline">Checking session...</div>
+            <div class="subtle" id="sessionSubtle">The extension needs a linked website account.</div>
+
+            <div class="account-grid">
+              <div class="account-stat">
+                <span class="account-stat__label">Username</span>
+                <span class="account-stat__value" id="accountUsername">-</span>
+              </div>
+              <div class="account-stat">
+                <span class="account-stat__label">Email</span>
+                <span class="account-stat__value" id="accountEmail">-</span>
+              </div>
+              <div class="account-stat">
+                <span class="account-stat__label">Status</span>
+                <span class="account-stat__value" id="accountStatus">Disconnected</span>
+              </div>
+            </div>
+
+            <div class="actions actions--stack">
+              <button class="btn btn--primary" id="connectBtn">Connect Website Account</button>
+              <button class="btn btn--ghost hidden" id="disconnectBtn">Disconnect</button>
+            </div>
+          </section>
+
+          <section class="card card--pairing hidden" id="pairingCard">
+            <div class="label">Pairing</div>
+            <div class="headline">Waiting for website approval</div>
+            <p class="subtle" id="pairingStatus">
+              Approve the browser extension request in the tab that just opened.
+            </p>
+          </section>
+        </section>
+
+        <section class="card card--help">
+          <div class="label">How this works</div>
+          <div class="help-list">
+            <article class="help-item">
+              <span class="help-item__title">1. Pair once</span>
+              <span class="help-item__copy">Connect from your SecureLens website account so the extension can use your backend session.</span>
+            </article>
+            <article class="help-item">
+              <span class="help-item__title">2. Browse normally</span>
+              <span class="help-item__copy">The extension watches the active site, performs a quick scan, and can interrupt risky navigation.</span>
+            </article>
+            <article class="help-item">
+              <span class="help-item__title">3. Review fast</span>
+              <span class="help-item__copy">Use the overview for the verdict, the assistant for plain-language answers, and history for anything you want to revisit.</span>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="shared-intel.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - URL Intelligence Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .glass-card {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-4px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(4px);
+        }
+      }
+      .animate-shake {
+        animation: shake 0.5s ease-in-out;
+      }
+      .btn-loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+      .btn-loading .btn-text {
+        display: none;
+      }
+      .btn-loading .btn-spinner {
+        display: flex;
+      }
+      .strength-bar {
+        transition: all 0.3s ease;
+      }
+      .req-met {
+        color: #10b981;
+      }
+      .req-unmet {
+        color: #f87171;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-900 min-h-screen flex items-center justify-center p-4 relative overflow-y-auto"
+  >
+    <!-- Animated Top Accent Bar -->
+    <div
+      class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 z-50 shadow-lg shadow-blue-500/30"
+    >
+      <div
+        class="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"
+      ></div>
+    </div>
+
+    <!-- Background Elements -->
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900"
+    ></div>
+    <div
+      class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-[120px]"
+    ></div>
+    <div
+      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full opacity-10 blur-[120px]"
+    ></div>
+
+    <div class="relative z-10 w-full max-w-md animate-fade-in-up">
+      <!-- Logo & Header -->
+      <div class="text-center mb-8">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white mb-6 shadow-xl shadow-emerald-500/30"
+        >
+          <i class="ph-fill ph-user-plus text-4xl"></i>
+        </div>
+        <h1 class="text-3xl font-black text-white tracking-tight mb-2">
+          Create
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500"
+            >Account</span
+          >
+        </h1>
+        <p class="text-slate-400 text-sm font-medium">
+          Join to save your scan history
+        </p>
+      </div>
+
+      <!-- Register Card -->
+      <div class="glass-card rounded-2xl shadow-2xl overflow-hidden">
+        <div class="p-8">
+          {% if error %}
+          <div
+            class="bg-red-500/10 text-red-400 p-4 rounded-xl text-sm mb-6 border border-red-500/20 flex items-center gap-3 animate-shake"
+          >
+            <i class="ph-fill ph-warning-circle text-xl flex-shrink-0"></i>
+            <span class="font-medium">{{ error }}</span>
+          </div>
+          {% endif %}
+
+          <form
+            action="/register"
+            method="post"
+            class="space-y-5"
+            id="registerForm"
+          >
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+            <input type="hidden" name="next" value="{{ next_url|default('', true) }}" />
+
+            <!-- Username Field -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-2"
+                >Username</label
+              >
+              <div class="relative group">
+                <i
+                  class="ph-fill ph-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-emerald-400 transition-colors duration-300"
+                ></i>
+                <input
+                  type="text"
+                  name="username"
+                  required
+                  minlength="3"
+                  maxlength="50"
+                  autocomplete="username"
+                  pattern="^[a-zA-Z0-9_]+$"
+                  value="{{ username|default('', true) }}"
+                  placeholder="Choose a username"
+                  class="w-full pl-12 pr-4 py-3.5 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 outline-none transition-all duration-300 text-white placeholder-slate-500"
+                />
+              </div>
+              <p class="text-xs text-slate-500 mt-1.5 ml-1">
+                3+ characters, letters, numbers, underscores only
+              </p>
+            </div>
+
+            <!-- Role Toggle -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-3"
+                >Account Type</label
+              >
+              {% if allow_admin_register %}
+              <div
+                class="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-xl p-1.5 gap-1"
+              >
+                <label
+                  id="roleUserLabel"
+                  class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                >
+                  <i class="ph-fill ph-user text-base"></i>
+                  <span>User</span>
+                  <input
+                    type="radio"
+                    name="role_toggle"
+                    value="user"
+                    checked
+                    class="hidden"
+                    onchange="updateRoleToggle()"
+                  />
+                </label>
+                <label
+                  id="roleAdminLabel"
+                  class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold text-slate-500 hover:text-slate-400"
+                >
+                  <i class="ph-fill ph-crown text-base"></i>
+                  <span>Administrator</span>
+                  <input
+                    type="radio"
+                    name="role_toggle"
+                    value="admin"
+                    class="hidden"
+                    onchange="updateRoleToggle()"
+                  />
+                </label>
+              </div>
+              <p
+                class="text-xs text-emerald-400/70 mt-1.5 ml-1 flex items-center gap-1"
+              >
+                <i class="ph-fill ph-info text-xs"></i>
+                No administrator exists yet, so you can claim the administrator role
+              </p>
+              {% else %}
+              <div
+                class="flex items-center bg-slate-800/30 border border-slate-700/30 rounded-xl p-1.5 gap-1 opacity-60"
+              >
+                <div
+                  class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                >
+                  <i class="ph-fill ph-user text-base"></i>
+                  <span>User</span>
+                </div>
+                <div
+                  class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold text-slate-600"
+                >
+                  <i class="ph-fill ph-crown text-base"></i>
+                  <span>Administrator</span>
+                </div>
+              </div>
+              <p
+                class="text-xs text-slate-500 mt-1.5 ml-1 flex items-center gap-1"
+              >
+                <i class="ph-fill ph-lock text-xs"></i>
+                Admin role can only be granted by an existing administrator
+              </p>
+              {% endif %}
+              <!-- Hidden field sent with form -->
+              <input type="hidden" name="is_admin" id="isAdminField" value="" />
+            </div>
+
+            <!-- Password Field -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-2"
+                >Password</label
+              >
+              <div class="relative group">
+                <i
+                  class="ph-fill ph-lock-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-emerald-400 transition-colors duration-300"
+                ></i>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  required
+                  minlength="8"
+                  autocomplete="new-password"
+                  placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                  class="w-full pl-12 pr-12 py-3.5 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 outline-none transition-all duration-300 text-white placeholder-slate-500"
+                />
+                <button
+                  type="button"
+                  onclick="toggleVis('password', this)"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-emerald-400 transition-colors duration-300 focus:outline-none"
+                  tabindex="-1"
+                  aria-label="Toggle password visibility"
+                >
+                  <i class="ph ph-eye text-lg"></i>
+                </button>
+              </div>
+
+              <!-- Password Strength Meter -->
+              <div class="mt-3 space-y-2" id="strengthSection">
+                <div class="flex gap-1">
+                  <div
+                    class="strength-bar h-1.5 flex-1 rounded-full bg-slate-700"
+                    id="bar1"
+                  ></div>
+                  <div
+                    class="strength-bar h-1.5 flex-1 rounded-full bg-slate-700"
+                    id="bar2"
+                  ></div>
+                  <div
+                    class="strength-bar h-1.5 flex-1 rounded-full bg-slate-700"
+                    id="bar3"
+                  ></div>
+                  <div
+                    class="strength-bar h-1.5 flex-1 rounded-full bg-slate-700"
+                    id="bar4"
+                  ></div>
+                </div>
+                <p class="text-xs font-medium" id="strengthText">
+                  <span class="text-slate-500">Enter a password</span>
+                </p>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs mt-2">
+                  <div
+                    class="flex items-center gap-1.5 req-unmet"
+                    id="req-length"
+                  >
+                    <i class="ph-fill ph-x-circle text-[10px]"></i> 8+
+                    characters
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 req-unmet"
+                    id="req-upper"
+                  >
+                    <i class="ph-fill ph-x-circle text-[10px]"></i> Uppercase
+                    letter
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 req-unmet"
+                    id="req-lower"
+                  >
+                    <i class="ph-fill ph-x-circle text-[10px]"></i> Lowercase
+                    letter
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 req-unmet"
+                    id="req-digit"
+                  >
+                    <i class="ph-fill ph-x-circle text-[10px]"></i> Number
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 req-unmet"
+                    id="req-special"
+                  >
+                    <i class="ph-fill ph-x-circle text-[10px]"></i> Special
+                    character
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 req-unmet"
+                    id="req-match"
+                  >
+                    <i class="ph-fill ph-x-circle text-[10px]"></i> Passwords
+                    match
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div>
+              <label class="block text-sm font-semibold text-slate-300 mb-2"
+                >Confirm Password</label
+              >
+              <div class="relative group">
+                <i
+                  class="ph-fill ph-lock-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-emerald-400 transition-colors duration-300"
+                ></i>
+                <input
+                  type="password"
+                  name="confirm_password"
+                  id="confirm_password"
+                  required
+                  autocomplete="new-password"
+                  placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                  class="w-full pl-12 pr-12 py-3.5 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 outline-none transition-all duration-300 text-white placeholder-slate-500"
+                />
+                <button
+                  type="button"
+                  onclick="toggleVis('confirm_password', this)"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-emerald-400 transition-colors duration-300 focus:outline-none"
+                  tabindex="-1"
+                  aria-label="Toggle password visibility"
+                >
+                  <i class="ph ph-eye text-lg"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              id="registerBtn"
+              class="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white py-4 rounded-xl font-bold text-base transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 flex items-center justify-center gap-2 group hover:scale-[1.02] active:scale-95"
+            >
+              <span class="btn-text flex items-center gap-2">
+                <span>Create Account</span>
+                <i
+                  class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform duration-300"
+                ></i>
+              </span>
+              <span class="btn-spinner hidden items-center gap-2">
+                <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    fill="none"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                <span>Creating account...</span>
+              </span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <div
+          class="bg-slate-800/30 backdrop-blur-sm p-4 border-t border-slate-700/30"
+        >
+          <div
+            class="flex items-center justify-center gap-2 text-sm text-slate-400"
+          >
+            <span>Already have an account?</span>
+            <a
+              href="/login{% if next_url %}?next={{ next_url }}{% endif %}"
+              class="text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-200"
+              >Sign In</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Indicator -->
+      <div class="text-center mt-6">
+        <div
+          class="flex items-center justify-center gap-2 text-slate-500 text-xs"
+        >
+          <i class="ph-fill ph-lock text-emerald-500 text-sm"></i>
+          <span>Secured with CSRF protection &amp; strong password policy</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Role toggle logic
+      function updateRoleToggle() {
+        const userLabel = document.getElementById("roleUserLabel");
+        const adminLabel = document.getElementById("roleAdminLabel");
+        const hiddenField = document.getElementById("isAdminField");
+        if (!userLabel || !adminLabel) return; // Disabled state
+
+        const userRadio = userLabel.querySelector('input[type="radio"]');
+        const adminRadio = adminLabel.querySelector('input[type="radio"]');
+
+        if (adminRadio.checked) {
+          adminLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+          userLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold text-slate-500 hover:text-slate-400";
+          hiddenField.value = "on";
+        } else {
+          userLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+          adminLabel.className =
+            "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg cursor-pointer transition-all duration-300 text-sm font-semibold text-slate-500 hover:text-slate-400";
+          hiddenField.value = "";
+        }
+      }
+
+      // Toggle password visibility
+      function toggleVis(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector("i");
+        if (input.type === "password") {
+          input.type = "text";
+          icon.className = "ph ph-eye-slash text-lg";
+        } else {
+          input.type = "password";
+          icon.className = "ph ph-eye text-lg";
+        }
+      }
+
+      // Real-time password strength meter
+      const pw = document.getElementById("password");
+      const cpw = document.getElementById("confirm_password");
+      const bars = [
+        document.getElementById("bar1"),
+        document.getElementById("bar2"),
+        document.getElementById("bar3"),
+        document.getElementById("bar4"),
+      ];
+      const strengthText = document.getElementById("strengthText");
+
+      function checkStrength() {
+        const val = pw.value;
+        const confirm = cpw.value;
+        let score = 0;
+        const checks = {
+          "req-length": val.length >= 8,
+          "req-upper": /[A-Z]/.test(val),
+          "req-lower": /[a-z]/.test(val),
+          "req-digit": /\d/.test(val),
+          "req-special": /[!@#$%^&*()_+\-=\[\]{};:'",.<>?\/\\|`~]/.test(val),
+          "req-match": val.length > 0 && confirm.length > 0 && val === confirm,
+        };
+
+        for (const [id, met] of Object.entries(checks)) {
+          const el = document.getElementById(id);
+          if (id === "req-match") continue; // handled separately
+          if (met) {
+            score++;
+            el.className = "flex items-center gap-1.5 req-met";
+            el.querySelector("i").className =
+              "ph-fill ph-check-circle text-[10px]";
+          } else {
+            el.className = "flex items-center gap-1.5 req-unmet";
+            el.querySelector("i").className = "ph-fill ph-x-circle text-[10px]";
+          }
+        }
+
+        // Match indicator
+        const matchEl = document.getElementById("req-match");
+        if (checks["req-match"]) {
+          matchEl.className = "flex items-center gap-1.5 req-met";
+          matchEl.querySelector("i").className =
+            "ph-fill ph-check-circle text-[10px]";
+        } else {
+          matchEl.className = "flex items-center gap-1.5 req-unmet";
+          matchEl.querySelector("i").className =
+            "ph-fill ph-x-circle text-[10px]";
+        }
+
+        // Update bars
+        const colors = [
+          "bg-red-500",
+          "bg-orange-500",
+          "bg-yellow-500",
+          "bg-emerald-500",
+        ];
+        const labels = [
+          '<span class="text-red-400">Weak</span>',
+          '<span class="text-orange-400">Fair</span>',
+          '<span class="text-yellow-400">Good</span>',
+          '<span class="text-emerald-400">Strong</span>',
+        ];
+
+        bars.forEach((bar, i) => {
+          bar.className =
+            "strength-bar h-1.5 flex-1 rounded-full " +
+            (i < score && score > 0
+              ? colors[Math.min(score - 1, 3)]
+              : "bg-slate-700");
+        });
+
+        if (val.length === 0) {
+          strengthText.innerHTML =
+            '<span class="text-slate-500">Enter a password</span>';
+        } else if (score <= 2) {
+          strengthText.innerHTML = labels[0];
+        } else if (score <= 3) {
+          strengthText.innerHTML = labels[1];
+        } else if (score <= 4) {
+          strengthText.innerHTML = labels[2];
+        } else {
+          strengthText.innerHTML = labels[3];
+        }
+      }
+
+      pw.addEventListener("input", checkStrength);
+      cpw.addEventListener("input", checkStrength);
+
+      // Form submit validation + loading
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (e) {
+          const val = pw.value;
+          const confirm = cpw.value;
+
+          let errors = [];
+          if (val.length < 8) errors.push("at least 8 characters");
+          if (!/[A-Z]/.test(val)) errors.push("an uppercase letter");
+          if (!/[a-z]/.test(val)) errors.push("a lowercase letter");
+          if (!/\d/.test(val)) errors.push("a number");
+          if (!/[!@#$%^&*()_+\-=\[\]{};:'",.<>?\/\\|`~]/.test(val))
+            errors.push("a special character");
+          if (val !== confirm) errors.push("passwords to match");
+
+          if (errors.length > 0) {
+            e.preventDefault();
+            // Show error message
+            let errBox = document.getElementById("pw-error-msg");
+            if (!errBox) {
+              errBox = document.createElement("div");
+              errBox.id = "pw-error-msg";
+              errBox.className =
+                "mt-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs";
+              document.getElementById("registerForm").prepend(errBox);
+            }
+            errBox.innerHTML =
+              '<i class="ph-fill ph-warning-circle"></i> Password requires: ' +
+              errors.join(", ");
+            errBox.classList.add("animate-shake");
+            setTimeout(() => errBox.classList.remove("animate-shake"), 600);
+            // Highlight unmet requirements
+            checkStrength();
+            return;
+          }
+
+          const btn = document.getElementById("registerBtn");
+          btn.classList.add("btn-loading");
+        });
+    </script>
+  </body>
+</html>
